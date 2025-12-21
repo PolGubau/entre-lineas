@@ -18,10 +18,8 @@ export const FigureDescription = ({ figureId, contextual }: Props) => {
 			<strong>Definición:</strong>
 			<span> {figura?.generalDefinition}</span>
 			<strong>Ejemplo:</strong>
-			<span>
-				<pre className="bg-neutral-200 px-3 py-1 rounded-lg w-fit">
-					{figura?.example}
-				</pre>
+			<span className="bg-foreground/5 px-3 py-1 rounded-lg w-fit poem">
+				{figura?.example}
 			</span>
 		</article>
 	);

@@ -20,7 +20,8 @@ export const NavigationAside = () => {
 
 			<ul className="mt-4 space-y-2 max-md:hidden">
 				<Input
-					className="w-fit min-w-sm"
+					type="search"
+					className="w-fit min-w-sm py-1.5 px-3 rounded-lg"
 					value={searchQuery}
 					onChange={(e) => setSearchQuery(e.target.value)}
 					placeholder="Buscar poemas..."

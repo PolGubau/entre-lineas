@@ -47,7 +47,7 @@ function Home() {
 				</header>
 
 				<Input
-					type="text"
+					type="search"
 					icon={<Search className="size-5 text-muted-foreground" />}
 					placeholder="Buscar por título, autor o tema..."
 					value={searchQuery}

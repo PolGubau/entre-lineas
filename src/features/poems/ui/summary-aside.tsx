@@ -28,15 +28,15 @@ export const PoemSummaryAside = ({
 	setOpenFigure,
 }: Props) => {
 	return (
-		<aside className="space-y-2 overflow-y-auto h-full">
+		<aside className="space-y-2 overflow-y-auto h-full p-1">
 			<Item variant={"muted"}>
 				<ItemContent>
-					<ItemTitle>Resumen </ItemTitle>
+					<ItemTitle>Resumen</ItemTitle>
 					<ItemDescription>{poem.shortDescription}</ItemDescription>
 				</ItemContent>
 			</Item>
 
-			<Item variant={"muted"} className="p-0 ">
+			<Item variant={"muted"} className="p-0">
 				<ItemContent>
 					<Accordion defaultValue={"context"} type="single" collapsible>
 						<AccordionItem value="context">
@@ -50,7 +50,7 @@ export const PoemSummaryAside = ({
 				</ItemContent>
 			</Item>
 
-			<Item variant={"muted"} className="p-0 ">
+			<Item variant={"muted"} className="p-0">
 				<ItemContent>
 					<Accordion type="single" collapsible>
 						<AccordionItem value="analysis">
