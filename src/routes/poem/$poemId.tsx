@@ -2,22 +2,9 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { useState } from "react";
 import { usePoemById } from "~/features/poems/application/use-poem-by-id";
 import type { FiguraRetoricaEnPoem } from "~/features/poems/domain/poem.types";
-import { PoemContextTable } from "~/features/poems/ui/context-table";
+import { NavigationAside } from "~/features/poems/ui/navigation-aside";
 import { PoemSummaryAside } from "~/features/poems/ui/summary-aside";
 import { cn } from "~/shared/lib/utils";
-import {
-	Accordion,
-	AccordionContent,
-	AccordionItem,
-	AccordionTrigger,
-} from "~/shared/ui/accordion";
-import {
-	Item,
-	ItemActions,
-	ItemContent,
-	ItemDescription,
-	ItemTitle,
-} from "~/shared/ui/item";
 import { Spinner } from "~/shared/ui/spinner";
 
 export const Route = createFileRoute("/poem/$poemId")({
@@ -45,11 +32,7 @@ function PostComponent() {
 
 	return (
 		<main className="h-full grid md:grid-cols-3 gap-6 px-4 sm:px-6 lg:px-8 pt-10 pb-16">
-			<aside>
-				<Link to="/" className="text-sm text-primary hover:underline">
-					&larr; Volver al inicio
-				</Link>
-			</aside>
+			<NavigationAside/>
 
 			<section className="space-y-14 poem">
 				<header className="flex flex-col">
