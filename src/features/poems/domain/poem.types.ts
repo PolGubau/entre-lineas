@@ -18,13 +18,15 @@ export const FiguraRetoricaTipoSchema = z.enum([
 	"elipsis",
 	"polisindeton",
 	"asindeton",
+	"simbolismo",
+	"alegoria",
+	"epifora",
 ]);
 
 export type FiguraRetoricaTipo = z.infer<typeof FiguraRetoricaTipoSchema>;
 
 export const FiguraRetoricaDefinicionSchema = z.object({
 	id: z.string(),
-	type: FiguraRetoricaTipoSchema,
 	name: z.string(),
 	generalDefinition: z.string(),
 	example: z.string().optional(),
@@ -36,7 +38,7 @@ export type FiguraRetoricaDefinicion = z.infer<
 
 // ============= Referencia a Figura en un Poema =============
 export const FiguraRetoricaEnPoemSchema = z.object({
-	id: z.string(), // Referencia al ID del catálogo global
+	id: FiguraRetoricaTipoSchema,
 	contextualDescription: z.string(), // Explicación específica en este poema
 	verseIds: z.array(z.string()), // IDs de versos donde aparece
 });
@@ -64,8 +66,10 @@ export const EstrofaSchema = z.object({
 	type: z
 		.enum([
 			"pareado",
+			"estribillo",
 			"terceto",
 			"cuarteto",
+			"copla",
 			"cuarteta",
 			"quinteto",
 			"sexteto",

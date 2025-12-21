@@ -7,7 +7,6 @@ import type { FiguraRetoricaDefinicion } from "~/features/poems/domain/poem.type
 export const FIGURAS_RETORICAS_CATALOGO: FiguraRetoricaDefinicion[] = [
 	{
 		id: "metafora",
-		type: "metafora",
 		name: "Metáfora",
 		generalDefinition:
 			"Identificación de un término real con uno imaginario con el que guarda semejanza.",
@@ -16,7 +15,6 @@ export const FIGURAS_RETORICAS_CATALOGO: FiguraRetoricaDefinicion[] = [
 	},
 	{
 		id: "simil",
-		type: "simil",
 		name: "Símil o Comparación",
 		generalDefinition:
 			'Comparación explícita entre dos elementos usando "como", "cual", "semejante a".',
@@ -24,7 +22,6 @@ export const FIGURAS_RETORICAS_CATALOGO: FiguraRetoricaDefinicion[] = [
 	},
 	{
 		id: "personificacion",
-		type: "personificacion",
 		name: "Personificación",
 		generalDefinition:
 			"Atribuir cualidades humanas a seres inanimados o abstractos.",
@@ -32,14 +29,12 @@ export const FIGURAS_RETORICAS_CATALOGO: FiguraRetoricaDefinicion[] = [
 	},
 	{
 		id: "hiperbole",
-		type: "hiperbole",
 		name: "Hipérbole",
 		generalDefinition: "Exageración desmedida de la realidad para enfatizar.",
 		example: '"Érase un hombre a una nariz pegado"',
 	},
 	{
 		id: "anafora",
-		type: "anafora",
 		name: "Anáfora",
 		generalDefinition:
 			"Repetición de una o varias palabras al principio de versos o frases.",
@@ -47,7 +42,6 @@ export const FIGURAS_RETORICAS_CATALOGO: FiguraRetoricaDefinicion[] = [
 	},
 	{
 		id: "aliteracion",
-		type: "aliteracion",
 		name: "Aliteración",
 		generalDefinition:
 			"Repetición de sonidos consonánticos para crear musicalidad.",
@@ -55,7 +49,6 @@ export const FIGURAS_RETORICAS_CATALOGO: FiguraRetoricaDefinicion[] = [
 	},
 	{
 		id: "paradoja",
-		type: "paradoja",
 		name: "Paradoja",
 		generalDefinition:
 			"Unión de dos ideas aparentemente contradictorias que encierran una verdad.",
@@ -63,7 +56,6 @@ export const FIGURAS_RETORICAS_CATALOGO: FiguraRetoricaDefinicion[] = [
 	},
 	{
 		id: "antitesis",
-		type: "antitesis",
 		name: "Antítesis",
 		generalDefinition:
 			"Contraposición de dos palabras o ideas de significado opuesto.",
@@ -71,7 +63,6 @@ export const FIGURAS_RETORICAS_CATALOGO: FiguraRetoricaDefinicion[] = [
 	},
 	{
 		id: "sinestesia",
-		type: "sinestesia",
 		name: "Sinestesia",
 		generalDefinition:
 			"Atribuir una sensación a un sentido que no le corresponde.",
@@ -79,7 +70,6 @@ export const FIGURAS_RETORICAS_CATALOGO: FiguraRetoricaDefinicion[] = [
 	},
 	{
 		id: "metonimia",
-		type: "metonimia",
 		name: "Metonimia",
 		generalDefinition:
 			"Designar algo con el nombre de otra cosa con la que tiene relación.",
@@ -87,15 +77,28 @@ export const FIGURAS_RETORICAS_CATALOGO: FiguraRetoricaDefinicion[] = [
 	},
 	{
 		id: "sinecdoque",
-		type: "sinecdoque",
 		name: "Sinécdoque",
 		generalDefinition: "Designar la parte por el todo o viceversa.",
 		example:
 			'"Tiene veinte primaveras" (años) - "España ganó el mundial" (la selección)',
 	},
 	{
+		id: "epifora",
+		name: "Epífora",
+		generalDefinition:
+			"Repetición de una o varias palabras al final de versos o frases.",
+		example: '"Y que yo me muero / y que tú me quieres / y que yo te quiero"',
+	},
+	{
+		id: "alegoria",
+		name: "Alegoría",
+		generalDefinition:
+			"Representación de una idea abstracta mediante formas concretas y simbólicas.",
+		example:
+			'"La caverna de Platón representa la ignorancia humana frente al conocimiento."',
+	},
+	{
 		id: "apostrofe",
-		type: "apostrofe",
 		name: "Apóstrofe",
 		generalDefinition:
 			"Invocación o llamada a alguien o algo, presente o ausente, real o imaginario.",
@@ -103,7 +106,6 @@ export const FIGURAS_RETORICAS_CATALOGO: FiguraRetoricaDefinicion[] = [
 	},
 	{
 		id: "hiperbaton",
-		type: "hiperbaton",
 		name: "Hipérbaton",
 		generalDefinition:
 			"Alteración del orden lógico de las palabras en la oración.",
@@ -111,7 +113,6 @@ export const FIGURAS_RETORICAS_CATALOGO: FiguraRetoricaDefinicion[] = [
 	},
 	{
 		id: "elipsis",
-		type: "elipsis",
 		name: "Elipsis",
 		generalDefinition:
 			"Omisión de palabras que se sobreentienden en el contexto.",
@@ -119,7 +120,6 @@ export const FIGURAS_RETORICAS_CATALOGO: FiguraRetoricaDefinicion[] = [
 	},
 	{
 		id: "polisindeton",
-		type: "polisindeton",
 		name: "Polisíndeton",
 		generalDefinition:
 			"Repetición innecesaria de conjunciones para dar lentitud y solemnidad.",
@@ -127,7 +127,6 @@ export const FIGURAS_RETORICAS_CATALOGO: FiguraRetoricaDefinicion[] = [
 	},
 	{
 		id: "asindeton",
-		type: "asindeton",
 		name: "Asíndeton",
 		generalDefinition: "Omisión de conjunciones para dar rapidez y dinamismo.",
 		example: '"Acude, corre, vuela"',
@@ -143,9 +142,6 @@ export function getFiguraById(
 	return FIGURAS_RETORICAS_CATALOGO.find((f) => f.id === id);
 }
 
-/**
- * Helper para obtener todas las figuras de un tipo
- */
-export function getFigurasByType(type: string): FiguraRetoricaDefinicion[] {
-	return FIGURAS_RETORICAS_CATALOGO.filter((f) => f.type === type);
+export function getFigueras(): FiguraRetoricaDefinicion[] {
+	return FIGURAS_RETORICAS_CATALOGO;
 }
