@@ -17,7 +17,7 @@ export const PoemSection = ({ poem, highlightedVersesIds }: Props) => {
 				{poem.estrofas.map((estrofa) => (
 					<div className="grid grid-cols-[20px_1fr] gap-2" key={estrofa.id}>
 						<small className="text-muted-foreground">{estrofa.number}</small>
-						<div className="whitespace-pre-line">
+						<div className="whitespace-pre-line flex flex-col">
 							{estrofa.verses.map((verso) => {
 								const isHighlighted =
 									highlightedVersesIds?.includes(verso.id) ?? false;

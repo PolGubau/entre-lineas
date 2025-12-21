@@ -1,4 +1,5 @@
 import { cn } from "~/shared/lib/utils";
+import { Tooltip } from "~/shared/ui/tooltip";
 
 type Props = {
 	number: number;
@@ -13,7 +14,7 @@ export const Verse = ({
 	text,
 	isHighlighted,
 	syllables,
-	annotations: _annotations,
+	annotations,
 }: Props) => {
 	return (
 		<div className="flex gap-3 group items-center">
@@ -21,11 +22,11 @@ export const Verse = ({
 				{number}
 			</small>
 			<span
-				className={cn("transition-all rounded-lg px-2", {
+				className={cn("transition-all rounded-lg", {
 					"bg-accent": isHighlighted,
 				})}
 			>
-				{text}
+				<MightContainAnnotations annotations={annotations} text={text} />
 			</span>
 			<div className="invisible group-hover:visible transition-all text-xs text-muted-foreground flex gap-1">
 				<span>{syllables}</span>
@@ -33,3 +34,21 @@ export const Verse = ({
 		</div>
 	);
 };
+
+function MightContainAnnotations({
+	annotations,
+	text,
+}: {
+	annotations?: string;
+	text: string;
+}) {
+	if (!annotations)
+		return (
+			<span className="px-2 border border-transparent rounded-lg">{text}</span>
+		);
+	return (
+		<Tooltip label={<div className="max-w-xs space-y-1">{annotations}</div>}>
+			<span className="px-2 border border-border rounded-lg">{text}</span>
+		</Tooltip>
+	);
+}
