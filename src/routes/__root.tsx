@@ -50,7 +50,7 @@ function RootDocument({ children }: { children: React.ReactNode }) {
 			<head>
 				<HeadContent />
 			</head>
-			<body className="min-h-screen relative bg-linear-to-b from-background to-foreground/10 ">
+			<body className="min-h-screen relative bg-background text-foreground">
 				{children}
 				<TanStackDevtools
 					config={{

@@ -3,8 +3,7 @@ import {
 	localOnlyCollectionOptions,
 } from "@tanstack/react-db";
 import { poemasData } from "~/data/poems.data";
-import type { Poem } from "~/features/poems/domain/poem.types";
-import { PoemSchema } from "~/features/poems/domain/poem.types";
+import { type Poem, PoemSchema } from "../domain/poem.types";
 
 // Colección de poemas
 export const poemsCollection = createCollection(
@@ -28,7 +27,7 @@ export const poemsQueryOptions = {
 	byId: (id: string) => ({
 		queryKey: ["poems", "byId", id],
 		queryFn: async () => {
-			return await poemsCollection.get(id);
+			return poemsCollection.get(id);
 		},
 	}),
 
@@ -44,7 +43,7 @@ export const poemsQueryOptions = {
 		queryKey: ["poems", "byAutor", autor],
 		queryFn: async () => {
 			const poems = poemsCollection;
-			return Array.from(poems.values()).filter((p) => p.author === autor);
+			return Array.from(poems.values()).filter((p) => p.autor === autor);
 		},
 	}),
 
@@ -54,9 +53,9 @@ export const poemsQueryOptions = {
 			const poems = poemsCollection;
 			return Array.from(poems.values()).filter(
 				(poem) =>
-					poem.title.toLowerCase().includes(query.toLowerCase()) ||
-					poem.author.toLowerCase().includes(query.toLowerCase()) ||
-					poem.analysis.tematica.some((t: string) =>
+					poem.titulo.toLowerCase().includes(query.toLowerCase()) ||
+					poem.autor.toLowerCase().includes(query.toLowerCase()) ||
+					poem.analisis.tematica.some((t: string) =>
 						t.toLowerCase().includes(query.toLowerCase()),
 					),
 			);

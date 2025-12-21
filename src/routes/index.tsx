@@ -1,9 +1,8 @@
-import { useSuspenseQuery } from "@tanstack/react-query";
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { Search } from "lucide-react";
-import { useState } from "react";
+import { useMemo, useState } from "react";
+import { usePoems } from "~/features/poems/application/use-poems";
 import type { Poem } from "~/features/poems/domain/poem.types";
-import { poemsQueryOptions } from "~/features/poems/infra/api";
 import {
 	Card,
 	CardAction,
@@ -18,20 +17,18 @@ import { Input } from "~/shared/ui/input";
 export const Route = createFileRoute("/")({ component: Home });
 
 function Home() {
-	const { data: poems } = useSuspenseQuery<Poem[]>(poemsQueryOptions.all());
 	const [searchQuery, setSearchQuery] = useState("");
 
-	const filteredPoems = poems.filter(
-		(poem: Poem) =>
-			poem.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
-			poem.author.toLowerCase().includes(searchQuery.toLowerCase()) ||
-			poem.analysis.tematica.some((t: string) =>
-				t.toLowerCase().includes(searchQuery.toLowerCase()),
-			),
+	// Usar el hook con filtros - la lógica de filtrado está encapsulada en el hook
+	const filters = useMemo(
+		() => (searchQuery ? { search: searchQuery } : undefined),
+		[searchQuery],
 	);
 
+	const { data: filteredPoems } = usePoems(filters);
+
 	return (
-		<section className="h-full grid grid-cols-[1fr_3fr] gap-6 px-4 sm:px-6 lg:px-8 pt-10 pb-16">
+		<section className="h-full grid md:grid-cols-[1fr_3fr] gap-6 px-4 sm:px-6 lg:px-8 pt-10 pb-16">
 			{/* Hero Section */}
 
 			<aside className="space-y-8">
@@ -54,26 +51,25 @@ function Home() {
 				/>
 			</aside>
 
-			{/* Poems Grid */}
-			<section className="">
+			<section>
 				<ul className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
 					{filteredPoems.map((poem: Poem) => (
 						<Link to="/poem/$poemId" params={{ poemId: poem.id }} key={poem.id}>
 							<Card className="hover:bg-primary/2 hover:shadow-lg transition-all">
 								<CardHeader>
-									<CardTitle>{poem.title}</CardTitle>
-									<CardDescription>{poem.author}</CardDescription>
+									<CardTitle>{poem.titulo}</CardTitle>
+									<CardDescription>{poem.autor}</CardDescription>
 									<CardAction>
-										<span>{poem.context.añoPublicacion}</span>
+										<span>{poem.contexto.añoPublicacion}</span>
 									</CardAction>
 								</CardHeader>
 								<CardContent className="space-y-4 text-sm text-muted-foreground">
-									<p className="line-clamp-3">{poem.shortDescription}</p>
-									<span className="text-xs">{poem.context.movimiento}</span>
+									<p className="line-clamp-3">{poem.descripcionCorta}</p>
+									<span className="text-xs">{poem.contexto.movimiento}</span>
 								</CardContent>
 								<CardFooter>
- 									<ul className="flex flex-wrap gap-2">
-										{poem.analysis.tematica.slice(0, 3).map((tema: string) => (
+									<ul className="flex flex-wrap gap-2">
+										{poem.analisis.tematica.slice(0, 3).map((tema: string) => (
 											<li
 												key={tema}
 												className="px-3 py-1 text-xs rounded-full bg-neutral-100 dark:bg-neutral-800 text-neutral-700 dark:text-neutral-300"

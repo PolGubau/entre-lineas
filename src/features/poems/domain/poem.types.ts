@@ -1,32 +1,47 @@
 import { z } from "zod";
 
-// ============= Figuras Retóricas =============
-export const FiguraRetoricaSchema = z.object({
+// ============= Catálogo Global de Figuras Retóricas =============
+export const FiguraRetoricaTipoSchema = z.enum([
+	"metafora",
+	"simil",
+	"personificacion",
+	"hiperbole",
+	"anafora",
+	"aliteracion",
+	"paradoja",
+	"antitesis",
+	"sinestesia",
+	"metonimia",
+	"sinecdoque",
+	"apostrofe",
+	"hiperbaton",
+	"elipsis",
+	"polisindeton",
+	"asindeton",
+]);
+
+export type FiguraRetoricaTipo = z.infer<typeof FiguraRetoricaTipoSchema>;
+
+export const FiguraRetoricaDefinicionSchema = z.object({
 	id: z.string(),
-	tipo: z.enum([
-		"metafora",
-		"simil",
-		"personificacion",
-		"hiperbole",
-		"anafora",
-		"aliteracion",
-		"paradoja",
-		"antitesis",
-		"sinestesia",
-		"metonimia",
-		"sinecdoque",
-		"apostrofe",
-		"hiperbaton",
-		"elipsis",
-		"polisindeton",
-		"asindeton",
-	]),
+	tipo: FiguraRetoricaTipoSchema,
 	nombre: z.string(),
-	descripcion: z.string(),
-	ejemploGenerico: z.string().optional(),
+	definicionGeneral: z.string(),
+	ejemplo: z.string().optional(),
 });
 
-export type FiguraRetorica = z.infer<typeof FiguraRetoricaSchema>;
+export type FiguraRetoricaDefinicion = z.infer<
+	typeof FiguraRetoricaDefinicionSchema
+>;
+
+// ============= Referencia a Figura en un Poema =============
+export const FiguraRetoricaEnPoemSchema = z.object({
+	id: z.string(), // Referencia al ID del catálogo global
+	descripcionContextual: z.string(), // Explicación específica en este poema
+	versosIds: z.array(z.string()), // IDs de versos donde aparece
+});
+
+export type FiguraRetoricaEnPoem = z.infer<typeof FiguraRetoricaEnPoemSchema>;
 
 // ============= Verso =============
 export const VersoSchema = z.object({
@@ -38,8 +53,6 @@ export const VersoSchema = z.object({
 	rima: z.string().optional(), // 'A', 'B', 'a', 'b', etc.
 	// Anotaciones inline
 	anotacion: z.string().optional(),
-	// Referencias a figuras retóricas presentes en este verso
-	figuras: z.array(z.string()).default([]), // IDs de figuras retóricas
 });
 
 export type Verso = z.infer<typeof VersoSchema>;
@@ -97,23 +110,23 @@ export type Analisis = z.infer<typeof AnalisisSchema>;
 export const PoemSchema = z.object({
 	id: z.string(),
 	slug: z.string(), // URL-friendly: "veinte-poemas-de-amor-1"
-	title: z.string(),
-	author: z.string(),
-	authorSlug: z.string().optional(),
+	titulo: z.string(),
+	autor: z.string(),
+	autorSlug: z.string().optional(),
 
 	// Estructura del poema
 	estrofas: z.array(EstrofaSchema),
 
 	// Metadata
-	context: ContextoHistoricoSchema,
-	analysis: AnalisisSchema,
+	contexto: ContextoHistoricoSchema,
+	analisis: AnalisisSchema,
 
-	// Figuras retóricas del poema completo
-	rhetoricalFigures: z.array(FiguraRetoricaSchema),
+	// Figuras retóricas REFERENCIADAS (no definidas aquí)
+	figurasRetoricas: z.array(FiguraRetoricaEnPoemSchema),
 
 	// SEO y preview
-	shortDescription: z.string(),
-	imageUrl: z.string().optional(),
+	descripcionCorta: z.string(),
+	imagenUrl: z.string().optional(),
 
 	// Fechas
 	createdAt: z.date(),
