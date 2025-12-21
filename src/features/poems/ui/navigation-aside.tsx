@@ -20,23 +20,32 @@ export const NavigationAside = () => {
 
 			<ul className="mt-4 space-y-2 max-md:hidden">
 				<Input
+					className="w-fit min-w-sm"
 					value={searchQuery}
 					onChange={(e) => setSearchQuery(e.target.value)}
 					placeholder="Buscar poemas..."
 				/>
 				{filteredPoems?.map((p) => {
 					return (
-						<li key={p.id} className="py-2">
+						<li key={p.id} className="py-1">
 							<Link
 								to="/poem/$poemId"
 								params={{ poemId: p.id }}
-								className="hover:underline"
+								className="hover:underline flex flex-col"
 							>
-								{p.titulo} - {p.autor}
+								<span className="text-sm">{p.titulo}</span>
+								<small className="text-xs text-muted-foreground">
+									{p.autor}
+								</small>
 							</Link>
 						</li>
 					);
 				})}
+				{filteredPoems && filteredPoems.length === 0 && (
+					<li className="text-sm text-muted-foreground text-balance max-w-sm">
+						No se encontraron poemas que coincidan con tu búsqueda.
+					</li>
+				)}
 			</ul>
 		</aside>
 	);

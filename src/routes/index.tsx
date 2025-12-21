@@ -3,6 +3,7 @@ import { Search } from "lucide-react";
 import { useMemo, useState } from "react";
 import { usePoems } from "~/features/poems/application/use-poems";
 import type { Poem } from "~/features/poems/domain/poem.types";
+import { EmptyPoems } from "~/features/poems/ui/empty-poems";
 import { useDebounce } from "~/shared/hooks/useDebounce";
 import { Button } from "~/shared/ui/button";
 import {
@@ -115,24 +116,7 @@ function Home() {
 
 						{filteredPoems && filteredPoems.length === 0 && (
 							<div className="grid items-center justify-center h-full">
-								<Empty>
-									<EmptyHeader>
-										<EmptyMedia variant="icon">
-											<Search />
-										</EmptyMedia>
-										<EmptyTitle>No se encontraron poemas</EmptyTitle>
-										<EmptyDescription>
-											Intenta con otra búsqueda o filtro.
-										</EmptyDescription>
-									</EmptyHeader>
-									<EmptyContent>
-										<div className="flex gap-2">
-											<Button onClick={() => setSearchQuery("")}>
-												Borrar filtros
-											</Button>
-										</div>
-									</EmptyContent>
-								</Empty>
+								<EmptyPoems setSearchQuery={setSearchQuery} />
 							</div>
 						)}
 					</>

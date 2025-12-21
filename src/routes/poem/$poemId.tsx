@@ -1,4 +1,4 @@
-import { createFileRoute, Link } from "@tanstack/react-router";
+import { createFileRoute } from "@tanstack/react-router";
 import { useState } from "react";
 import { usePoemById } from "~/features/poems/application/use-poem-by-id";
 import type { FiguraRetoricaEnPoem } from "~/features/poems/domain/poem.types";
@@ -31,12 +31,12 @@ function PostComponent() {
 	if (error || !poem) return <div>Error loading poem.</div>;
 
 	return (
-		<main className="h-full grid md:grid-cols-3 gap-6 px-4 sm:px-6 lg:px-8 pt-10 pb-16">
-			<NavigationAside/>
+		<main className="h-full grid md:grid-cols-3 gap-4 md:gap-20 px-4 sm:px-6 lg:px-8 pt-10 pb-16">
+			<NavigationAside />
 
 			<section className="space-y-14 poem">
 				<header className="flex flex-col">
-					<h1 className="text-xl font-bold">{poem.titulo}</h1>
+					<h1 className="text-xl font-bold text-balance">{poem.titulo}</h1>
 					<p className="text-muted-foreground">{poem.autor}</p>
 				</header>
 				<article className="flex flex-col gap-5">
@@ -50,7 +50,7 @@ function PostComponent() {
 									);
 									return (
 										<p key={verso.id} className="flex gap-3">
-											<small className="text-muted-foreground w-6 text-right">
+											<small className="text-muted-foreground w-2 md:w-6 text-right text-xs">
 												{verso.numero}
 											</small>
 											<span
