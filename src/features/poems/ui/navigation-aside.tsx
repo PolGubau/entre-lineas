@@ -13,7 +13,7 @@ export const NavigationAside = () => {
 
 	const { data: filteredPoems } = usePoems(filters);
 	return (
-		<aside>
+		<aside className="overflow-y-auto h-full">
 			<Link to="/" className="text-sm text-primary hover:underline">
 				&larr; Volver al inicio
 			</Link>

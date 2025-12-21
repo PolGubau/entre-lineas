@@ -8,13 +8,13 @@ type Props = {
 
 export const PoemSection = ({ poem, highlightedVersesIds }: Props) => {
 	return (
-		<section className="space-y-14 poem">
+		<section className="space-y-14 poem overflow-y-auto h-full">
 			<header className="flex flex-col">
 				<h1 className="text-xl font-bold text-balance">{poem.title}</h1>
 				<p className="text-muted-foreground">{poem.author}</p>
 			</header>
 			<article className="flex flex-col gap-5">
-				{poem.stanzas.map((estrofa) => (
+				{poem.estrofas.map((estrofa) => (
 					<div className="grid grid-cols-[20px_1fr] gap-2" key={estrofa.id}>
 						<small className="text-muted-foreground">{estrofa.number}</small>
 						<div className="whitespace-pre-line">

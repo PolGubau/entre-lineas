@@ -41,36 +41,45 @@ export const caminante: Poem = {
 			id: "metafora",
 			contextualDescription:
 				'El "camino" representa la vida, las decisiones y el destino personal que cada uno construye.',
-			verseIds: ["vm1", "vm2", "vm3", "vm4", "vm5", "vm7", "vm9", "vm10"],
+			verseIds: [
+				"2-v1",
+				"2-v2",
+				"2-v3",
+				"2-v4",
+				"2-v5",
+				"2-v7",
+				"2-v9",
+				"2-v10",
+			],
 		},
 		{
 			id: "paradoja",
 			contextualDescription:
 				'"Se hace camino al andar" es una paradoja: el camino se crea caminando, no existe antes.',
-			verseIds: ["vm3", "vm4", "vm5"],
+			verseIds: ["2-v3", "2-v4", "2-v5"],
 		},
 		{
 			id: "apostrofe",
 			contextualDescription:
 				'El poeta se dirige directamente al "caminante" (lector/ser humano universal).',
-			verseIds: ["vm1", "vm3", "vm9"],
+			verseIds: ["2-v1", "2-v3", "2-v9"],
 		},
 		{
 			id: "anafora",
 			contextualDescription:
 				'Repetición de "no hay camino" que enfatiza la inexistencia del destino prefijado.',
-			verseIds: ["vm3", "vm9"],
+			verseIds: ["2-v3", "2-v9"],
 		},
 	],
 
-	stanzas: [
+	estrofas: [
 		{
 			id: "estrofa-m1",
 			number: 1,
 			type: "libre",
 			verses: [
 				{
-					id: "vm1",
+					id: "2-v1",
 					number: 1,
 					text: "Caminante, son tus huellas",
 					syllables: 8,
@@ -78,20 +87,20 @@ export const caminante: Poem = {
 						'Apóstrofe directo al lector. Las "huellas" representan las acciones pasadas.',
 				},
 				{
-					id: "vm2",
+					id: "2-v2",
 					number: 2,
 					text: "el camino y nada más;",
 					syllables: 8,
 				},
 				{
-					id: "vm3",
+					id: "2-v3",
 					number: 3,
 					text: "caminante, no hay camino,",
 					syllables: 8,
 					annotation: "Primera negación del destino predeterminado.",
 				},
 				{
-					id: "vm4",
+					id: "2-v4",
 					number: 4,
 					text: "se hace camino al andar.",
 					syllables: 8,
@@ -106,26 +115,26 @@ export const caminante: Poem = {
 			type: "libre",
 			verses: [
 				{
-					id: "vm5",
+					id: "2-v5",
 					number: 5,
 					text: "Al andar se hace el camino,",
 					syllables: 8,
 				},
 				{
-					id: "vm6",
+					id: "2-v6",
 					number: 6,
 					text: "y al volver la vista atrás",
 					syllables: 8,
 					annotation: "Mirada retrospectiva hacia el pasado.",
 				},
 				{
-					id: "vm7",
+					id: "2-v7",
 					number: 7,
 					text: "se ve la senda que nunca",
 					syllables: 8,
 				},
 				{
-					id: "vm8",
+					id: "2-v8",
 					number: 8,
 					text: "se ha de volver a pisar.",
 					syllables: 8,
@@ -139,13 +148,13 @@ export const caminante: Poem = {
 			type: "libre",
 			verses: [
 				{
-					id: "vm9",
+					id: "2-v9",
 					number: 9,
 					text: "Caminante no hay camino",
 					syllables: 8,
 				},
 				{
-					id: "vm10",
+					id: "2-v10",
 					number: 10,
 					text: "sino estelas en la mar.",
 					syllables: 8,

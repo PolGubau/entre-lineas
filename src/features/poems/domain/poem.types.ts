@@ -115,7 +115,7 @@ export const PoemSchema = z.object({
 	authorSlug: z.string().optional(),
 
 	// Estructura del poema
-	stanzas: z.array(EstrofaSchema),
+	estrofas: z.array(EstrofaSchema),
 
 	// Metadata
 	context: ContextoHistoricoSchema,

@@ -28,31 +28,38 @@ export const PoemSummaryAside = ({
 	setOpenFigure,
 }: Props) => {
 	return (
-		<aside className="space-y-2">
+		<aside className="space-y-2 overflow-y-auto h-full">
 			<Item variant={"muted"}>
 				<ItemContent>
 					<ItemTitle>Resumen </ItemTitle>
-					<ItemDescription className="space-y-4">
-						<p>{poem.shortDescription}</p>
-					</ItemDescription>
+					<ItemDescription>{poem.shortDescription}</ItemDescription>
 				</ItemContent>
 			</Item>
-			<Item variant={"muted"}>
-				<ItemContent>
-					<ItemTitle>Contexto</ItemTitle>
-					<ItemDescription className="space-y-4">
-						<p>{poem.context.socialContext}</p>
 
-						<PoemContextTable context={poem.context} author={poem.author} />
-					</ItemDescription>
+			<Item variant={"muted"} className="p-0 ">
+				<ItemContent>
+					<Accordion defaultValue={"context"} type="single" collapsible>
+						<AccordionItem value="context">
+							<AccordionTrigger className="p-3">Contexto </AccordionTrigger>
+							<AccordionContent className="flex flex-col gap-6 p-3">
+								<p>{poem.context.socialContext}</p>
+								<PoemContextTable context={poem.context} author={poem.author} />
+							</AccordionContent>
+						</AccordionItem>
+					</Accordion>
 				</ItemContent>
 			</Item>
-			<Item variant={"muted"}>
+
+			<Item variant={"muted"} className="p-0 ">
 				<ItemContent>
-					<ItemTitle>Análisis</ItemTitle>
-					<ItemDescription className="space-y-4">
-						<AnalysisTable analysis={poem.analysis} />
-					</ItemDescription>
+					<Accordion type="single" collapsible>
+						<AccordionItem value="analysis">
+							<AccordionTrigger className="p-3">Análisis </AccordionTrigger>
+							<AccordionContent className="flex flex-col gap-6 p-3">
+								<AnalysisTable analysis={poem.analysis} />
+							</AccordionContent>
+						</AccordionItem>
+					</Accordion>
 				</ItemContent>
 			</Item>
 
@@ -74,8 +81,8 @@ export const PoemSummaryAside = ({
 							>
 								{poem.rhetoricalFigures.map((figura) => (
 									<AccordionItem value={figura.id} key={figura.id}>
-										<AccordionTrigger>
-											<span className="capitalize text-foreground">
+										<AccordionTrigger className="">
+											<span className="capitalize text-foreground text-sm font-normal">
 												{figura.id}
 											</span>
 										</AccordionTrigger>

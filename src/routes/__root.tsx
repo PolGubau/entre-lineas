@@ -8,7 +8,6 @@ import {
 import { TanStackRouterDevtoolsPanel } from "@tanstack/react-router-devtools";
 import appCss from "../app/styles.css?url";
 import TanStackQueryDevtools from "../integrations/tanstack-query/devtools";
-import Header from "../shared/ui/Header";
 
 interface MyRouterContext {
 	queryClient: QueryClient;
@@ -50,7 +49,7 @@ function RootDocument({ children }: { children: React.ReactNode }) {
 			<head>
 				<HeadContent />
 			</head>
-			<body className="min-h-screen relative bg-background text-foreground">
+			<body className="min-h-screen relative bg-background text-foreground overflow-hidden">
 				{children}
 				<TanStackDevtools
 					config={{

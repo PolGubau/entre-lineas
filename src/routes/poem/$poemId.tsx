@@ -32,7 +32,7 @@ function PostComponent() {
 	if (error || !poem) return <div>Error loading poem.</div>;
 
 	return (
-		<main className="h-full grid md:grid-cols-3 gap-4 md:gap-20 px-4 sm:px-6 lg:px-8 pt-10 pb-16">
+		<main className="h-screen pt-10 pb-16 grid md:grid-cols-3 gap-4 md:gap-20 px-4 sm:px-6 lg:px-8">
 			<NavigationAside />
 
 			<PoemSection poem={poem} highlightedVersesIds={openFigure?.verseIds} />
