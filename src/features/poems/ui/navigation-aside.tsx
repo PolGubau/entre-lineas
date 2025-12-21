@@ -24,7 +24,7 @@ export const NavigationAside = () => {
 					onChange={(e) => setSearchQuery(e.target.value)}
 					placeholder="Buscar poemas..."
 				/>
-				{filteredPoems.map((p) => {
+				{filteredPoems?.map((p) => {
 					return (
 						<li key={p.id} className="py-2">
 							<Link

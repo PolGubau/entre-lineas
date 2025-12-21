@@ -1,4 +1,4 @@
-import { useSuspenseQuery } from "@tanstack/react-query";
+import { useQuery, useSuspenseQuery } from "@tanstack/react-query";
 import { poemsQueryOptions } from "~/features/poems/infra/api";
 import type { Poem } from "../domain/poem.types";
 
@@ -13,9 +13,10 @@ export interface PoemsFilters {
 /**
  * Hook para obtener todos los poemas con filtros opcionales
  * La lógica de filtrado está encapsulada aquí, no en la UI
+ * Usa useQuery para evitar suspensión en cada cambio de filtro
  */
 export function usePoems(filters?: PoemsFilters) {
-	return useSuspenseQuery<Poem[]>({
+	return useQuery<Poem[]>({
 		queryKey: ["poems", "filtered", filters],
 		queryFn: async () => {
 			const poems = await poemsQueryOptions.all().queryFn();
