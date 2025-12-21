@@ -32,30 +32,29 @@ function Home() {
 	const { data: filteredPoems, isLoading } = usePoems(filters);
 
 	return (
-		<section className="grid md:grid-cols-[1fr_3fr] gap-6 px-4 sm:px-6 lg:px-8 pt-10 pb-16 h-screen">
+		<section className="relative grid md:grid-cols-[1fr_3fr] gap-10 md:gap-6 px-3 sm:px-6 lg:px-8 pt-6 md:pt-10 h-screen">
 			{/* Hero Section */}
 
-			<aside className="space-y-8">
-				<header className="space-y-6">
-					<h1 className="text-3xl poem md:text-5xl font-bold tracking-tight">
+			<aside className="space-y-4 md:space-y-8 overflow-y-auto">
+				<header className="space-y-2 md:space-y-6">
+					<h1 className="text-2xl poem md:text-5xl font-bold tracking-tight">
 						Entre líneas
 					</h1>
-					<p className="text-muted-foreground max-w-lg text-balance">
+					<p className="text-muted-foreground max-w-lg text-balance text-sm md:text-md">
 						Descubre figuras retóricas, contexto histórico y análisis detallado
 						de cada verso
 					</p>
 				</header>
+ 					<Input
+						type="search"
+						icon={<Search className="size-5 text-muted-foreground" />}
+						placeholder="Buscar por título, autor o tema..."
+						value={searchQuery}
+						onChange={(e) => setSearchQuery(e.target.value)}
+						/>
+ 			</aside>
 
-				<Input
-					type="search"
-					icon={<Search className="size-5 text-muted-foreground" />}
-					placeholder="Buscar por título, autor o tema..."
-					value={searchQuery}
-					onChange={(e) => setSearchQuery(e.target.value)}
-				/>
-			</aside>
-
-			<section className="h-full">
+			<section className="h-full pb-16 overflow-y-auto">
 				{isLoading ? (
 					<article className="grid items-center justify-center h-full gap-2 text-muted-foreground">
 						<div className="flex flex-col items-center gap-2">
@@ -65,7 +64,7 @@ function Home() {
 					</article>
 				) : (
 					<>
-						<ul className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+						<ul className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-2 md:gap-6">
 							{filteredPoems?.map((poem: Poem) => (
 								<Link
 									to="/poem/$poemId"
@@ -75,17 +74,13 @@ function Home() {
 									<Card className="hover:bg-primary/2 hover:shadow-lg transition-all">
 										<CardHeader>
 											<CardTitle>{poem.title}</CardTitle>
-											<CardDescription>{poem.author}</CardDescription>
-											<CardAction>
-												<span>{poem.context.publicationYear}</span>
-											</CardAction>
+											<CardDescription>{poem.author} - { poem.context.publicationYear}</CardDescription>
+											
 										</CardHeader>
 										<CardContent className="space-y-4 text-sm text-muted-foreground">
 											<p className="line-clamp-3">{poem.shortDescription}</p>
 											<span className="text-xs">{poem.context.movement}</span>
-										</CardContent>
-										<CardFooter>
-											<ul className="flex flex-wrap gap-2">
+											<ul className="flex flex-wrap gap-2 pt-2 -ml-1">
 												{poem.analysis.themes
 													.slice(0, 3)
 													.map((tema: string) => (
@@ -97,7 +92,8 @@ function Home() {
 														</li>
 													))}
 											</ul>
-										</CardFooter>
+										</CardContent>
+								 
 									</Card>
 								</Link>
 							))}
