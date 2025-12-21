@@ -24,10 +24,10 @@ export type FiguraRetoricaTipo = z.infer<typeof FiguraRetoricaTipoSchema>;
 
 export const FiguraRetoricaDefinicionSchema = z.object({
 	id: z.string(),
-	tipo: FiguraRetoricaTipoSchema,
-	nombre: z.string(),
-	definicionGeneral: z.string(),
-	ejemplo: z.string().optional(),
+	type: FiguraRetoricaTipoSchema,
+	name: z.string(),
+	generalDefinition: z.string(),
+	example: z.string().optional(),
 });
 
 export type FiguraRetoricaDefinicion = z.infer<
@@ -37,8 +37,8 @@ export type FiguraRetoricaDefinicion = z.infer<
 // ============= Referencia a Figura en un Poema =============
 export const FiguraRetoricaEnPoemSchema = z.object({
 	id: z.string(), // Referencia al ID del catálogo global
-	descripcionContextual: z.string(), // Explicación específica en este poema
-	versosIds: z.array(z.string()), // IDs de versos donde aparece
+	contextualDescription: z.string(), // Explicación específica en este poema
+	verseIds: z.array(z.string()), // IDs de versos donde aparece
 });
 
 export type FiguraRetoricaEnPoem = z.infer<typeof FiguraRetoricaEnPoemSchema>;
@@ -46,13 +46,13 @@ export type FiguraRetoricaEnPoem = z.infer<typeof FiguraRetoricaEnPoemSchema>;
 // ============= Verso =============
 export const VersoSchema = z.object({
 	id: z.string(),
-	numero: z.number(),
-	texto: z.string(),
+	number: z.number(),
+	text: z.string(),
 	// Métricas del verso
-	silabas: z.number().optional(),
-	rima: z.string().optional(), // 'A', 'B', 'a', 'b', etc.
+	syllables: z.number().optional(),
+	rhyme: z.string().optional(), // 'A', 'B', 'a', 'b', etc.
 	// Anotaciones inline
-	anotacion: z.string().optional(),
+	annotation: z.string().optional(),
 });
 
 export type Verso = z.infer<typeof VersoSchema>;
@@ -60,8 +60,8 @@ export type Verso = z.infer<typeof VersoSchema>;
 // ============= Estrofa =============
 export const EstrofaSchema = z.object({
 	id: z.string(),
-	numero: z.number(),
-	tipo: z
+	number: z.number(),
+	type: z
 		.enum([
 			"pareado",
 			"terceto",
@@ -76,32 +76,32 @@ export const EstrofaSchema = z.object({
 			"libre",
 		])
 		.optional(),
-	versos: z.array(VersoSchema),
-	anotacion: z.string().optional(),
+	verses: z.array(VersoSchema),
+	annotation: z.string().optional(),
 });
 
 export type Estrofa = z.infer<typeof EstrofaSchema>;
 
 // ============= Contexto Histórico =============
 export const ContextoHistoricoSchema = z.object({
-	epoca: z.string(), // "Siglo XX", "Renacimiento", etc.
-	movimiento: z.string().optional(), // "Modernismo", "Generación del 27", etc.
-	paisOrigen: z.string(),
-	añoPublicacion: z.number().optional(),
-	contextoSocial: z.string().optional(),
-	influencias: z.array(z.string()).default([]),
+	era: z.string(), // "Siglo XX", "Renacimiento", etc.
+	movement: z.string().optional(), // "Modernismo", "Generación del 27", etc.
+	originCountry: z.string(),
+	publicationYear: z.number().optional(),
+	socialContext: z.string().optional(),
+	influences: z.array(z.string()).default([]),
 });
 
 export type ContextoHistorico = z.infer<typeof ContextoHistoricoSchema>;
 
 // ============= Análisis =============
 export const AnalisisSchema = z.object({
-	tematica: z.array(z.string()), // ["amor", "muerte", "naturaleza"]
-	tono: z.string().optional(), // "melancólico", "alegre", etc.
-	metrica: z.string().optional(), // "endecasílabos", "alejandrinos"
-	esquemaRima: z.string().optional(), // "ABBA ABBA CDC DCD"
-	resumenGeneral: z.string(),
-	interpretacion: z.string().optional(),
+	themes: z.array(z.string()), // ["amor", "muerte", "naturaleza"]
+	tone: z.string().optional(), // "melancólico", "alegre", etc.
+	meter: z.string().optional(), // "endecasílabos", "alejandrinos"
+	rhymeScheme: z.string().optional(), // "ABBA ABBA CDC DCD"
+	generalSummary: z.string(),
+	interpretation: z.string().optional(),
 });
 
 export type Analisis = z.infer<typeof AnalisisSchema>;
@@ -110,23 +110,23 @@ export type Analisis = z.infer<typeof AnalisisSchema>;
 export const PoemSchema = z.object({
 	id: z.string(),
 	slug: z.string(), // URL-friendly: "veinte-poemas-de-amor-1"
-	titulo: z.string(),
-	autor: z.string(),
-	autorSlug: z.string().optional(),
+	title: z.string(),
+	author: z.string(),
+	authorSlug: z.string().optional(),
 
 	// Estructura del poema
-	estrofas: z.array(EstrofaSchema),
+	stanzas: z.array(EstrofaSchema),
 
 	// Metadata
-	contexto: ContextoHistoricoSchema,
-	analisis: AnalisisSchema,
+	context: ContextoHistoricoSchema,
+	analysis: AnalisisSchema,
 
 	// Figuras retóricas REFERENCIADAS (no definidas aquí)
-	figurasRetoricas: z.array(FiguraRetoricaEnPoemSchema),
+	rhetoricalFigures: z.array(FiguraRetoricaEnPoemSchema),
 
 	// SEO y preview
-	descripcionCorta: z.string(),
-	imagenUrl: z.string().optional(),
+	shortDescription: z.string(),
+	imageUrl: z.string().optional(),
 
 	// Fechas
 	createdAt: z.date(),
@@ -137,14 +137,14 @@ export type Poem = z.infer<typeof PoemSchema>;
 
 // ============= Tipos para UI State =============
 export interface HighlightState {
-	figuraId: string | null;
-	versoIds: string[];
+	figureId: string | null;
+	verseIds: string[];
 }
 
 export interface FilterState {
-	busqueda: string;
-	autor: string | null;
-	movimiento: string | null;
-	epoca: string | null;
-	tematica: string[];
+	search: string;
+	author: string | null;
+	movement: string | null;
+	era: string | null;
+	themes: string[];
 }

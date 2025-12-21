@@ -12,6 +12,7 @@ import {
 	ItemTitle,
 } from "~/shared/ui/item";
 import type { FiguraRetoricaEnPoem, Poem } from "../domain/poem.types";
+import { AnalysisTable } from "./analysis-table";
 import { PoemContextTable } from "./context-table";
 import { FigureDescription } from "./figure-description";
 
@@ -32,23 +33,30 @@ export const PoemSummaryAside = ({
 				<ItemContent>
 					<ItemTitle>Resumen </ItemTitle>
 					<ItemDescription className="space-y-4">
-						<p>{poem.descripcionCorta}</p>
+						<p>{poem.shortDescription}</p>
 					</ItemDescription>
 				</ItemContent>
 			</Item>
-			{poem.contexto.movimiento && (
-				<Item variant={"muted"}>
-					<ItemContent>
-						<ItemTitle>Contexto</ItemTitle>
-						<ItemDescription className="space-y-4">
-							<p>{poem.contexto.contextoSocial}</p>
+			<Item variant={"muted"}>
+				<ItemContent>
+					<ItemTitle>Contexto</ItemTitle>
+					<ItemDescription className="space-y-4">
+						<p>{poem.context.socialContext}</p>
 
-							<PoemContextTable context={poem.contexto} author={poem.autor} />
-						</ItemDescription>
-					</ItemContent>
-				</Item>
-			)}
-			{poem.figurasRetoricas.length > 0 && (
+						<PoemContextTable context={poem.context} author={poem.author} />
+					</ItemDescription>
+				</ItemContent>
+			</Item>
+			<Item variant={"muted"}>
+				<ItemContent>
+					<ItemTitle>Análisis</ItemTitle>
+					<ItemDescription className="space-y-4">
+						<AnalysisTable analysis={poem.analysis} />
+					</ItemDescription>
+				</ItemContent>
+			</Item>
+
+			{poem.rhetoricalFigures.length > 0 && (
 				<Item variant={"muted"}>
 					<ItemContent>
 						<ItemTitle>Figuras Retóricas</ItemTitle>
@@ -57,14 +65,14 @@ export const PoemSummaryAside = ({
 								type="single"
 								collapsible
 								onValueChange={(v) => {
-									const figura = poem.figurasRetoricas.find(
+									const figura = poem.rhetoricalFigures.find(
 										(fig) => fig.id === v,
 									);
 									setOpenFigure(figura ?? null);
 								}}
 								value={openFigure?.id ?? undefined}
 							>
-								{poem.figurasRetoricas.map((figura) => (
+								{poem.rhetoricalFigures.map((figura) => (
 									<AccordionItem value={figura.id} key={figura.id}>
 										<AccordionTrigger>
 											<span className="capitalize text-foreground">
@@ -74,7 +82,7 @@ export const PoemSummaryAside = ({
 										<AccordionContent className="flex flex-col gap-6">
 											<FigureDescription
 												figureId={figura.id}
-												contextual={figura.descripcionContextual}
+												contextual={figura.contextualDescription}
 											/>
 										</AccordionContent>
 									</AccordionItem>

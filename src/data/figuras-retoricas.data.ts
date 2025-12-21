@@ -7,130 +7,130 @@ import type { FiguraRetoricaDefinicion } from "~/features/poems/domain/poem.type
 export const FIGURAS_RETORICAS_CATALOGO: FiguraRetoricaDefinicion[] = [
 	{
 		id: "metafora",
-		tipo: "metafora",
-		nombre: "Metáfora",
-		definicionGeneral:
+		type: "metafora",
+		name: "Metáfora",
+		generalDefinition:
 			"Identificación de un término real con uno imaginario con el que guarda semejanza.",
-		ejemplo:
+		example:
 			'"Sus labios son pétalos" (los labios se identifican con pétalos por su suavidad)',
 	},
 	{
 		id: "simil",
-		tipo: "simil",
-		nombre: "Símil o Comparación",
-		definicionGeneral:
+		type: "simil",
+		name: "Símil o Comparación",
+		generalDefinition:
 			'Comparación explícita entre dos elementos usando "como", "cual", "semejante a".',
-		ejemplo: '"Tus ojos son como el mar"',
+		example: '"Tus ojos son como el mar"',
 	},
 	{
 		id: "personificacion",
-		tipo: "personificacion",
-		nombre: "Personificación",
-		definicionGeneral:
+		type: "personificacion",
+		name: "Personificación",
+		generalDefinition:
 			"Atribuir cualidades humanas a seres inanimados o abstractos.",
-		ejemplo: '"El viento susurra secretos"',
+		example: '"El viento susurra secretos"',
 	},
 	{
 		id: "hiperbole",
-		tipo: "hiperbole",
-		nombre: "Hipérbole",
-		definicionGeneral: "Exageración desmedida de la realidad para enfatizar.",
-		ejemplo: '"Érase un hombre a una nariz pegado"',
+		type: "hiperbole",
+		name: "Hipérbole",
+		generalDefinition: "Exageración desmedida de la realidad para enfatizar.",
+		example: '"Érase un hombre a una nariz pegado"',
 	},
 	{
 		id: "anafora",
-		tipo: "anafora",
-		nombre: "Anáfora",
-		definicionGeneral:
+		type: "anafora",
+		name: "Anáfora",
+		generalDefinition:
 			"Repetición de una o varias palabras al principio de versos o frases.",
-		ejemplo: '"Verde que te quiero verde. / Verde viento. Verdes ramas"',
+		example: '"Verde que te quiero verde. / Verde viento. Verdes ramas"',
 	},
 	{
 		id: "aliteracion",
-		tipo: "aliteracion",
-		nombre: "Aliteración",
-		definicionGeneral:
+		type: "aliteracion",
+		name: "Aliteración",
+		generalDefinition:
 			"Repetición de sonidos consonánticos para crear musicalidad.",
-		ejemplo: '"El ruido con que rueda la ronca tempestad"',
+		example: '"El ruido con que rueda la ronca tempestad"',
 	},
 	{
 		id: "paradoja",
-		tipo: "paradoja",
-		nombre: "Paradoja",
-		definicionGeneral:
+		type: "paradoja",
+		name: "Paradoja",
+		generalDefinition:
 			"Unión de dos ideas aparentemente contradictorias que encierran una verdad.",
-		ejemplo: '"Vivo sin vivir en mí"',
+		example: '"Vivo sin vivir en mí"',
 	},
 	{
 		id: "antitesis",
-		tipo: "antitesis",
-		nombre: "Antítesis",
-		definicionGeneral:
+		type: "antitesis",
+		name: "Antítesis",
+		generalDefinition:
 			"Contraposición de dos palabras o ideas de significado opuesto.",
-		ejemplo: '"Es tan corto el amor y tan largo el olvido"',
+		example: '"Es tan corto el amor y tan largo el olvido"',
 	},
 	{
 		id: "sinestesia",
-		tipo: "sinestesia",
-		nombre: "Sinestesia",
-		definicionGeneral:
+		type: "sinestesia",
+		name: "Sinestesia",
+		generalDefinition:
 			"Atribuir una sensación a un sentido que no le corresponde.",
-		ejemplo: '"Colores chillones", "dulce melodía"',
+		example: '"Colores chillones", "dulce melodía"',
 	},
 	{
 		id: "metonimia",
-		tipo: "metonimia",
-		nombre: "Metonimia",
-		definicionGeneral:
+		type: "metonimia",
+		name: "Metonimia",
+		generalDefinition:
 			"Designar algo con el nombre de otra cosa con la que tiene relación.",
-		ejemplo: '"Respeto las canas" (la vejez) o "Tomé tres copas" (vino)',
+		example: '"Respeto las canas" (la vejez) o "Tomé tres copas" (vino)',
 	},
 	{
 		id: "sinecdoque",
-		tipo: "sinecdoque",
-		nombre: "Sinécdoque",
-		definicionGeneral: "Designar la parte por el todo o viceversa.",
-		ejemplo:
+		type: "sinecdoque",
+		name: "Sinécdoque",
+		generalDefinition: "Designar la parte por el todo o viceversa.",
+		example:
 			'"Tiene veinte primaveras" (años) - "España ganó el mundial" (la selección)',
 	},
 	{
 		id: "apostrofe",
-		tipo: "apostrofe",
-		nombre: "Apóstrofe",
-		definicionGeneral:
+		type: "apostrofe",
+		name: "Apóstrofe",
+		generalDefinition:
 			"Invocación o llamada a alguien o algo, presente o ausente, real o imaginario.",
-		ejemplo: '"¡Oh luna! ¿Dónde estás que no te veo?"',
+		example: '"¡Oh luna! ¿Dónde estás que no te veo?"',
 	},
 	{
 		id: "hiperbaton",
-		tipo: "hiperbaton",
-		nombre: "Hipérbaton",
-		definicionGeneral:
+		type: "hiperbaton",
+		name: "Hipérbaton",
+		generalDefinition:
 			"Alteración del orden lógico de las palabras en la oración.",
-		ejemplo: '"Del salón en el ángulo oscuro" (En el ángulo oscuro del salón)',
+		example: '"Del salón en el ángulo oscuro" (En el ángulo oscuro del salón)',
 	},
 	{
 		id: "elipsis",
-		tipo: "elipsis",
-		nombre: "Elipsis",
-		definicionGeneral:
+		type: "elipsis",
+		name: "Elipsis",
+		generalDefinition:
 			"Omisión de palabras que se sobreentienden en el contexto.",
-		ejemplo: '"Por una mirada, un mundo; por una sonrisa, un cielo" (daría)',
+		example: '"Por una mirada, un mundo; por una sonrisa, un cielo" (daría)',
 	},
 	{
 		id: "polisindeton",
-		tipo: "polisindeton",
-		nombre: "Polisíndeton",
-		definicionGeneral:
+		type: "polisindeton",
+		name: "Polisíndeton",
+		generalDefinition:
 			"Repetición innecesaria de conjunciones para dar lentitud y solemnidad.",
-		ejemplo: '"Y ríe, y llora, y canta, y grita"',
+		example: '"Y ríe, y llora, y canta, y grita"',
 	},
 	{
 		id: "asindeton",
-		tipo: "asindeton",
-		nombre: "Asíndeton",
-		definicionGeneral: "Omisión de conjunciones para dar rapidez y dinamismo.",
-		ejemplo: '"Acude, corre, vuela"',
+		type: "asindeton",
+		name: "Asíndeton",
+		generalDefinition: "Omisión de conjunciones para dar rapidez y dinamismo.",
+		example: '"Acude, corre, vuela"',
 	},
 ];
 
@@ -146,6 +146,6 @@ export function getFiguraById(
 /**
  * Helper para obtener todas las figuras de un tipo
  */
-export function getFigurasByTipo(tipo: string): FiguraRetoricaDefinicion[] {
-	return FIGURAS_RETORICAS_CATALOGO.filter((f) => f.tipo === tipo);
+export function getFigurasByType(type: string): FiguraRetoricaDefinicion[] {
+	return FIGURAS_RETORICAS_CATALOGO.filter((f) => f.type === type);
 }

@@ -1,0 +1,41 @@
+import type { Poem } from "../../domain/poem.types";
+import { Verse } from "./verse";
+
+type Props = {
+	poem: Poem;
+	highlightedVersesIds?: string[];
+};
+
+export const PoemSection = ({ poem, highlightedVersesIds }: Props) => {
+	return (
+		<section className="space-y-14 poem">
+			<header className="flex flex-col">
+				<h1 className="text-xl font-bold text-balance">{poem.title}</h1>
+				<p className="text-muted-foreground">{poem.author}</p>
+			</header>
+			<article className="flex flex-col gap-5">
+				{poem.stanzas.map((estrofa) => (
+					<div className="grid grid-cols-[20px_1fr] gap-2" key={estrofa.id}>
+						<small className="text-muted-foreground">{estrofa.number}</small>
+						<div className="whitespace-pre-line">
+							{estrofa.verses.map((verso) => {
+								const isHighlighted =
+									highlightedVersesIds?.includes(verso.id) ?? false;
+								return (
+									<Verse
+										annotations={verso.annotation}
+										key={verso.id}
+										number={verso.number}
+										text={verso.text}
+										isHighlighted={isHighlighted}
+										syllables={verso.syllables}
+									/>
+								);
+							})}
+						</div>
+					</div>
+				))}
+			</article>
+		</section>
+	);
+};

@@ -5,7 +5,6 @@ import { usePoems } from "~/features/poems/application/use-poems";
 import type { Poem } from "~/features/poems/domain/poem.types";
 import { EmptyPoems } from "~/features/poems/ui/empty-poems";
 import { useDebounce } from "~/shared/hooks/useDebounce";
-import { Button } from "~/shared/ui/button";
 import {
 	Card,
 	CardAction,
@@ -15,14 +14,6 @@ import {
 	CardHeader,
 	CardTitle,
 } from "~/shared/ui/card";
-import {
-	Empty,
-	EmptyContent,
-	EmptyDescription,
-	EmptyHeader,
-	EmptyMedia,
-	EmptyTitle,
-} from "~/shared/ui/empty";
 import { Input } from "~/shared/ui/input";
 import { Spinner } from "~/shared/ui/spinner";
 
@@ -83,21 +74,19 @@ function Home() {
 								>
 									<Card className="hover:bg-primary/2 hover:shadow-lg transition-all">
 										<CardHeader>
-											<CardTitle>{poem.titulo}</CardTitle>
-											<CardDescription>{poem.autor}</CardDescription>
+											<CardTitle>{poem.title}</CardTitle>
+											<CardDescription>{poem.author}</CardDescription>
 											<CardAction>
-												<span>{poem.contexto.añoPublicacion}</span>
+												<span>{poem.context.publicationYear}</span>
 											</CardAction>
 										</CardHeader>
 										<CardContent className="space-y-4 text-sm text-muted-foreground">
-											<p className="line-clamp-3">{poem.descripcionCorta}</p>
-											<span className="text-xs">
-												{poem.contexto.movimiento}
-											</span>
+											<p className="line-clamp-3">{poem.shortDescription}</p>
+											<span className="text-xs">{poem.context.movement}</span>
 										</CardContent>
 										<CardFooter>
 											<ul className="flex flex-wrap gap-2">
-												{poem.analisis.tematica
+												{poem.analysis.themes
 													.slice(0, 3)
 													.map((tema: string) => (
 														<li

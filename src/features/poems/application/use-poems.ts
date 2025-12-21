@@ -4,10 +4,10 @@ import type { Poem } from "../domain/poem.types";
 
 export interface PoemsFilters {
 	search?: string;
-	autor?: string;
-	movimiento?: string;
-	epoca?: string;
-	tematica?: string[];
+	author?: string;
+	movement?: string;
+	era?: string;
+	themes?: string[];
 }
 
 /**
@@ -27,9 +27,9 @@ export function usePoems(filters?: PoemsFilters) {
 				// Filtro de búsqueda general
 				if (filters.search) {
 					const searchLower = filters.search.toLowerCase();
-					const matchesTitle = poem.titulo.toLowerCase().includes(searchLower);
-					const matchesAuthor = poem.autor.toLowerCase().includes(searchLower);
-					const matchesTematica = poem.analisis.tematica.some((t: string) =>
+					const matchesTitle = poem.title.toLowerCase().includes(searchLower);
+					const matchesAuthor = poem.author.toLowerCase().includes(searchLower);
+					const matchesTematica = poem.analysis.themes.some((t: string) =>
 						t.toLowerCase().includes(searchLower),
 					);
 
@@ -39,27 +39,24 @@ export function usePoems(filters?: PoemsFilters) {
 				}
 
 				// Filtro por autor
-				if (filters.autor && poem.autor !== filters.autor) {
+				if (filters.author && poem.author !== filters.author) {
 					return false;
 				}
 
 				// Filtro por movimiento literario
-				if (
-					filters.movimiento &&
-					poem.contexto.movimiento !== filters.movimiento
-				) {
+				if (filters.movement && poem.context.movement !== filters.movement) {
 					return false;
 				}
 
 				// Filtro por época
-				if (filters.epoca && poem.contexto.epoca !== filters.epoca) {
+				if (filters.era && poem.context.era !== filters.era) {
 					return false;
 				}
 
 				// Filtro por temáticas (al menos una debe coincidir)
-				if (filters.tematica && filters.tematica.length > 0) {
-					const hasMatchingTematica = filters.tematica.some((tema) =>
-						poem.analisis.tematica.includes(tema),
+				if (filters.themes && filters.themes.length > 0) {
+					const hasMatchingTematica = filters.themes.some((tema) =>
+						poem.analysis.themes.includes(tema),
 					);
 					if (!hasMatchingTematica) {
 						return false;
@@ -87,7 +84,7 @@ export function useAuthors() {
 		queryKey: ["poems", "authors"],
 		queryFn: async () => {
 			const poems = await poemsQueryOptions.all().queryFn();
-			const authors = new Set(poems.map((p: Poem) => p.autor));
+			const authors = new Set(poems.map((p: Poem) => p.author));
 			return Array.from(authors).sort();
 		},
 	});
@@ -103,7 +100,7 @@ export function useMovements() {
 			const poems = await poemsQueryOptions.all().queryFn();
 			const movements = new Set(
 				poems
-					.map((p: Poem) => p.contexto.movimiento)
+					.map((p: Poem) => p.context.movement)
 					.filter((m): m is string => m !== undefined),
 			);
 			return Array.from(movements).sort();
@@ -121,7 +118,7 @@ export function useTematicas() {
 			const poems = await poemsQueryOptions.all().queryFn();
 			const tematicas = new Set<string>();
 			poems.forEach((p: Poem) => {
-				p.analisis.tematica.forEach((t: string) => {
+				p.analysis.themes.forEach((t: string) => {
 					tematicas.add(t);
 				});
 			});

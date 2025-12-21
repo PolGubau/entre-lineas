@@ -43,7 +43,7 @@ export const poemsQueryOptions = {
 		queryKey: ["poems", "byAutor", autor],
 		queryFn: async () => {
 			const poems = poemsCollection;
-			return Array.from(poems.values()).filter((p) => p.autor === autor);
+			return Array.from(poems.values()).filter((p) => p.author === autor);
 		},
 	}),
 
@@ -53,9 +53,9 @@ export const poemsQueryOptions = {
 			const poems = poemsCollection;
 			return Array.from(poems.values()).filter(
 				(poem) =>
-					poem.titulo.toLowerCase().includes(query.toLowerCase()) ||
-					poem.autor.toLowerCase().includes(query.toLowerCase()) ||
-					poem.analisis.tematica.some((t: string) =>
+					poem.title.toLowerCase().includes(query.toLowerCase()) ||
+					poem.author.toLowerCase().includes(query.toLowerCase()) ||
+					poem.analysis.themes.some((t: string) =>
 						t.toLowerCase().includes(query.toLowerCase()),
 					),
 			);

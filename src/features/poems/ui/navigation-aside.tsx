@@ -33,9 +33,9 @@ export const NavigationAside = () => {
 								params={{ poemId: p.id }}
 								className="hover:underline flex flex-col"
 							>
-								<span className="text-sm">{p.titulo}</span>
+								<span className="text-sm">{p.title}</span>
 								<small className="text-xs text-muted-foreground">
-									{p.autor}
+									{p.author}
 								</small>
 							</Link>
 						</li>

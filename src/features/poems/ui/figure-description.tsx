@@ -16,11 +16,11 @@ export const FigureDescription = ({ figureId, contextual }: Props) => {
 				</>
 			)}
 			<strong>Definición:</strong>
-			<span> {figura?.definicionGeneral}</span>
+			<span> {figura?.generalDefinition}</span>
 			<strong>Ejemplo:</strong>
 			<span>
 				<pre className="bg-neutral-200 px-3 py-1 rounded-lg w-fit">
-					{figura?.ejemplo}
+					{figura?.example}
 				</pre>
 			</span>
 		</article>
