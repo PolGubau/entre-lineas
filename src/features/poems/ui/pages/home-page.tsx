@@ -1,6 +1,8 @@
+import { useRef } from "react";
 import { useFavorites } from "~/features/poems/application/use-favorites";
 import { usePoems } from "~/features/poems/application/use-poems";
 import { useSearch } from "~/features/poems/application/use-search";
+import { useKeyboardShortcuts } from "~/shared/hooks/use-keyboard-shortcuts";
 import { EmptyPoems } from "~/features/poems/ui/empty-poems";
 import { HomeHero } from "../components/home-hero";
 import { LoadingState } from "../components/loading-state";
@@ -10,10 +12,34 @@ export function HomePage() {
 	const { searchQuery, setSearchQuery, filters } = useSearch();
 	const { favorites, isFavorite } = useFavorites();
 	const { data: filteredPoems, isLoading } = usePoems(filters, favorites);
+	const searchInputRef = useRef<HTMLInputElement>(null);
+
+	// Keyboard shortcuts
+	useKeyboardShortcuts({
+		slash: {
+			handler: () => searchInputRef.current?.focus(),
+			description: "Enfocar búsqueda",
+			shortcut: { key: "/" },
+		},
+		escape: {
+			handler: () => {
+				if (searchQuery) {
+					setSearchQuery("");
+				}
+				searchInputRef.current?.blur();
+			},
+			description: "Limpiar búsqueda",
+			shortcut: { key: "Escape" },
+		},
+	});
 
 	return (
 		<section className="relative grid md:grid-cols-[1fr_3fr] gap-10 md:gap-6 px-3 sm:px-6 lg:px-8 pt-6 md:pt-10 h-screen">
-			<HomeHero searchQuery={searchQuery} onSearchChange={setSearchQuery} />
+			<HomeHero
+				searchQuery={searchQuery}
+				onSearchChange={setSearchQuery}
+				searchInputRef={searchInputRef}
+			/>
 
 			<section className="h-full pb-16 overflow-y-auto">
 				{isLoading ? (

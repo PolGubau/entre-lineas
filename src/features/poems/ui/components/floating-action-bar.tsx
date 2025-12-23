@@ -15,12 +15,12 @@ export function FloatingActionBar({
 	onToggleLike,
 }: FloatingActionBarProps) {
 	return (
-		<div className="fixed bottom-4 right-1/2 translate-x-1/2 flex gap-2 backdrop-blur-sm bg-background/80 border border-border rounded-xl p-1 shadow-lg">
+		<footer className="fixed bottom-4 right-1/2 translate-x-1/2 flex gap-2 backdrop-blur-sm bg-background/80 border border-border rounded-xl p-1 shadow-lg">
 			<ReadingModeToggle
 				isReadingMode={isReadingMode}
 				onToggle={onToggleReadingMode}
 			/>
 			<LikeButton isLiked={isLiked} onToggle={onToggleLike} />
-		</div>
+		</footer>
 	);
 }

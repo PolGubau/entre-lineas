@@ -1,3 +1,4 @@
+import { useNavigate } from "@tanstack/react-router";
 import { useState } from "react";
 import { useFavorites } from "~/features/poems/application/use-favorites";
 import { usePoemById } from "~/features/poems/application/use-poem-by-id";
@@ -8,7 +9,11 @@ import { PoemSection } from "~/features/poems/ui/poem/poem";
 import { PoemSummaryAside } from "~/features/poems/ui/summary-aside";
 import { cn } from "~/shared/lib/utils";
 import { Spinner } from "~/shared/ui/spinner";
+import { ErrorBoundary } from "~/shared/ui/error-boundary";
+import { useKeyboardShortcuts } from "~/shared/hooks/use-keyboard-shortcuts";
 import { FloatingActionBar } from "../components/floating-action-bar";
+import { PoemNotFound } from "../components/poem-not-found";
+import { poemasData } from "~/data/poems.data";
 
 interface PoemDetailPageProps {
 	poemId: string;
@@ -19,34 +24,86 @@ export function PoemDetailPage({ poemId }: PoemDetailPageProps) {
 		null,
 	);
 
-	const { isReadingMode, toggleReadingMode } = useReadingMode();
+	const navigate = useNavigate();
+	const { isReadingMode, toggleReadingMode, disableReadingMode } = useReadingMode();
 	const { poem, isLoading, error } = usePoemById(poemId);
 	const { isFavorite, toggleFavorite } = useFavorites();
+
+	// Keyboard shortcuts
+	useKeyboardShortcuts({
+		escape: {
+			handler: () => {
+				if (isReadingMode) {
+					disableReadingMode();
+				} else {
+					navigate({ to: "/" });
+				}
+			},
+			description: "Salir del modo lectura o volver al inicio",
+			shortcut: { key: "Escape" },
+		},
+		f: {
+			handler: () => toggleFavorite(poemId),
+			description: "Toggle favorito",
+			shortcut: { key: "f" },
+		},
+		r: {
+			handler: toggleReadingMode,
+			description: "Toggle modo lectura",
+			shortcut: { key: "r" },
+		},
+		arrowLeft: {
+			handler: () => {
+				const currentIndex = poemasData.findIndex((p) => p.id === poemId);
+				if (currentIndex > 0) {
+					navigate({ to: "/poem/$poemId", params: { poemId: poemasData[currentIndex - 1].id } });
+				}
+			},
+			description: "Poema anterior",
+			shortcut: { key: "ArrowLeft" },
+		},
+		arrowRight: {
+			handler: () => {
+				const currentIndex = poemasData.findIndex((p) => p.id === poemId);
+				if (currentIndex < poemasData.length - 1) {
+					navigate({ to: "/poem/$poemId", params: { poemId: poemasData[currentIndex + 1].id } });
+				}
+			},
+			description: "Poema siguiente",
+			shortcut: { key: "ArrowRight" },
+		},
+	});
 
 	if (isLoading) {
 		return (
 			<section className="gap-2 grid justify-center items-center h-screen">
 				<Spinner />
-				Loading...
+				Cargando poema...
 			</section>
 		);
 	}
 
 	if (error || !poem) {
-		return <div>Error loading poem.</div>;
+		return (
+			<PoemNotFound
+				poemId={poemId}
+				onRetry={() => window.location.reload()}
+			/>
+		);
 	}
 
 	const isLiked = isFavorite(poemId);
 
 	return (
-		<main
-			className={cn(
-				"h-screen pt-10 pb-20 px-4 sm:px-6 lg:px-8 relative transition-all duration-500",
-				isReadingMode
-					? "grid place-items-center bg-gradient-to-b from-background to-muted/20"
-					: "grid md:grid-cols-3 gap-4 md:gap-20",
-			)}
-		>
+		<ErrorBoundary>
+			<main
+				className={cn(
+					"h-screen pt-10 pb-20 px-4 sm:px-6 lg:px-8 relative transition-all duration-500",
+					isReadingMode
+						? "grid place-items-center bg-gradient-to-b from-background to-muted/20"
+						: "grid md:grid-cols-3 gap-4 md:gap-20",
+				)}
+			>
 			{!isReadingMode && <NavigationAside />}
 
 			<div
@@ -72,6 +129,7 @@ export function PoemDetailPage({ poemId }: PoemDetailPageProps) {
 				isLiked={isLiked}
 				onToggleLike={() => toggleFavorite(poemId)}
 			/>
-		</main>
+			</main>
+		</ErrorBoundary>
 	);
 }

@@ -3,45 +3,47 @@ import type { QueryClient } from "@tanstack/react-query";
 import {
 	createRootRouteWithContext,
 	HeadContent,
+	Outlet,
 	Scripts,
 } from "@tanstack/react-router";
 import { TanStackRouterDevtoolsPanel } from "@tanstack/react-router-devtools";
 import appCss from "../app/styles.css?url";
 import TanStackQueryDevtools from "../integrations/tanstack-query/devtools";
+import { generateHomeSEO, generateSEOTags } from "~/shared/lib/seo";
+import { ErrorBoundary } from "~/shared/ui/error-boundary";
 
 interface MyRouterContext {
 	queryClient: QueryClient;
 }
 
 export const Route = createRootRouteWithContext<MyRouterContext>()({
-	head: () => ({
-		meta: [
-			{
-				charSet: "utf-8",
-			},
-			{
-				name: "viewport",
-				content: "width=device-width, initial-scale=1",
-			},
-			{
-				title: "Entre Líneas - Análisis Interactivo",
-			},
-			{
-				name: "description",
-				content:
-					"Explora poemas en profundidad con análisis de figuras retóricas, contexto histórico y anotaciones interactivas.",
-			},
-		],
-		links: [
-			{
-				rel: "stylesheet",
-				href: appCss,
-			},
-		],
-	}),
+	head: () => {
+		const seoConfig = generateHomeSEO();
+		const { meta, links } = generateSEOTags(seoConfig);
+		return {
+			meta,
+			links: [
+				...links,
+				{
+					rel: "stylesheet",
+					href: appCss,
+				},
+			],
+		};
+	},
 
-	shellComponent: RootDocument,
+	component: RootComponent,
 });
+
+function RootComponent() {
+	return (
+		<ErrorBoundary>
+			<RootDocument>
+				<Outlet />
+			</RootDocument>
+		</ErrorBoundary>
+	);
+}
 
 function RootDocument({ children }: { children: React.ReactNode }) {
 	return (
