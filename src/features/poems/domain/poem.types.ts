@@ -10,6 +10,8 @@ export const FiguraRetoricaTipoSchema = z.enum([
 	"aliteracion",
 	"paradoja",
 	"antitesis",
+	"encabalgamiento",
+	"oximoron",
 	"sinestesia",
 	"metonimia",
 	"sinecdoque",

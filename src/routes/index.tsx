@@ -1,18 +1,17 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { Search } from "lucide-react";
+import { Heart, Search } from "lucide-react";
 import { useMemo, useState } from "react";
+import { useFavorites } from "~/features/poems/application/use-favorites";
 import { usePoems } from "~/features/poems/application/use-poems";
 import type { Poem } from "~/features/poems/domain/poem.types";
 import { EmptyPoems } from "~/features/poems/ui/empty-poems";
 import { useDebounce } from "~/shared/hooks/useDebounce";
 import {
 	Card,
-	CardAction,
 	CardContent,
 	CardDescription,
-	CardFooter,
 	CardHeader,
-	CardTitle,
+	CardTitle
 } from "~/shared/ui/card";
 import { Input } from "~/shared/ui/input";
 import { Spinner } from "~/shared/ui/spinner";
@@ -21,6 +20,7 @@ export const Route = createFileRoute("/")({ component: Home });
 
 function Home() {
 	const [searchQuery, setSearchQuery] = useState("");
+	const { favorites, isFavorite } = useFavorites();
 
 	const debounced = useDebounce(searchQuery, 200);
 	// Usar el hook con filtros - la lógica de filtrado está encapsulada en el hook
@@ -29,7 +29,7 @@ function Home() {
 		[debounced],
 	);
 
-	const { data: filteredPoems, isLoading } = usePoems(filters);
+	const { data: filteredPoems, isLoading } = usePoems(filters, favorites);
 
 	return (
 		<section className="relative grid md:grid-cols-[1fr_3fr] gap-10 md:gap-6 px-3 sm:px-6 lg:px-8 pt-6 md:pt-10 h-screen">
@@ -71,7 +71,12 @@ function Home() {
 									params={{ poemId: poem.id }}
 									key={poem.id}
 								>
-									<Card className="hover:bg-primary/2 hover:shadow-lg transition-all">
+									<Card className="hover:bg-primary/2 hover:shadow-lg transition-all relative">
+										{isFavorite(poem.id) && (
+											<div className="absolute top-3 right-3 text-red-500">
+												<Heart className="size-4 fill-current" />
+											</div>
+										)}
 										<CardHeader>
 											<CardTitle>{poem.title}</CardTitle>
 											<CardDescription>{poem.author} - { poem.context.publicationYear}</CardDescription>

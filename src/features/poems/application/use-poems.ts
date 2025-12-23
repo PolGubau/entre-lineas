@@ -15,11 +15,22 @@ export interface PoemsFilters {
  * La lógica de filtrado está encapsulada aquí, no en la UI
  * Usa useQuery para evitar suspensión en cada cambio de filtro
  */
-export function usePoems(filters?: PoemsFilters) {
+export function usePoems(filters?: PoemsFilters, favoriteIds?: string[]) {
 	return useQuery<Poem[]>({
-		queryKey: ["poems", "filtered", filters],
+		queryKey: ["poems", "filtered", filters, favoriteIds],
 		queryFn: async () => {
-			const poems = await poemsQueryOptions.all().queryFn();
+			let poems = await poemsQueryOptions.all().queryFn();
+
+			// Ordenar favoritos primero si hay favoritos
+			if (favoriteIds && favoriteIds.length > 0) {
+				poems = poems.sort((a, b) => {
+					const aIsFavorite = favoriteIds.includes(a.id);
+					const bIsFavorite = favoriteIds.includes(b.id);
+					if (aIsFavorite && !bIsFavorite) return -1;
+					if (!aIsFavorite && bIsFavorite) return 1;
+					return 0;
+				});
+			}
 
 			if (!filters) return poems;
 

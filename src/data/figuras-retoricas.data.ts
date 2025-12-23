@@ -14,6 +14,28 @@ export const FIGURAS_RETORICAS_CATALOGO: FiguraRetoricaDefinicion[] = [
 			'"Sus labios son pétalos" (los labios se identifican con pétalos por su suavidad)',
 	},
 	{
+		id: "encabalgamiento",
+		name: "Encabalgamiento",
+		generalDefinition:
+			"Ruptura sintáctica entre versos para generar tensión rítmica y sensación de inestabilidad.",
+		example:
+			'"El campo / de olivos se abre y se cierra como un abanico." (la frase continúa en el siguiente verso)',
+	},
+	{
+		id: "oximoron",
+		name: "Oxímoron",
+		generalDefinition:
+			"Combinación de dos términos de significado opuesto en una misma expresión.",
+		example: '"Un silencio ensordecedor"',
+	},
+	{
+		id: "calambur",
+		name: "Calambur",
+		generalDefinition:
+			"Juego de palabras que consiste en agrupar de forma distinta los sonidos de una frase.",
+		example: "Si el rey no muere, el reino muere",
+	},
+	{
 		id: "simil",
 		name: "Símil o Comparación",
 		generalDefinition:
