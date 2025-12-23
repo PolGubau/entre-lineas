@@ -20,7 +20,7 @@ export function FloatingActionBar({
 				isReadingMode={isReadingMode}
 				onToggle={onToggleReadingMode}
 			/>
-			<LikeButton isLiked={isLiked} onToggle={onToggleLike} />
+      <LikeButton isLiked={isLiked} onToggle={onToggleLike} />      
 		</footer>
 	);
 }

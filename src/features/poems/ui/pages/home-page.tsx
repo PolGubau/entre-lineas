@@ -7,6 +7,7 @@ import { EmptyPoems } from "~/features/poems/ui/empty-poems";
 import { HomeHero } from "../components/home-hero";
 import { LoadingState } from "../components/loading-state";
 import { PoemGrid } from "../components/poem-grid";
+import { KeyboardShortcutsDialog } from "../components/keyboard-shortcuts-dialog";
 
 export function HomePage() {
 	const { searchQuery, setSearchQuery, filters } = useSearch();
@@ -56,6 +57,7 @@ export function HomePage() {
 					</>
 				)}
 			</section>
+			<KeyboardShortcutsDialog />
 		</section>
 	);
 }

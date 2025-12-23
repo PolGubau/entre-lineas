@@ -1,12 +1,12 @@
- 
-import { ComponentProps, ReactNode } from "react";
+import { forwardRef, type ComponentProps, type ReactNode } from "react";
 import { cn } from "~/shared/lib/utils";
 
 type Props = ComponentProps<"input"> & {
 	icon?: ReactNode;
 };
 
-export const Input = ({ className, type, icon, ref, ...props }: Props) => {
+export const Input = forwardRef<HTMLInputElement, Props>(
+	({ className, type, icon, ...props }, ref) => {
 		return (
 			<div className="relative">
 				<div className="absolute left-4 top-1/2 -translate-y-1/2 pointer-events-none">
@@ -30,7 +30,7 @@ export const Input = ({ className, type, icon, ref, ...props }: Props) => {
 				/>
 			</div>
 		);
-	}
- 
+	},
+);
 
- 
+Input.displayName = "Input";

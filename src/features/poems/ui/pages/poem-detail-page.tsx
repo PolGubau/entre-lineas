@@ -1,5 +1,6 @@
 import { useNavigate } from "@tanstack/react-router";
 import { useState } from "react";
+import { poemasData } from "~/data/poems.data";
 import { useFavorites } from "~/features/poems/application/use-favorites";
 import { usePoemById } from "~/features/poems/application/use-poem-by-id";
 import { useReadingMode } from "~/features/poems/application/use-reading-mode";
@@ -7,13 +8,13 @@ import type { FiguraRetoricaEnPoem } from "~/features/poems/domain/poem.types";
 import { NavigationAside } from "~/features/poems/ui/navigation-aside";
 import { PoemSection } from "~/features/poems/ui/poem/poem";
 import { PoemSummaryAside } from "~/features/poems/ui/summary-aside";
-import { cn } from "~/shared/lib/utils";
-import { Spinner } from "~/shared/ui/spinner";
-import { ErrorBoundary } from "~/shared/ui/error-boundary";
 import { useKeyboardShortcuts } from "~/shared/hooks/use-keyboard-shortcuts";
+import { cn } from "~/shared/lib/utils";
+import { ErrorBoundary } from "~/shared/ui/error-boundary";
+import { Spinner } from "~/shared/ui/spinner";
 import { FloatingActionBar } from "../components/floating-action-bar";
+import { KeyboardShortcutsDialog } from "../components/keyboard-shortcuts-dialog";
 import { PoemNotFound } from "../components/poem-not-found";
-import { poemasData } from "~/data/poems.data";
 
 interface PoemDetailPageProps {
 	poemId: string;
@@ -100,7 +101,7 @@ export function PoemDetailPage({ poemId }: PoemDetailPageProps) {
 				className={cn(
 					"h-screen pt-10 pb-20 px-4 sm:px-6 lg:px-8 relative transition-all duration-500",
 					isReadingMode
-						? "grid place-items-center bg-gradient-to-b from-background to-muted/20"
+						? "grid place-items-center bg-linear-to-b from-background to-muted/20"
 						: "grid md:grid-cols-3 gap-4 md:gap-20",
 				)}
 			>
@@ -129,6 +130,7 @@ export function PoemDetailPage({ poemId }: PoemDetailPageProps) {
 				isLiked={isLiked}
 				onToggleLike={() => toggleFavorite(poemId)}
 			/>
+			<KeyboardShortcutsDialog />
 			</main>
 		</ErrorBoundary>
 	);
