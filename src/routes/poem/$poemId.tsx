@@ -42,11 +42,18 @@ function PostComponent() {
 	const isLiked = isFavorite(poemId);
 
 	return (
-		<main className={`h-screen pt-10 pb-16 ${isReadingMode ? 'grid place-items-center' : 'grid md:grid-cols-3 gap-4 md:gap-20'} px-4 sm:px-6 lg:px-8 relative transition-all duration-300`}>
+		<main className={cn(
+			"h-screen pt-10 pb-20 px-4 sm:px-6 lg:px-8 relative transition-all duration-500",
+			isReadingMode 
+				? "grid place-items-center bg-gradient-to-b from-background to-muted/20" 
+				: "grid md:grid-cols-3 gap-4 md:gap-20"
+		)}>
 			{!isReadingMode && <NavigationAside />}
 
-			{/* isReadingMode ? 'max-w-3xl w-full' : '' */}
-			<div className={cn("max-w-3xl w-full h-full")}>
+			<div className={cn(
+				"h-full overflow-y-auto",
+				isReadingMode && "max-w-3xl w-full scroll-smooth"
+			)}>
 				<PoemSection poem={poem} highlightedVersesIds={openFigure?.verseIds} />
 			</div>
 
@@ -58,12 +65,13 @@ function PostComponent() {
 				/>
 			)}
 
-			<div className="fixed border border-ring bottom-4 right-1/2 translate-x-1/2 flex gap-1 rounded-lg p-0.5">
+			<div className="fixed bottom-4 right-1/2 translate-x-1/2 flex gap-2 backdrop-blur-sm bg-background/80 border border-border rounded-xl p-1 shadow-lg">
 				<Tooltip label={isReadingMode ? "Salir del modo lectura" : "Activar modo lectura"}>
-				<Button size={"icon"}
-					type="button" variant={"ghost"}
+				<Button 
+					size={"icon"} 
+					variant={"ghost"}
 					onClick={() => setIsReadingMode(!isReadingMode)}
-					aria-label={isReadingMode ? "Salir del modo lectura" : "Activar modo lectura"}
+ 					aria-label={isReadingMode ? "Salir del modo lectura" : "Activar modo lectura"}
 				>
 					{isReadingMode ? (
 						<BookOpenCheck className="size-4" />
