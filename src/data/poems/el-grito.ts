@@ -71,7 +71,7 @@ export const elGrito: Poem = {
 			verseIds: ["6-v5", "6-v6"],
 		},
 		{
-			id: "oxímoron",
+			id: "oximoron",
 			contextualDescription:
 				"'Arco iris negro' une dos conceptos contradictorios: el arco iris es cromático y luminoso, pero aquí es negro, símbolo de luto y tragedia.",
 			verseIds: ["6-v5"],

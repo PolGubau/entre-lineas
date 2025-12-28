@@ -61,16 +61,16 @@ function TooltipContent({
 type TooltipProps = {
 	children: React.ReactNode;
 	label: React.ReactNode;
+	asChild?: boolean;
 } & React.ComponentProps<typeof TooltipPrimitive.Root>;
 
-function Tooltip({ children, label, ...rest }: TooltipProps) {
+function Tooltip({ children, label, asChild, ...rest }: TooltipProps) {
 	return (
 		<TooltipRoot {...rest}>
-			<TooltipTrigger>{children}</TooltipTrigger>
+			<TooltipTrigger asChild={asChild}>{children}</TooltipTrigger>
 			<TooltipContent>{label}</TooltipContent>
 		</TooltipRoot>
 	);
 }
 
 export { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger };
-

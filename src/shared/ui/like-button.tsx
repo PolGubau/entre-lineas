@@ -3,6 +3,7 @@
 import { motion } from "motion/react";
 import { useRef, useState } from "react";
 import { Button } from "./button";
+import { Kbd } from "./kbd";
 import { Tooltip } from "./tooltip";
 
 const CircleAnimation = () => {
@@ -178,7 +179,12 @@ export const LikeButton = ({
 
 	return (
 		<Tooltip
-			label={externalIsLiked ? "Quitar de favoritos" : "Agregar a favoritos"}
+			label={
+				<span className="flex items-center gap-2">
+					{externalIsLiked ? "Quitar de favoritos" : "Agregar a favoritos"}
+					<Kbd>F</Kbd>
+				</span>
+			}
 		>
 			<Button
 				variant={"ghost"}

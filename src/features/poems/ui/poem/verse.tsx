@@ -44,11 +44,16 @@ function MightContainAnnotations({
 }) {
 	if (!annotations)
 		return (
-			<span className="px-2 border border-transparent rounded-lg">{text}</span>
+			<span className="px-2 border border-transparent rounded-lg text-left">
+				{text}
+			</span>
 		);
 	return (
-		<Tooltip label={<div className="max-w-xs space-y-1">{annotations}</div>}>
-			<span className="px-2 border border-border rounded-lg cursor-help">
+		<Tooltip
+			label={<div className="max-w-xs space-y-1 ">{annotations}</div>}
+			asChild
+		>
+			<span className="px-2 border border-border rounded-lg cursor-help text-left justify-start">
 				{text}
 			</span>
 		</Tooltip>

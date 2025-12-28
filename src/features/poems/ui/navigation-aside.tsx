@@ -1,7 +1,9 @@
 import { Link } from "@tanstack/react-router";
 import { useMemo, useState } from "react";
+import { cn } from "~/shared/lib/utils";
 import { Input } from "~/shared/ui/input";
 import { usePoems } from "../application/use-poems";
+
 
 export const NavigationAside = () => {
 	const [searchQuery, setSearchQuery] = useState("");
@@ -21,7 +23,7 @@ export const NavigationAside = () => {
 			<ul className="mt-4 space-y-2 max-md:hidden">
 				<Input
 					type="search"
-					className="w-fit min-w-sm py-1.5 px-3 rounded-lg"
+					className="w-full py-1.5 px-3 rounded-lg max-w-sm"
 					value={searchQuery}
 					onChange={(e) => setSearchQuery(e.target.value)}
 					placeholder="Buscar poemas..."
@@ -32,10 +34,15 @@ export const NavigationAside = () => {
 							<Link
 								to="/poem/$poemId"
 								params={{ poemId: p.id }}
-								className="hover:underline flex flex-col"
+								activeProps={{
+									className: "border-l-accent pl-2",
+								}}
+								className={cn(
+									"hover:underline flex flex-col border-l border-transparent transition-all",
+								)}
 							>
-								<span className="text-sm">{p.title}</span>
-								<small className="text-xs text-muted-foreground">
+								<span className="text-sm text-balance">{p.title}</span>
+								<small className="text-xs text-muted-foreground text-pretty">
 									{p.author}
 								</small>
 							</Link>

@@ -1,5 +1,6 @@
 import { BookOpen, BookOpenCheck } from "lucide-react";
 import { Button } from "~/shared/ui/button";
+import { Kbd } from "~/shared/ui/kbd";
 import { Tooltip } from "~/shared/ui/tooltip";
 
 interface ReadingModeToggleProps {
@@ -14,7 +15,10 @@ export function ReadingModeToggle({
 	return (
 		<Tooltip
 			label={
-				isReadingMode ? "Salir del modo lectura" : "Activar modo lectura"
+				<span className="flex items-center gap-2">
+					{isReadingMode ? "Salir del modo lectura" : "Activar modo lectura"}
+					<Kbd>R</Kbd>
+				</span>
 			}
 		>
 			<Button

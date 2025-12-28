@@ -10,6 +10,7 @@ import { PoemSection } from "~/features/poems/ui/poem/poem";
 import { PoemSummaryAside } from "~/features/poems/ui/summary-aside";
 import { useKeyboardShortcuts } from "~/shared/hooks/use-keyboard-shortcuts";
 import { cn } from "~/shared/lib/utils";
+import { Drawer } from "~/shared/ui/drawer";
 import { ErrorBoundary } from "~/shared/ui/error-boundary";
 import { Spinner } from "~/shared/ui/spinner";
 import { FloatingActionBar } from "../components/floating-action-bar";
@@ -24,9 +25,14 @@ export function PoemDetailPage({ poemId }: PoemDetailPageProps) {
 	const [openFigure, setOpenFigure] = useState<FiguraRetoricaEnPoem | null>(
 		null,
 	);
+	const [isDrawerOpen, setIsDrawerOpen] = useState(false);
+	function toggleInfoDrawer() {
+		setIsDrawerOpen((prev) => !prev);
+	}
 
 	const navigate = useNavigate();
-	const { isReadingMode, toggleReadingMode, disableReadingMode } = useReadingMode();
+	const { isReadingMode, toggleReadingMode, disableReadingMode } =
+		useReadingMode();
 	const { poem, isLoading, error } = usePoemById(poemId);
 	const { isFavorite, toggleFavorite } = useFavorites();
 
@@ -48,6 +54,11 @@ export function PoemDetailPage({ poemId }: PoemDetailPageProps) {
 			description: "Toggle favorito",
 			shortcut: { key: "f" },
 		},
+		i: {
+			handler: toggleInfoDrawer,
+			description: "Ver análisis",
+			shortcut: { key: "i" },
+		},
 		r: {
 			handler: toggleReadingMode,
 			description: "Toggle modo lectura",
@@ -57,7 +68,10 @@ export function PoemDetailPage({ poemId }: PoemDetailPageProps) {
 			handler: () => {
 				const currentIndex = poemasData.findIndex((p) => p.id === poemId);
 				if (currentIndex > 0) {
-					navigate({ to: "/poem/$poemId", params: { poemId: poemasData[currentIndex - 1].id } });
+					navigate({
+						to: "/poem/$poemId",
+						params: { poemId: poemasData[currentIndex - 1].id },
+					});
 				}
 			},
 			description: "Poema anterior",
@@ -67,7 +81,10 @@ export function PoemDetailPage({ poemId }: PoemDetailPageProps) {
 			handler: () => {
 				const currentIndex = poemasData.findIndex((p) => p.id === poemId);
 				if (currentIndex < poemasData.length - 1) {
-					navigate({ to: "/poem/$poemId", params: { poemId: poemasData[currentIndex + 1].id } });
+					navigate({
+						to: "/poem/$poemId",
+						params: { poemId: poemasData[currentIndex + 1].id },
+					});
 				}
 			},
 			description: "Poema siguiente",
@@ -86,10 +103,7 @@ export function PoemDetailPage({ poemId }: PoemDetailPageProps) {
 
 	if (error || !poem) {
 		return (
-			<PoemNotFound
-				poemId={poemId}
-				onRetry={() => window.location.reload()}
-			/>
+			<PoemNotFound poemId={poemId} onRetry={() => window.location.reload()} />
 		);
 	}
 
@@ -100,37 +114,60 @@ export function PoemDetailPage({ poemId }: PoemDetailPageProps) {
 			<main
 				className={cn(
 					"h-screen pt-10 pb-20 px-4 sm:px-6 lg:px-8 relative transition-all duration-500",
-					isReadingMode
-						? "grid place-items-center bg-linear-to-b from-background to-muted/20"
-						: "grid md:grid-cols-3 gap-4 md:gap-20",
+					{
+						"grid place-items-center bg-linear-to-b from-background to-muted-foreground/20":
+							isReadingMode,
+						"grid grid-rows-[auto_1fr] md:grid-cols-[1fr_2fr] lg:grid-cols-3 gap-4 md:gap-6 xl:gap-20":
+							!isReadingMode,
+					},
 				)}
 			>
-			{!isReadingMode && <NavigationAside />}
+				{!isReadingMode && <NavigationAside />}
 
-			<div
-				className={cn(
-					"h-full overflow-y-auto",
-					isReadingMode && "max-w-3xl w-full scroll-smooth",
+				<section
+					className={cn("h-full overflow-y-auto", {
+						"max-w-3xl w-full scroll-smooth": isReadingMode,
+					})}
+				>
+					<PoemSection
+						poem={poem}
+						highlightedVersesIds={openFigure?.verseIds}
+					/>
+				</section>
+
+				{/* Desktop: sidebar */}
+				{!isReadingMode && (
+					<aside className="hidden lg:block overflow-y-auto h-full">
+						<PoemSummaryAside
+							openFigure={openFigure}
+							poem={poem}
+							setOpenFigure={setOpenFigure}
+						/>
+					</aside>
 				)}
-			>
-				<PoemSection poem={poem} highlightedVersesIds={openFigure?.verseIds} />
-			</div>
 
-			{!isReadingMode && (
-				<PoemSummaryAside
-					openFigure={openFigure}
-					poem={poem}
-					setOpenFigure={setOpenFigure}
+				{/* Mobile: drawer */}
+				<Drawer
+					open={isDrawerOpen}
+					onClose={() => setIsDrawerOpen(false)}
+					title="Análisis del poema"
+					description={poem.title}
+				>
+					<PoemSummaryAside
+						openFigure={openFigure}
+						poem={poem}
+						setOpenFigure={setOpenFigure}
+					/>
+				</Drawer>
+
+				<FloatingActionBar
+					isReadingMode={isReadingMode}
+					onToggleReadingMode={toggleReadingMode}
+					isLiked={isLiked}
+					onToggleLike={() => toggleFavorite(poemId)}
+					onOpenAnalysis={() => setIsDrawerOpen(true)}
 				/>
-			)}
-
-			<FloatingActionBar
-				isReadingMode={isReadingMode}
-				onToggleReadingMode={toggleReadingMode}
-				isLiked={isLiked}
-				onToggleLike={() => toggleFavorite(poemId)}
-			/>
-			<KeyboardShortcutsDialog />
+				<KeyboardShortcutsDialog />
 			</main>
 		</ErrorBoundary>
 	);
