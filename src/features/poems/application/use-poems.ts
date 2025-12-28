@@ -17,13 +17,14 @@ export interface PoemsFilters {
  */
 export function usePoems(filters?: PoemsFilters, favoriteIds?: string[]) {
 	return useQuery<Poem[]>({
+		...poemsQueryOptions.all(),
 		queryKey: ["poems", "filtered", filters, favoriteIds],
 		queryFn: async () => {
 			let poems = await poemsQueryOptions.all().queryFn();
 
 			// Ordenar favoritos primero si hay favoritos
 			if (favoriteIds && favoriteIds.length > 0) {
-				poems = poems.sort((a, b) => {
+				poems = [...poems].sort((a, b) => {
 					const aIsFavorite = favoriteIds.includes(a.id);
 					const bIsFavorite = favoriteIds.includes(b.id);
 					if (aIsFavorite && !bIsFavorite) return -1;
@@ -34,10 +35,11 @@ export function usePoems(filters?: PoemsFilters, favoriteIds?: string[]) {
 
 			if (!filters) return poems;
 
+			const searchLower = filters.search?.toLowerCase();
+
 			return poems.filter((poem: Poem) => {
 				// Filtro de búsqueda general
-				if (filters.search) {
-					const searchLower = filters.search.toLowerCase();
+				if (searchLower) {
 					const matchesTitle = poem.title.toLowerCase().includes(searchLower);
 					const matchesAuthor = poem.author.toLowerCase().includes(searchLower);
 					const matchesTematica = poem.analysis.themes.some((t: string) =>

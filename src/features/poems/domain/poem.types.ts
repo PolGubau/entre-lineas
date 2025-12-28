@@ -12,6 +12,7 @@ export const FiguraRetoricaTipoSchema = z.enum([
 	"antitesis",
 	"encabalgamiento",
 	"oximoron",
+	"oxímoron",
 	"sinestesia",
 	"metonimia",
 	"sinecdoque",
@@ -23,6 +24,9 @@ export const FiguraRetoricaTipoSchema = z.enum([
 	"simbolismo",
 	"alegoria",
 	"epifora",
+	"paralelismo",
+	"imagen-visual",
+	"estribillo",
 ]);
 
 export type FiguraRetoricaTipo = z.infer<typeof FiguraRetoricaTipoSchema>;
@@ -68,9 +72,9 @@ export const EstrofaSchema = z.object({
 	type: z
 		.enum([
 			"pareado",
-			"estribillo",
 			"terceto",
 			"cuarteto",
+			"estribillo",
 			"copla",
 			"cuarteta",
 			"quinteto",
@@ -79,6 +83,7 @@ export const EstrofaSchema = z.object({
 			"octava",
 			"decima",
 			"soneto",
+			"verso aislado",
 			"libre",
 		])
 		.optional(),
