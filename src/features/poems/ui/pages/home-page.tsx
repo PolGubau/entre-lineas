@@ -1,19 +1,31 @@
 import { useRef } from "react";
 import { useFavorites } from "~/features/poems/application/use-favorites";
+import { useFilters } from "~/features/poems/application/use-filters";
 import { usePoems } from "~/features/poems/application/use-poems";
-import { useSearch } from "~/features/poems/application/use-search";
-import { useKeyboardShortcuts } from "~/shared/hooks/use-keyboard-shortcuts";
 import { EmptyPoems } from "~/features/poems/ui/empty-poems";
+import { useKeyboardShortcuts } from "~/shared/hooks/use-keyboard-shortcuts";
 import { HomeHero } from "../components/home-hero";
+import { KeyboardShortcutsDialog } from "../components/keyboard-shortcuts-dialog";
 import { LoadingState } from "../components/loading-state";
 import { PoemGrid } from "../components/poem-grid";
-import { KeyboardShortcutsDialog } from "../components/keyboard-shortcuts-dialog";
 
+/**
+ * Página principal de la aplicación
+ * Muestra el grid de poemas con filtros y búsqueda
+ */
 export function HomePage() {
-	const { searchQuery, setSearchQuery, filters } = useSearch();
+	const searchInputRef = useRef<HTMLInputElement>(null);
+	const {
+		searchQuery,
+		setSearchQuery,
+		selectedAuthor,
+		setSelectedAuthor,
+		clearFilters,
+		filters,
+	} = useFilters();
+
 	const { favorites, isFavorite } = useFavorites();
 	const { data: filteredPoems, isLoading } = usePoems(filters, favorites);
-	const searchInputRef = useRef<HTMLInputElement>(null);
 
 	// Keyboard shortcuts
 	useKeyboardShortcuts({
@@ -24,12 +36,12 @@ export function HomePage() {
 		},
 		escape: {
 			handler: () => {
-				if (searchQuery) {
-					setSearchQuery("");
+				if (searchQuery || selectedAuthor) {
+					clearFilters();
 				}
 				searchInputRef.current?.blur();
 			},
-			description: "Limpiar búsqueda",
+			description: "Limpiar filtros",
 			shortcut: { key: "Escape" },
 		},
 	});
@@ -39,22 +51,20 @@ export function HomePage() {
 			<HomeHero
 				searchQuery={searchQuery}
 				onSearchChange={setSearchQuery}
+				selectedAuthor={selectedAuthor}
+				onAuthorChange={setSelectedAuthor}
 				searchInputRef={searchInputRef}
 			/>
 
 			<section className="h-full pb-16 overflow-y-auto">
 				{isLoading ? (
 					<LoadingState />
+				) : filteredPoems && filteredPoems.length > 0 ? (
+					<PoemGrid poems={filteredPoems} isFavorite={isFavorite} />
 				) : (
-					<>
-						{filteredPoems && filteredPoems.length > 0 ? (
-							<PoemGrid poems={filteredPoems} isFavorite={isFavorite} />
-						) : (
-							<div className="grid items-center justify-center h-full">
-								<EmptyPoems setSearchQuery={setSearchQuery} />
-							</div>
-						)}
-					</>
+					<div className="grid items-center justify-center h-full">
+						<EmptyPoems onClearFilters={clearFilters} />
+					</div>
 				)}
 			</section>
 			<KeyboardShortcutsDialog />

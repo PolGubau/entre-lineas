@@ -1,4 +1,4 @@
-import { Search, Trash, Home } from "lucide-react";
+import { Home, Search, Trash } from "lucide-react";
 import { Button } from "~/shared/ui/button";
 import {
 	Empty,
@@ -10,9 +10,14 @@ import {
 } from "~/shared/ui/empty";
 
 type EmptyProps = {
-	setSearchQuery: (query: string) => void;
+	onClearFilters: () => void;
 };
-export const EmptyPoems = ({ setSearchQuery }: EmptyProps) => {
+
+/**
+ * Estado vacío cuando no hay resultados de búsqueda
+ * Incluye sugerencias y acciones para limpiar filtros
+ */
+export const EmptyPoems = ({ onClearFilters }: EmptyProps) => {
 	return (
 		<Empty>
 			<EmptyHeader>
@@ -27,9 +32,9 @@ export const EmptyPoems = ({ setSearchQuery }: EmptyProps) => {
 			</EmptyHeader>
 			<EmptyContent>
 				<div className="flex flex-col sm:flex-row gap-3">
-					<Button onClick={() => setSearchQuery("")}>
+					<Button onClick={onClearFilters}>
 						<Trash />
-						Limpiar búsqueda
+						Limpiar filtros
 					</Button>
 					<Button variant="outline" asChild>
 						<a href="/">

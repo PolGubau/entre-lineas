@@ -1,14 +1,25 @@
-import { Search } from "lucide-react";
 import type { RefObject } from "react";
-import { Input } from "~/shared/ui/input";
+import { Filters } from "./filters";
 
 interface HomeHeroProps {
 	searchQuery: string;
 	onSearchChange: (value: string) => void;
+	selectedAuthor: string | null;
+	onAuthorChange: (value: string | null) => void;
 	searchInputRef?: RefObject<HTMLInputElement | null>;
 }
 
-export function HomeHero({ searchQuery, onSearchChange, searchInputRef }: HomeHeroProps) {
+/**
+ * Hero section de la página principal
+ * Contiene título, descripción y filtros
+ */
+export function HomeHero({
+	searchQuery,
+	onSearchChange,
+	selectedAuthor,
+	onAuthorChange,
+	searchInputRef,
+}: HomeHeroProps) {
 	return (
 		<aside className="space-y-4 md:space-y-8 overflow-y-auto">
 			<header className="space-y-2 md:space-y-6">
@@ -20,13 +31,12 @@ export function HomeHero({ searchQuery, onSearchChange, searchInputRef }: HomeHe
 					cada verso
 				</p>
 			</header>
-			<Input
-				type="search"
-        ref={searchInputRef}
-				icon={<Search className="size-5 text-muted-foreground" />}
-				placeholder="Buscar por título, autor o tema..."
-				value={searchQuery}
-				onChange={(e) => onSearchChange(e.target.value)}
+			<Filters
+				searchQuery={searchQuery}
+				onSearchChange={onSearchChange}
+				selectedAuthor={selectedAuthor}
+				onAuthorChange={onAuthorChange}
+				searchInputRef={searchInputRef}
 			/>
 		</aside>
 	);
