@@ -7,10 +7,11 @@ import {
 	Scripts,
 } from "@tanstack/react-router";
 import { TanStackRouterDevtoolsPanel } from "@tanstack/react-router-devtools";
-import appCss from "../app/styles.css?url";
-import TanStackQueryDevtools from "../integrations/tanstack-query/devtools";
 import { generateHomeSEO, generateSEOTags } from "~/shared/lib/seo";
 import { ErrorBoundary } from "~/shared/ui/error-boundary";
+import { Toaster } from "~/shared/ui/sonner";
+import appCss from "../app/styles.css?url";
+import TanStackQueryDevtools from "../integrations/tanstack-query/devtools";
 
 interface MyRouterContext {
 	queryClient: QueryClient;
@@ -52,6 +53,7 @@ function RootDocument({ children }: { children: React.ReactNode }) {
 				<HeadContent />
 			</head>
 			<body className="min-h-screen relative bg-background text-foreground overflow-hidden">
+				<Toaster />
 				{children}
 				<TanStackDevtools
 					config={{

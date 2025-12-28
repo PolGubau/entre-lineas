@@ -4,6 +4,7 @@ import { poemasData } from "~/data/poems.data";
 import { useFavorites } from "~/features/poems/application/use-favorites";
 import { usePoemById } from "~/features/poems/application/use-poem-by-id";
 import { useReadingMode } from "~/features/poems/application/use-reading-mode";
+import { useShare } from "~/features/poems/application/use-share";
 import type { FiguraRetoricaEnPoem } from "~/features/poems/domain/poem.types";
 import { NavigationAside } from "~/features/poems/ui/navigation-aside";
 import { PoemSection } from "~/features/poems/ui/poem/poem";
@@ -35,6 +36,35 @@ export function PoemDetailPage({ poemId }: PoemDetailPageProps) {
 		useReadingMode();
 	const { poem, isLoading, error } = usePoemById(poemId);
 	const { isFavorite, toggleFavorite } = useFavorites();
+	const { share } = useShare();
+
+	const handleShare = () => {
+		if (!poem) return;
+		share({
+			title: poem.title,
+			text: `${poem.title} - ${poem.author}`,
+			url: window.location.href,
+		});
+	};
+
+	function goNext() {
+		const currentIndex = poemasData.findIndex((p) => p.id === poemId);
+		if (currentIndex < poemasData.length - 1) {
+			navigate({
+				to: "/poem/$poemId",
+				params: { poemId: poemasData[currentIndex + 1].id },
+			});
+		}
+	}
+	function goPrevious() {
+		const currentIndex = poemasData.findIndex((p) => p.id === poemId);
+		if (currentIndex > 0) {
+			navigate({
+				to: "/poem/$poemId",
+				params: { poemId: poemasData[currentIndex - 1].id },
+			});
+		}
+	}
 
 	// Keyboard shortcuts
 	useKeyboardShortcuts({
@@ -59,34 +89,23 @@ export function PoemDetailPage({ poemId }: PoemDetailPageProps) {
 			description: "Ver análisis",
 			shortcut: { key: "i" },
 		},
+		s: {
+			handler: handleShare,
+			description: "Compartir poema",
+			shortcut: { key: "s" },
+		},
 		r: {
 			handler: toggleReadingMode,
 			description: "Toggle modo lectura",
 			shortcut: { key: "r" },
 		},
 		arrowLeft: {
-			handler: () => {
-				const currentIndex = poemasData.findIndex((p) => p.id === poemId);
-				if (currentIndex > 0) {
-					navigate({
-						to: "/poem/$poemId",
-						params: { poemId: poemasData[currentIndex - 1].id },
-					});
-				}
-			},
+			handler: goPrevious,
 			description: "Poema anterior",
 			shortcut: { key: "ArrowLeft" },
 		},
 		arrowRight: {
-			handler: () => {
-				const currentIndex = poemasData.findIndex((p) => p.id === poemId);
-				if (currentIndex < poemasData.length - 1) {
-					navigate({
-						to: "/poem/$poemId",
-						params: { poemId: poemasData[currentIndex + 1].id },
-					});
-				}
-			},
+			handler: goNext,
 			description: "Poema siguiente",
 			shortcut: { key: "ArrowRight" },
 		},
@@ -137,7 +156,7 @@ export function PoemDetailPage({ poemId }: PoemDetailPageProps) {
 
 				{/* Desktop: sidebar */}
 				{!isReadingMode && (
-					<aside className="hidden lg:block overflow-y-auto h-full">
+					<aside className="hidden lg:block overflow-y-auto h-full animate-in slide-in-from-right-4">
 						<PoemSummaryAside
 							openFigure={openFigure}
 							poem={poem}
@@ -161,11 +180,14 @@ export function PoemDetailPage({ poemId }: PoemDetailPageProps) {
 				</Drawer>
 
 				<FloatingActionBar
+					goNext={goNext}
+					goPrevious={goPrevious}
 					isReadingMode={isReadingMode}
 					onToggleReadingMode={toggleReadingMode}
 					isLiked={isLiked}
 					onToggleLike={() => toggleFavorite(poemId)}
 					onOpenAnalysis={() => setIsDrawerOpen(true)}
+					onShare={handleShare}
 				/>
 				<KeyboardShortcutsDialog />
 			</main>

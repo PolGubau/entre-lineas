@@ -1,4 +1,4 @@
-import { Info } from "lucide-react";
+import { ArrowLeft, ArrowRight, Info, Share2 } from "lucide-react";
 import { Button } from "~/shared/ui/button";
 import { Kbd } from "~/shared/ui/kbd";
 import { LikeButton } from "~/shared/ui/like-button";
@@ -10,7 +10,10 @@ interface FloatingActionBarProps {
 	onToggleReadingMode: () => void;
 	isLiked: boolean;
 	onToggleLike: () => void;
-	onOpenAnalysis?: () => void;
+	onOpenAnalysis: () => void;
+	onShare: () => void;
+	goNext: () => void;
+	goPrevious: () => void;
 }
 
 export function FloatingActionBar({
@@ -19,15 +22,53 @@ export function FloatingActionBar({
 	isLiked,
 	onToggleLike,
 	onOpenAnalysis,
+	onShare,
+	goNext,
+	goPrevious,
 }: FloatingActionBarProps) {
 	return (
-		<footer className="fixed bottom-4 right-1/2 translate-x-1/2 flex gap-2 backdrop-blur-sm bg-background/80 border border-border rounded-xl p-1 shadow-lg">
+		<footer className="fixed bottom-4 right-1/2 translate-x-1/2 flex gap-2 backdrop-blur-sm bg-background/80 border border-border rounded-xl p-1 shadow-lg animate-in slide-in-from-bottom">
+			<Tooltip
+				label={
+					<span className="flex items-center gap-2">
+						Ir al poema anterior
+						<Kbd>←</Kbd>
+					</span>
+				}
+			>
+				<Button
+					size="icon"
+					variant="ghost"
+					onClick={goPrevious}
+					aria-label="Poema anterior"
+				>
+					<ArrowLeft className="size-4" />
+				</Button>
+			</Tooltip>
 			<ReadingModeToggle
 				isReadingMode={isReadingMode}
 				onToggle={onToggleReadingMode}
 			/>
 			<LikeButton isLiked={isLiked} onToggle={onToggleLike} />
-			{onOpenAnalysis && (
+			<Tooltip
+				label={
+					<span className="flex items-center gap-2">
+						Compartir
+						<Kbd>S</Kbd>
+					</span>
+				}
+			>
+				<Button
+					size="icon"
+					variant="ghost"
+					onClick={onShare}
+					aria-label="Compartir poema"
+				>
+					<Share2 className="size-4" />
+				</Button>
+			</Tooltip>
+
+			<div className="lg:hidden">
 				<Tooltip
 					label={
 						<span className="flex items-center gap-2">
@@ -40,13 +81,30 @@ export function FloatingActionBar({
 						size="icon"
 						variant="ghost"
 						onClick={onOpenAnalysis}
-						className="lg:hidden"
 						aria-label="Ver análisis"
 					>
 						<Info className="size-4" />
 					</Button>
 				</Tooltip>
-			)}
+			</div>
+
+			<Tooltip
+				label={
+					<span className="flex items-center gap-2">
+						Ir al poema siguiente
+						<Kbd>→</Kbd>
+					</span>
+				}
+			>
+				<Button
+					size="icon"
+					variant="ghost"
+					onClick={goNext}
+					aria-label="Poema siguiente"
+				>
+					<ArrowRight className="size-4" />
+				</Button>
+			</Tooltip>
 		</footer>
 	);
 }
