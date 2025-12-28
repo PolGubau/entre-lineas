@@ -48,16 +48,10 @@ export const baladillaTresRios: Poem = {
 
 	rhetoricalFigures: [
 		{
-			id: "simbolismo",
-			contextualDescription:
-				"Los ríos simbolizan estados vitales y emocionales: plenitud frente a dolor, vida frente a herida.",
-			verseIds: ["v1", "v3", "v9", "v25"],
-		},
-		{
 			id: "alegoria",
 			contextualDescription:
-				"La geografía andaluza se convierte en una alegoría del destino humano y del fluir del amor.",
-			verseIds: ["v1", "v14", "v25"],
+				"La geografía andaluza se convierte en una alegoría del destino humano y del fluir del amor. Los ríos simbolizan estados vitales y emocionales.",
+			verseIds: ["v1", "v3", "v9", "v14", "v25"],
 		},
 		{
 			id: "personificacion",

@@ -12,17 +12,11 @@ import { PoemGrid } from "../components/poem-grid";
 /**
  * Página principal de la aplicación
  * Muestra el grid de poemas con filtros y búsqueda
+ * Los filtros se sincronizan automáticamente con la URL
  */
 export function HomePage() {
 	const searchInputRef = useRef<HTMLInputElement>(null);
-	const {
-		searchQuery,
-		setSearchQuery,
-		selectedAuthor,
-		setSelectedAuthor,
-		clearFilters,
-		filters,
-	} = useFilters();
+	const { clearFilters, filters, hasActiveFilters } = useFilters();
 
 	const { favorites, isFavorite } = useFavorites();
 	const { data: filteredPoems, isLoading } = usePoems(filters, favorites);
@@ -36,7 +30,7 @@ export function HomePage() {
 		},
 		escape: {
 			handler: () => {
-				if (searchQuery || selectedAuthor) {
+				if (hasActiveFilters) {
 					clearFilters();
 				}
 				searchInputRef.current?.blur();
@@ -47,14 +41,8 @@ export function HomePage() {
 	});
 
 	return (
-		<section className="relative grid md:grid-cols-[1fr_3fr] gap-10 md:gap-6 px-3 sm:px-6 lg:px-8 pt-6 md:pt-10 h-screen">
-			<HomeHero
-				searchQuery={searchQuery}
-				onSearchChange={setSearchQuery}
-				selectedAuthor={selectedAuthor}
-				onAuthorChange={setSelectedAuthor}
-				searchInputRef={searchInputRef}
-			/>
+		<section className="relative grid md:grid-cols-[1fr_3fr] gap-2 md:gap-6 px-3 sm:px-6 lg:px-8 pt-6 md:pt-10 h-screen">
+			<HomeHero searchInputRef={searchInputRef} />
 
 			<section className="h-full pb-16 overflow-y-auto">
 				{isLoading ? (
@@ -63,7 +51,7 @@ export function HomePage() {
 					<PoemGrid poems={filteredPoems} isFavorite={isFavorite} />
 				) : (
 					<div className="grid items-center justify-center h-full">
-						<EmptyPoems onClearFilters={clearFilters} />
+						<EmptyPoems />
 					</div>
 				)}
 			</section>

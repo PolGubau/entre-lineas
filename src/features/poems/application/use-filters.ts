@@ -1,19 +1,54 @@
-import { useMemo, useState } from "react";
+import { useNavigate, useSearch } from "@tanstack/react-router";
+import { useMemo } from "react";
 import { useDebounce } from "~/shared/hooks/useDebounce";
 import type { PoemsFilters } from "./use-poems";
 
 /**
  * Hook centralizado para manejar todos los filtros de poemas
+ * Usa search params de TanStack Router para mantener estado en la URL
  * Maneja búsqueda, autor, movimiento, era y temáticas
  */
 export function useFilters(debounceMs = 200) {
-	const [searchQuery, setSearchQuery] = useState("");
-	const [selectedAuthor, setSelectedAuthor] = useState<string | null>(null);
-	const [selectedMovement, setSelectedMovement] = useState<string | null>(null);
-	const [selectedEra, setSelectedEra] = useState<string | null>(null);
-	const [selectedThemes, setSelectedThemes] = useState<string[]>([]);
+	const navigate = useNavigate();
+	const searchParams = useSearch({ from: "/" });
+
+	// Leer valores desde search params
+	const searchQuery = (searchParams.q as string) ?? "";
+	const selectedAuthor = (searchParams.author as string) ?? null;
+	const selectedMovement = (searchParams.movement as string) ?? null;
+	const selectedEra = (searchParams.era as string) ?? null;
+	const selectedThemes = (searchParams.themes as string[]) ?? [];
 
 	const debouncedSearch = useDebounce(searchQuery, debounceMs);
+
+	// Helpers para actualizar search params
+	const updateSearchParams = (updates: Record<string, unknown>) => {
+		navigate({
+			to: "/",
+			search: (prev) => ({ ...prev, ...updates }),
+			replace: true,
+		});
+	};
+
+	const setSearchQuery = (q: string) => {
+		updateSearchParams({ q: q || undefined });
+	};
+
+	const setSelectedAuthor = (author: string | null) => {
+		updateSearchParams({ author: author || undefined });
+	};
+
+	const setSelectedMovement = (movement: string | null) => {
+		updateSearchParams({ movement: movement || undefined });
+	};
+
+	const setSelectedEra = (era: string | null) => {
+		updateSearchParams({ era: era || undefined });
+	};
+
+	const setSelectedThemes = (themes: string[]) => {
+		updateSearchParams({ themes: themes.length > 0 ? themes : undefined });
+	};
 
 	const filters: PoemsFilters | undefined = useMemo(() => {
 		const hasFilters =
@@ -41,11 +76,11 @@ export function useFilters(debounceMs = 200) {
 	]);
 
 	const clearFilters = () => {
-		setSearchQuery("");
-		setSelectedAuthor(null);
-		setSelectedMovement(null);
-		setSelectedEra(null);
-		setSelectedThemes([]);
+		navigate({
+			to: "/",
+			search: {},
+			replace: true,
+		});
 	};
 
 	const hasActiveFilters = !!(
@@ -57,7 +92,7 @@ export function useFilters(debounceMs = 200) {
 	);
 
 	return {
-		// Estado
+		// Estado (readonly, derivado de URL)
 		searchQuery,
 		selectedAuthor,
 		selectedMovement,
@@ -65,7 +100,7 @@ export function useFilters(debounceMs = 200) {
 		selectedThemes,
 		hasActiveFilters,
 
-		// Setters
+		// Setters (actualizan URL)
 		setSearchQuery,
 		setSelectedAuthor,
 		setSelectedMovement,

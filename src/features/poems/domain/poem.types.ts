@@ -12,7 +12,6 @@ export const FiguraRetoricaTipoSchema = z.enum([
 	"antitesis",
 	"encabalgamiento",
 	"oximoron",
-	"oxímoron",
 	"sinestesia",
 	"metonimia",
 	"sinecdoque",
@@ -21,12 +20,9 @@ export const FiguraRetoricaTipoSchema = z.enum([
 	"elipsis",
 	"polisindeton",
 	"asindeton",
-	"simbolismo",
 	"alegoria",
 	"epifora",
 	"paralelismo",
-	"imagen-visual",
-	"estribillo",
 ]);
 
 export type FiguraRetoricaTipo = z.infer<typeof FiguraRetoricaTipoSchema>;

@@ -74,12 +74,6 @@ export const laGuitarra: Poem = {
 			verseIds: ["v3", "v26"],
 		},
 		{
-			id: "simbolismo",
-			contextualDescription:
-				"La guitarra simboliza el cante jondo y el sufrimiento histórico de Andalucía.",
-			verseIds: ["v1", "v25", "v26"],
-		},
-		{
 			id: "apostrofe",
 			contextualDescription:
 				"Invocación directa a la guitarra como entidad viva y sagrada.",

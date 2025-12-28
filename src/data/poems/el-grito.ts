@@ -89,7 +89,7 @@ export const elGrito: Poem = {
 			verseIds: ["6-v10"],
 		},
 		{
-			id: "simbolismo",
+			id: "alegoria",
 			contextualDescription:
 				"Los olivos simbolizan Andalucía y su paisaje mítico; la noche azul representa el misterio y la profundidad emocional.",
 			verseIds: ["6-v4", "6-v6"],
@@ -101,13 +101,13 @@ export const elGrito: Poem = {
 			verseIds: ["6-v9", "6-v10"],
 		},
 		{
-			id: "imagen-visual",
+			id: "metafora",
 			contextualDescription:
 				"Las gentes de las cuevas asomando sus velones crea una imagen luminosa y ancestral del pueblo gitano respondiendo al grito.",
 			verseIds: ["6-v13", "6-v14"],
 		},
 		{
-			id: "estribillo",
+			id: "anafora",
 			contextualDescription:
 				"La interjección '¡Ay!' se repite tres veces como eco del grito primitivo del cante jondo, núcleo emocional del poema.",
 			verseIds: ["6-v7", "6-v11", "6-v15"],

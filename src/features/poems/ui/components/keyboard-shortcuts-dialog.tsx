@@ -1,6 +1,6 @@
 import { Keyboard } from "lucide-react";
 import { useState } from "react";
- 
+
 import { Button } from "~/shared/ui/button";
 import { Drawer } from "~/shared/ui/drawer";
 
@@ -60,23 +60,27 @@ export function KeyboardShortcutsDialog() {
 			return acc;
 		},
 		{} as Record<string, KeyboardShortcut[]>,
-  );
-  const [isOpen, setIsOpen] = useState(false);
+	);
+	const [isOpen, setIsOpen] = useState(false);
 
-  return (<>
-    <Button
-      variant="ghost" 
-      onClick={() => setIsOpen(true)}
-      aria-expanded={isOpen}
-      size="icon"
-      className="fixed bottom-4 left-4 md:bottom-6 md:left-6 bg-background/80 backdrop-blur-sm border border-border shadow-lg hover:bg-accent/50"
-      aria-label="Ver atajos de teclado"
-    >
-      <Keyboard className="size-4" />
-    </Button>
-    <Drawer title={"Atajos de teclado"} description={"Lista de atajos de teclado disponibles"} open={isOpen} onClose={() => setIsOpen(false)}>
-		 
- 				
+	return (
+		<>
+			<Button
+				variant="ghost"
+				onClick={() => setIsOpen(true)}
+				aria-expanded={isOpen}
+				size="icon"
+				className="fixed bottom-4 left-4 md:bottom-6 md:left-6 bg-background/80 backdrop-blur-sm border border-border shadow-lg hover:bg-accent/50 max-md:hidden"
+				aria-label="Ver atajos de teclado"
+			>
+				<Keyboard className="size-4" />
+			</Button>
+			<Drawer
+				title={"Atajos de teclado"}
+				description={"Lista de atajos de teclado disponibles"}
+				open={isOpen}
+				onClose={() => setIsOpen(false)}
+			>
 				<div className="space-y-6 py-4">
 					{Object.entries(groupedShortcuts).map(([context, items]) => (
 						<div key={context} className="space-y-3">
@@ -101,6 +105,7 @@ export function KeyboardShortcutsDialog() {
 						</div>
 					))}
 				</div>
- 		</Drawer></>
+			</Drawer>
+		</>
 	);
 }

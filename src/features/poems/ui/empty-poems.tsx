@@ -8,16 +8,16 @@ import {
 	EmptyMedia,
 	EmptyTitle,
 } from "~/shared/ui/empty";
-
-type EmptyProps = {
-	onClearFilters: () => void;
-};
+import { useFilters } from "../application/use-filters";
 
 /**
  * Estado vacío cuando no hay resultados de búsqueda
  * Incluye sugerencias y acciones para limpiar filtros
+ * Lee el estado de filtros directamente desde la URL
  */
-export const EmptyPoems = ({ onClearFilters }: EmptyProps) => {
+export const EmptyPoems = () => {
+	const { clearFilters } = useFilters();
+
 	return (
 		<Empty>
 			<EmptyHeader>
@@ -32,7 +32,7 @@ export const EmptyPoems = ({ onClearFilters }: EmptyProps) => {
 			</EmptyHeader>
 			<EmptyContent>
 				<div className="flex flex-col sm:flex-row gap-3">
-					<Button onClick={onClearFilters}>
+					<Button onClick={clearFilters}>
 						<Trash />
 						Limpiar filtros
 					</Button>
