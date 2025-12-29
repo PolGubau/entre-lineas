@@ -41,7 +41,7 @@ export function HomePage() {
 	});
 
 	return (
-		<section className="relative grid md:grid-cols-[1fr_3fr] gap-2 md:gap-6 px-3 sm:px-6 lg:px-8 pt-6 md:pt-10 h-screen">
+		<section className="relative grid grid-rows-[auto_1fr] md:grid-cols-[2fr_3fr] xl:grid-cols-[1fr_3fr] gap-2 md:gap-6 px-3 sm:px-6 lg:px-8 pt-6 md:pt-10 h-screen">
 			<HomeHero searchInputRef={searchInputRef} />
 
 			<section className="h-full pb-16 overflow-y-auto">

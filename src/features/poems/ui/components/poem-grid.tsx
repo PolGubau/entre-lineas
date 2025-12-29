@@ -8,7 +8,10 @@ interface PoemGridProps {
 
 export function PoemGrid({ poems, isFavorite }: PoemGridProps) {
 	return (
-		<ul className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3 md:gap-6">
+		<ul
+			className="grid grid-cols-[repeat(auto-fit,minmax(600px,1fr))] 
+		gap-3"
+		>
 			{poems.map((poem) => (
 				<PoemCard key={poem.id} poem={poem} isFavorite={isFavorite(poem.id)} />
 			))}

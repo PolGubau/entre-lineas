@@ -1,5 +1,5 @@
 import { useNavigate, useSearch } from "@tanstack/react-router";
-import { useMemo } from "react";
+import { useCallback, useMemo } from "react";
 import { useDebounce } from "~/shared/hooks/useDebounce";
 import type { PoemsFilters } from "./use-poems";
 
@@ -21,34 +21,52 @@ export function useFilters(debounceMs = 200) {
 
 	const debouncedSearch = useDebounce(searchQuery, debounceMs);
 
-	// Helpers para actualizar search params
-	const updateSearchParams = (updates: Record<string, unknown>) => {
-		navigate({
-			to: "/",
-			search: (prev) => ({ ...prev, ...updates }),
-			replace: true,
-		});
-	};
+	// Helpers para actualizar search params - memoizados
+	const updateSearchParams = useCallback(
+		(updates: Record<string, unknown>) => {
+			navigate({
+				to: "/",
+				search: (prev) => ({ ...prev, ...updates }),
+				replace: true,
+			});
+		},
+		[navigate],
+	);
 
-	const setSearchQuery = (q: string) => {
-		updateSearchParams({ q: q || undefined });
-	};
+	const setSearchQuery = useCallback(
+		(q: string) => {
+			updateSearchParams({ q: q || undefined });
+		},
+		[updateSearchParams],
+	);
 
-	const setSelectedAuthor = (author: string | null) => {
-		updateSearchParams({ author: author || undefined });
-	};
+	const setSelectedAuthor = useCallback(
+		(author: string | null) => {
+			updateSearchParams({ author: author || undefined });
+		},
+		[updateSearchParams],
+	);
 
-	const setSelectedMovement = (movement: string | null) => {
-		updateSearchParams({ movement: movement || undefined });
-	};
+	const setSelectedMovement = useCallback(
+		(movement: string | null) => {
+			updateSearchParams({ movement: movement || undefined });
+		},
+		[updateSearchParams],
+	);
 
-	const setSelectedEra = (era: string | null) => {
-		updateSearchParams({ era: era || undefined });
-	};
+	const setSelectedEra = useCallback(
+		(era: string | null) => {
+			updateSearchParams({ era: era || undefined });
+		},
+		[updateSearchParams],
+	);
 
-	const setSelectedThemes = (themes: string[]) => {
-		updateSearchParams({ themes: themes.length > 0 ? themes : undefined });
-	};
+	const setSelectedThemes = useCallback(
+		(themes: string[]) => {
+			updateSearchParams({ themes: themes.length > 0 ? themes : undefined });
+		},
+		[updateSearchParams],
+	);
 
 	const filters: PoemsFilters | undefined = useMemo(() => {
 		const hasFilters =
@@ -75,13 +93,13 @@ export function useFilters(debounceMs = 200) {
 		selectedThemes,
 	]);
 
-	const clearFilters = () => {
+	const clearFilters = useCallback(() => {
 		navigate({
 			to: "/",
 			search: {},
 			replace: true,
 		});
-	};
+	}, [navigate]);
 
 	const hasActiveFilters = !!(
 		searchQuery ||
