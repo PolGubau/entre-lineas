@@ -66,7 +66,7 @@ export const AdvancedFilters = memo(() => {
 						setSelectedAuthor(value === "all" ? null : value)
 					}
 				>
-					<SelectTrigger className="w-full">
+					<SelectTrigger className="w-full transition-all duration-200 hover:shadow-md hover:-translate-y-0.5">
 						<div className="flex items-center gap-2">
 							<User className="size-4 text-muted-foreground" />
 							<SelectValue placeholder="Todos los autores" />
@@ -89,7 +89,7 @@ export const AdvancedFilters = memo(() => {
 						setSelectedMovement(value === "all" ? null : value)
 					}
 				>
-					<SelectTrigger className="w-full">
+					<SelectTrigger className="w-full transition-all duration-200 hover:shadow-md hover:-translate-y-0.5">
 						<div className="flex items-center gap-2">
 							<Calendar className="size-4 text-muted-foreground" />
 							<SelectValue placeholder="Todos los movimientos" />
@@ -128,27 +128,29 @@ export const AdvancedFilters = memo(() => {
 				{/* Temáticas seleccionadas */}
 				{selectedThemes.length > 0 && (
 					<div className="flex flex-wrap gap-1.5">
-						{selectedThemes.map((theme) => (
+						{selectedThemes.map((theme, index) => (
 							<Badge
 								key={theme}
 								variant="default"
-								className="cursor-pointer hover:bg-primary/80"
+								className="cursor-pointer hover:bg-primary/80 transition-all duration-200 hover:scale-105 animate-in fade-in zoom-in fill-mode-both"
+								style={{ animationDelay: `${index * 50}ms` }}
 								onClick={() => toggleTheme(theme)}
 							>
 								{theme}
-								<X className="size-3 ml-1" />
+								<X className="size-3 ml-1 transition-transform duration-200 hover:rotate-90" />
 							</Badge>
 						))}
 					</div>
 				)}
 
 				{/* Grid de temáticas disponibles */}
-				<div className="flex flex-wrap gap-1.5 overflow-y-auto p-2 bg-muted/30 rounded-lg ">
-					{availableThemes.map((theme) => (
+				<div className="flex flex-wrap gap-1.5 overflow-y-auto p-2 bg-muted/30 rounded-lg">
+					{availableThemes.map((theme, index) => (
 						<Badge
 							key={theme}
 							variant="outline"
-							className="cursor-pointer hover:bg-accent"
+							className="cursor-pointer hover:bg-accent transition-all duration-200 hover:scale-105 hover:shadow-sm animate-in fade-in slide-in-from-bottom-1 fill-mode-both"
+							style={{ animationDelay: `${index * 30}ms` }}
 							onClick={() => toggleTheme(theme)}
 						>
 							{theme}

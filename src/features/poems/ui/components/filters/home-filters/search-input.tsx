@@ -25,13 +25,18 @@ export function SearchInput({ searchInputRef }: SearchInputProps) {
 	);
 
 	return (
-		<Input
-			type="search"
-			ref={searchInputRef}
-			icon={<Search className="size-5 text-muted-foreground" />}
-			placeholder="Buscar por título, autor o tema..."
-			value={localValue}
-			onChange={handleChange}
-		/>
+		<div className="animate-in fade-in slide-in-from-top-2 duration-300">
+			<Input
+				type="search"
+				ref={searchInputRef}
+				icon={
+					<Search className="size-5 text-muted-foreground transition-colors duration-200 group-focus-within:text-primary" />
+				}
+				placeholder="Buscar por título, autor o tema..."
+				value={localValue}
+				onChange={handleChange}
+				className="transition-all duration-200 hover:shadow-md focus:shadow-lg"
+			/>
+		</div>
 	);
 }
