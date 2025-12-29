@@ -14,6 +14,7 @@ interface FloatingActionBarProps {
 	onShare: () => void;
 	goNext: () => void;
 	goPrevious: () => void;
+	shareSuccess?: boolean;
 }
 
 export function FloatingActionBar({
@@ -25,6 +26,7 @@ export function FloatingActionBar({
 	onShare,
 	goNext,
 	goPrevious,
+	shareSuccess = false,
 }: FloatingActionBarProps) {
 	return (
 		<footer className="fixed bottom-4 right-1/2 translate-x-1/2 flex gap-2 backdrop-blur-sm bg-background/80 border border-border rounded-xl p-1 shadow-lg animate-in slide-in-from-bottom">
@@ -53,18 +55,22 @@ export function FloatingActionBar({
 			<Tooltip
 				label={
 					<span className="flex items-center gap-2">
-						Compartir
-						<Kbd>S</Kbd>
+						{shareSuccess ? "¡Enlace copiado!" : "Compartir"}
+						{!shareSuccess && <Kbd>S</Kbd>}
 					</span>
 				}
 			>
 				<Button
 					size="icon"
-					variant="ghost"
+					variant={shareSuccess ? "default" : "ghost"}
 					onClick={onShare}
 					aria-label="Compartir poema"
+					aria-live="polite"
+					className="transition-all duration-200"
 				>
-					<Share2 className="size-4" />
+					<Share2
+						className={shareSuccess ? "size-4 animate-in zoom-in" : "size-4"}
+					/>
 				</Button>
 			</Tooltip>
 

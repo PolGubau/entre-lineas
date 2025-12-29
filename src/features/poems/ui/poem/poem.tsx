@@ -4,9 +4,20 @@ import { Verse } from "./verse";
 type Props = {
 	poem: Poem;
 	highlightedVersesIds?: string[];
+	onVerseAnnotationClick?: (
+		verseNumber: number,
+		text: string,
+		annotation: string,
+	) => void;
+	isReadingMode?: boolean;
 };
 
-export const PoemSection = ({ poem, highlightedVersesIds }: Props) => {
+export const PoemSection = ({
+	poem,
+	highlightedVersesIds,
+	onVerseAnnotationClick,
+	isReadingMode = false,
+}: Props) => {
 	return (
 		<section className="space-y-14 poem overflow-y-auto h-full">
 			<header className="flex flex-col">
@@ -29,6 +40,8 @@ export const PoemSection = ({ poem, highlightedVersesIds }: Props) => {
 										text={verso.text}
 										isHighlighted={isHighlighted}
 										syllables={verso.syllables}
+										onAnnotationClick={onVerseAnnotationClick}
+										isReadingMode={isReadingMode}
 									/>
 								);
 							})}

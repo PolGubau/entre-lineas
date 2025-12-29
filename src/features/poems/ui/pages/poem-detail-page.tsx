@@ -1,3 +1,5 @@
+/** biome-ignore-all lint/suspicious/noArrayIndexKey: Static so ok */
+
 import { useNavigate } from "@tanstack/react-router";
 import { useState } from "react";
 import { poemasData } from "~/data/poems.data";
@@ -13,10 +15,10 @@ import { useKeyboardShortcuts } from "~/shared/hooks/use-keyboard-shortcuts";
 import { cn } from "~/shared/lib/utils";
 import { Drawer } from "~/shared/ui/drawer";
 import { ErrorBoundary } from "~/shared/ui/error-boundary";
-import { Spinner } from "~/shared/ui/spinner";
 import { FloatingActionBar } from "../components/floating-action-bar";
 import { KeyboardShortcutsDialog } from "../components/keyboard-shortcuts-dialog";
 import { PoemNotFound } from "../components/poem-not-found";
+import { PoemSkeleton } from "../components/poem-skeleton";
 
 interface PoemDetailPageProps {
 	poemId: string;
@@ -27,8 +29,27 @@ export function PoemDetailPage({ poemId }: PoemDetailPageProps) {
 		null,
 	);
 	const [isDrawerOpen, setIsDrawerOpen] = useState(false);
+	const [verseAnnotation, setVerseAnnotation] = useState<{
+		verseNumber: number;
+		text: string;
+		annotation: string;
+	} | null>(null);
+	const [shareSuccess, setShareSuccess] = useState(false);
+
 	function toggleInfoDrawer() {
 		setIsDrawerOpen((prev) => !prev);
+	}
+
+	function openVerseAnnotation(
+		verseNumber: number,
+		text: string,
+		annotation: string,
+	) {
+		setVerseAnnotation({ verseNumber, text, annotation });
+	}
+
+	function closeVerseAnnotation() {
+		setVerseAnnotation(null);
 	}
 
 	const navigate = useNavigate();
@@ -40,11 +61,19 @@ export function PoemDetailPage({ poemId }: PoemDetailPageProps) {
 
 	const handleShare = () => {
 		if (!poem) return;
-		share({
-			title: poem.title,
-			text: `${poem.title} - ${poem.author}`,
-			url: window.location.href,
-		});
+		share(
+			{
+				title: poem.title,
+				text: `${poem.title} - ${poem.author}`,
+				url: window.location.href,
+			},
+			{
+				onSuccess: () => {
+					setShareSuccess(true);
+					setTimeout(() => setShareSuccess(false), 2000);
+				},
+			},
+		);
 	};
 
 	function goNext() {
@@ -113,10 +142,24 @@ export function PoemDetailPage({ poemId }: PoemDetailPageProps) {
 
 	if (isLoading) {
 		return (
-			<section className="gap-2 grid justify-center items-center h-screen">
-				<Spinner />
-				Cargando poema...
-			</section>
+			<main className="h-screen pt-10 pb-20 px-4 sm:px-6 lg:px-8">
+				<div className="grid md:grid-cols-[1fr_2fr] lg:grid-cols-3 gap-4 md:gap-6 xl:gap-20 h-full">
+					<aside className="hidden md:block" aria-label="Navegación">
+						<div className="space-y-2">
+							{Array.from({ length: 6 }).map((_, i) => (
+								<div
+									key={`nav-skeleton-${i}`}
+									className="h-16 bg-muted/50 rounded-lg animate-pulse"
+								/>
+							))}
+						</div>
+					</aside>
+					<div aria-live="polite" aria-busy="true">
+						<PoemSkeleton />
+						<span className="sr-only">Cargando poema...</span>
+					</div>
+				</div>
+			</main>
 		);
 	}
 
@@ -131,8 +174,9 @@ export function PoemDetailPage({ poemId }: PoemDetailPageProps) {
 	return (
 		<ErrorBoundary>
 			<main
+				aria-live="polite"
 				className={cn(
-					"h-screen pt-10 pb-20 px-4 sm:px-6 lg:px-8 relative transition-all duration-500",
+					"h-screen pt-10 pb-20 px-4 sm:px-6 lg:px-8 relative transition-all duration-300 animate-in fade-in",
 					{
 						"grid place-items-center bg-linear-to-b from-background to-muted-foreground/20":
 							isReadingMode,
@@ -142,18 +186,19 @@ export function PoemDetailPage({ poemId }: PoemDetailPageProps) {
 				)}
 			>
 				{!isReadingMode && <NavigationAside />}
-
 				<section
-					className={cn("h-full overflow-y-auto", {
+					aria-label="Contenido del poema"
+					className={cn("h-full overflow-y-auto transition-all duration-300", {
 						"max-w-3xl w-full scroll-smooth": isReadingMode,
 					})}
 				>
 					<PoemSection
 						poem={poem}
 						highlightedVersesIds={openFigure?.verseIds}
+						onVerseAnnotationClick={openVerseAnnotation}
+						isReadingMode={isReadingMode}
 					/>
-				</section>
-
+				</section>{" "}
 				{/* Desktop: sidebar */}
 				{!isReadingMode && (
 					<aside className="hidden lg:block overflow-y-auto h-full animate-in slide-in-from-right-4">
@@ -164,7 +209,6 @@ export function PoemDetailPage({ poemId }: PoemDetailPageProps) {
 						/>
 					</aside>
 				)}
-
 				{/* Mobile: drawer */}
 				<Drawer
 					open={isDrawerOpen}
@@ -178,7 +222,6 @@ export function PoemDetailPage({ poemId }: PoemDetailPageProps) {
 						setOpenFigure={setOpenFigure}
 					/>
 				</Drawer>
-
 				<FloatingActionBar
 					goNext={goNext}
 					goPrevious={goPrevious}
@@ -188,7 +231,21 @@ export function PoemDetailPage({ poemId }: PoemDetailPageProps) {
 					onToggleLike={() => toggleFavorite(poemId)}
 					onOpenAnalysis={() => setIsDrawerOpen(true)}
 					onShare={handleShare}
+					shareSuccess={shareSuccess}
 				/>
+				{/* Drawer for verse annotations (mobile) */}
+				{verseAnnotation && (
+					<Drawer
+						open={!!verseAnnotation}
+						onClose={closeVerseAnnotation}
+						title={`Verso ${verseAnnotation.verseNumber}`}
+						description={verseAnnotation.text}
+					>
+						<p className="text-sm leading-relaxed">
+							{verseAnnotation.annotation}
+						</p>
+					</Drawer>
+				)}
 				<KeyboardShortcutsDialog />
 			</main>
 		</ErrorBoundary>
