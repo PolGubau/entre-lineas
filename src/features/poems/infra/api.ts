@@ -1,53 +1,36 @@
-import {
-	createCollection,
-	localOnlyCollectionOptions,
-} from "@tanstack/react-db";
 import { poemasData } from "~/data/poems.data";
 import type { Poem } from "../domain/poem.types";
 
-// Cache de poemas en memoria para evitar conversiones repetidas
-let poemsCache: Poem[] | null = null;
+// Datos estáticos de poemas
+const poems: Poem[] = poemasData;
 
-const getPoemsArray = (): Poem[] => {
-	if (!poemsCache) {
-		poemsCache = Array.from(poemsCollection.values());
-	}
-	return poemsCache;
-};
-
-// Colección de poemas
-export const poemsCollection = createCollection(
-	localOnlyCollectionOptions({
-		getKey: (poem: Poem) => poem.id,
-		// Eliminar validación de schema en runtime para mejor performance
-		// schema: PoemSchema,
-		initialData: poemasData,
-	}),
-);
+// Índices para lookups O(1)
+const poemsById = new Map(poems.map((p) => [p.id, p]));
+const poemsBySlug = new Map(poems.map((p) => [p.slug, p]));
 
 // Queries específicas para la UI
 export const poemsQueryOptions = {
 	all: () => ({
 		queryKey: ["poems", "all"],
-		queryFn: async () => getPoemsArray(),
+		queryFn: async () => poems,
 		staleTime: Number.POSITIVE_INFINITY, // Los datos son estáticos, nunca expiran
 	}),
 
 	byId: (id: string) => ({
 		queryKey: ["poems", "byId", id],
-		queryFn: async () => poemsCollection.get(id),
+		queryFn: async () => poemsById.get(id) ?? null,
 		staleTime: Number.POSITIVE_INFINITY,
 	}),
 
 	bySlug: (slug: string) => ({
 		queryKey: ["poems", "bySlug", slug],
-		queryFn: async () => getPoemsArray().find((p) => p.slug === slug),
+		queryFn: async () => poemsBySlug.get(slug) ?? null,
 		staleTime: Number.POSITIVE_INFINITY,
 	}),
 
 	byAutor: (autor: string) => ({
 		queryKey: ["poems", "byAutor", autor],
-		queryFn: async () => getPoemsArray().filter((p) => p.author === autor),
+		queryFn: async () => poems.filter((p) => p.author === autor),
 		staleTime: Number.POSITIVE_INFINITY,
 	}),
 
@@ -55,7 +38,7 @@ export const poemsQueryOptions = {
 		queryKey: ["poems", "search", query],
 		queryFn: async () => {
 			const lowerQuery = query.toLowerCase();
-			return getPoemsArray().filter(
+			return poems.filter(
 				(poem) =>
 					poem.title.toLowerCase().includes(lowerQuery) ||
 					poem.author.toLowerCase().includes(lowerQuery) ||

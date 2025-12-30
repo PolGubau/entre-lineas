@@ -14,6 +14,13 @@ export const FIGURAS_RETORICAS_CATALOGO: FiguraRetoricaDefinicion[] = [
 			'"Sus labios son pétalos" (los labios se identifican con pétalos por su suavidad)',
 	},
 	{
+		id: "simbolo",
+		name: "Símbolo",
+		generalDefinition:
+			"Uso de un objeto, figura o elemento concreto para representar una idea abstracta o concepto más amplio.",
+		example: '"La paloma es símbolo de la paz" - "La rosa simboliza el amor"',
+	},
+	{
 		id: "simil",
 		name: "Símil o Comparación",
 		generalDefinition:
