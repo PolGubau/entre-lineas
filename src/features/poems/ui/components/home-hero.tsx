@@ -8,7 +8,7 @@ interface HomeHeroProps {
 
 export function HomeHero({ searchInputRef }: HomeHeroProps) {
 	return (
-		<header className=" space-y-4 md:space-y-6 overflow-y-auto pl-1">
+		<header className=" space-y-4 md:space-y-6 overflow-y-auto p-1">
 			<HeroTitle />
 			<FiltersSection searchInputRef={searchInputRef} />
 		</header>
