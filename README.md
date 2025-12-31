@@ -1,78 +1,92 @@
-# Poesía - Análisis Interactivo
+<div align="center">
+  <h1>📖 Entre Líneas</h1>
+  <p><em>Análisis literario interactivo de poesía española</em></p>
+  
+  <p>
+    <a href="#-características">Características</a> •
+    <a href="#-demo">Demo</a> •
+    <a href="#-instalación">Instalación</a> •
+    <a href="#-arquitectura">Arquitectura</a> •
+    <a href="#-uso">Uso</a>
+  </p>
 
-Una aplicación web moderna para explorar y analizar poesía de forma interactiva, al estilo de "Genius" pero especializada en poesía clásica y contemporánea.
+  [![TypeScript](https://img.shields.io/badge/TypeScript-5.7-blue?style=flat-square&logo=typescript)](https://www.typescriptlang.org/)
+  [![React](https://img.shields.io/badge/React-19-61dafb?style=flat-square&logo=react)](https://react.dev/)
+  [![TanStack](https://img.shields.io/badge/TanStack-Router%20%7C%20Query-ff4154?style=flat-square)](https://tanstack.com/)
+  [![Tailwind CSS](https://img.shields.io/badge/Tailwind-4.0-38bdf8?style=flat-square&logo=tailwind-css)](https://tailwindcss.com/)
+  [![License](https://img.shields.io/badge/License-MIT-green?style=flat-square)](LICENSE)
+</div>
+
+---
+
+Una aplicación web moderna para explorar y analizar poesía española de forma interactiva. Inspirada en Genius, pero especializada en análisis literario profundo: figuras retóricas, contexto histórico y anotaciones verso por verso.
 
 ## Características
 
-- **Análisis profundo**: Figuras retóricas, métricas, temáticas y contexto histórico
-- **Interactividad**: Hover sobre versos para ver anotaciones, click en figuras retóricas para resaltarlas
-- **UX Minimalista**: Diseño limpio y elegante al estilo shadcn
-- **Responsive**: Optimizado para todos los dispositivos
-- **Performance**: Build con Vite y TanStack Router
-- **Búsqueda**: Filtrado por título, autor o temática
-- **Navegación intuitiva**: Layout de 3 columnas con navegación contextual
+### Análisis Profundo
+- **Figuras retóricas**: Identifica y explica metáforas, personificaciones, símbolos y más
+- **Contexto histórico**: Movimiento literario, época, influencias y contexto social
+- **Métricas**: Análisis de esquema de rima, sílabas y estructura métrica
+- **Temáticas**: Identificación y análisis de temas centrales
 
-## Arquitectura
+### Interactividad
+- **Hover inteligente**: Muestra anotaciones al pasar sobre los versos
+- **Resaltado dinámico**: Click en figuras retóricas para ver todos los versos donde aparecen
+- **Navegación por estrofas**: Scroll spy con navegación lateral
+- **Modo lectura**: Oculta análisis para lectura inmersiva
 
-### Stack Tecnológico
+### Experiencia de Usuario
+- **Diseño minimalista**: Interfaz limpia inspirada en shadcn/ui
+- **Responsive**: Optimizado para móvil, tablet y desktop
+- **Búsqueda en tiempo real**: Filtra por autor, título o temática
+- **Favoritos**: Sistema de marcadores con localStorage
+- **Compartir**: Comparte poemas con un click
+- **Atajos de teclado**: Navegación rápida (?, N, P, R, L, /)
 
-- **Framework**: React 19 + TanStack Start
-- **Routing**: TanStack Router (type-safe)
-- **State Management**: TanStack Query + React DB
-- **Styling**: Tailwind CSS 4
-- **Type Safety**: TypeScript + Zod schemas
-- **Build Tool**: Vite
-- **Code Quality**: Biome (linter + formatter)
+### Performance
+- **SSR con TanStack Start**: Renderizado del lado del servidor
+- **Type-safe routing**: Enrutamiento tipado con TanStack Router
+- **Optimización de datos**: Índices Map para lookups O(1)
+- **Build optimizado**: Vite con code splitting automático
 
-### Estructura de Datos
+---
 
-```typescript
-Poem
-├── metadata (título, autor, descripción)
-├── contexto (histórico, movimiento, influencias)
-├── analisis (temática, tono, métrica, interpretación)
-├── estrofas[]
-│   └── versos[]
-│       ├── texto
-│       ├── figuras[] (referencias a figuras retóricas)
-│       └── anotacion (opcional)
-└── figurasRetoricas[] (catálogo de figuras del poema)
-```
+## Demo
 
-### Arquitectura de Archivos
+### Vista Principal
+Grid de poemas con búsqueda en tiempo real y filtros por autor/temática.
 
-```
-src/
-├── types/
-│   └── poem.types.ts          # Schemas Zod + TypeScript types
-├── data/
-│   └── poems.data.ts          # Datos de poemas (mock/seed)
-├── db-collections/
-│   ├── index.ts
-│   └── poems.collection.ts    # TanStack React DB collection
-├── routes/
-│   ├── __root.tsx             # Layout principal
-│   ├── index.tsx              # Home con grid de poemas
-│   └── poemas/
-│       └── $slug.tsx          # Página de detalle del poema
-└── components/
-    └── Header.tsx             # Navegación global
-```
+### Vista de Detalle
+Layout de 3 columnas:
+- **Izquierda**: Navegación por estrofas con scroll spy
+- **Centro**: Poema con anotaciones interactivas
+- **Derecha**: Análisis literario y figuras retóricas
 
-## Cómo Empezar
+### Interacciones
+- **Hover sobre versos** → Muestra anotación contextual
+- **Click en figura retórica** → Resalta versos relacionados
+- **Click en estrofa (sidebar)** → Scroll automático al poema
+- **Atajos de teclado** → Navegación rápida entre poemas
 
-### Prerequisitos
+---
 
-- Node.js 18+
-- pnpm (recomendado) o npm
+## Instalación
 
-### Instalación
+### Requisitos Previos
+- **Node.js** 18+ 
+- **pnpm** (recomendado) o npm
+
+### Pasos
 
 ```bash
+# Clonar el repositorio
+git clone https://github.com/PolGubau/entre-lineas.git
+cd entre-lineas
+
 # Instalar dependencias
 pnpm install
 
-# Desarrollo
+# Modo desarrollo (http://localhost:3000)
 pnpm dev
 
 # Build para producción
@@ -82,169 +96,463 @@ pnpm build
 pnpm preview
 ```
 
-La aplicación estará disponible en `http://localhost:3000`
+### Scripts Disponibles
 
-## Añadir Nuevos Poemas
+```bash
+pnpm dev       # Servidor de desarrollo
+pnpm build     # Build de producción
+pnpm preview   # Preview del build
+pnpm lint      # Linter (Biome)
+pnpm format    # Formatter (Biome)
+pnpm check     # Lint + Format
+pnpm test      # Tests (Vitest)
+```
 
-### 1. Definir el poema en `src/data/poems.data.ts`
+---
+
+## Arquitectura
+
+### Stack Tecnológico
+
+| Categoría | Tecnología | Propósito |
+|-----------|-----------|-----------|
+| **Framework** | React 19 | UI library con React Compiler |
+| **SSR** | TanStack Start | Server-side rendering y routing |
+| **Routing** | TanStack Router | Type-safe, file-based routing |
+| **Data Fetching** | TanStack Query | Cache y sincronización de datos |
+| **Styling** | Tailwind CSS 4 | Utility-first CSS |
+| **UI Components** | Radix UI | Primitivos accesibles |
+| **Type Safety** | TypeScript + Zod | Type checking y validación runtime |
+| **Build Tool** | Vite 7 | Bundler ultrarrápido |
+| **Code Quality** | Biome | Linter + formatter (reemplazo de ESLint/Prettier) |
+| **Animation** | Motion | Animaciones fluidas |
+
+### Estructura de Datos
 
 ```typescript
-{
-  id: 'unique-id',
-  slug: 'titulo-del-poema',
-  titulo: 'Título del Poema',
-  autor: 'Nombre del Autor',
-  descripcionCorta: 'Descripción breve...',
+Poem {
+  id: string
+  slug: string  // URL-friendly
+  title: string
+  author: string
   
-  contexto: {
-    epoca: 'Siglo XX',
-    movimiento: 'Modernismo',
-    paisOrigen: 'España',
-    añoPublicacion: 1920,
-    contextoSocial: 'Contexto histórico...',
-    influencias: ['Autor 1', 'Autor 2']
+  estrofas: Estrofa[] {
+    verses: Verso[] {
+      id: string
+      number: number
+      text: string
+      syllables?: number
+      rhyme?: string
+      annotation?: string  // Anotación inline
+    }
+  }
+  
+  context: ContextoHistorico {
+    period: string
+    movement?: string
+    originCountry: string
+    publicationYear?: number
+    socialContext?: string
+    influences: string[]
+  }
+  
+  analysis: Analisis {
+    themes: string[]
+    tone?: string
+    meter?: string
+    rhymeScheme?: string
+    generalSummary: string
+    interpretation?: string
+  }
+  
+  rhetoricalFigures: FiguraRetoricaEnPoem[] {
+    id: FiguraRetoricaTipo  // "metafora" | "personificacion" | ...
+    contextualDescription: string
+    verseIds: string[]  // Referencias a versos
+  }
+  
+  shortDescription: string
+  imageUrl?: string
+  createdAt: Date
+  updatedAt: Date
+}
+```
+
+### Arquitectura de Carpetas
+
+```
+entre-lineas/
+├── src/
+│   ├── features/               # Feature-based architecture
+│   │   └── poems/
+│   │       ├── application/    # Hooks y lógica de negocio
+│   │       │   ├── use-poems.ts
+│   │       │   ├── use-poem-by-id.ts
+│   │       │   ├── use-favorites.ts
+│   │       │   ├── use-filters.ts
+│   │       │   └── use-share.ts
+│   │       ├── domain/         # Types y schemas
+│   │       │   └── poem.types.ts
+│   │       ├── infra/          # Data access
+│   │       │   └── api.ts
+│   │       └── ui/             # Componentes
+│   │           ├── pages/
+│   │           │   ├── home-page.tsx
+│   │           │   └── poem-detail-page.tsx
+│   │           └── components/
+│   │               ├── poem-grid.tsx
+│   │               ├── poem-card.tsx
+│   │               ├── poem-section.tsx
+│   │               ├── navigation-aside.tsx
+│   │               └── summary-aside.tsx
+│   ├── data/                   # Data estática
+│   │   ├── poems.data.ts
+│   │   └── poems/
+│   │       ├── caminante.ts
+│   │       ├── el-silencio.ts
+│   │       └── ...
+│   ├── routes/                 # TanStack Router
+│   │   ├── __root.tsx
+│   │   ├── index.tsx
+│   │   └── poem/
+│   │       └── $poemId.tsx
+│   ├── shared/                 # Código compartido
+│   │   ├── components/
+│   │   │   └── Header.tsx
+│   │   ├── ui/                 # Design system (shadcn)
+│   │   │   ├── accordion.tsx
+│   │   │   ├── button.tsx
+│   │   │   ├── drawer.tsx
+│   │   │   └── ...
+│   │   ├── hooks/
+│   │   │   └── use-keyboard-shortcuts.ts
+│   │   └── lib/
+│   │       ├── utils.ts
+│   │       └── seo.ts
+│   ├── router.tsx              # Router config
+│   └── styles.css
+├── public/
+│   ├── manifest.json
+│   └── robots.txt
+├── biome.json                  # Biome config
+├── components.json             # shadcn config
+├── tailwind.config.ts
+├── tsconfig.json
+├── vite.config.ts
+└── package.json
+```
+
+### Flujo de Datos
+
+```
+Usuario → Route → Page Component → Hook (use-poem-by-id)
+                                      ↓
+                               TanStack Query
+                                      ↓
+                                API Layer (Map lookups)
+                                      ↓
+                                Static Data
+```
+
+**Ventajas**:
+- Sin llamadas HTTP (datos estáticos)
+- Lookups O(1) con índices Map
+- Cache automático con TanStack Query
+- Type-safe end-to-end
+
+- Cache automático con TanStack Query
+- Type-safe end-to-end
+
+---
+
+## Uso
+
+### Añadir Nuevos Poemas
+
+#### 1. Crear archivo de poema en `src/data/poems/`
+
+```typescript
+// src/data/poems/mi-poema.ts
+import type { Poem } from "~/features/poems/domain/poem.types";
+
+export const miPoema: Poem = {
+  id: 'mi-poema-id',
+  slug: 'mi-poema',
+  title: 'Mi Poema',
+  author: 'Autor',
+  authorSlug: 'autor',
+  
+  context: {
+    period: 'Siglo XX',
+    movement: 'Modernismo',
+    originCountry: 'España',
+    publicationYear: 1920,
+    socialContext: 'Contexto histórico y social...',
+    influences: ['Autor 1', 'Autor 2']
   },
   
-  analisis: {
-    tematica: ['amor', 'muerte'],
-    tono: 'melancólico',
-    metrica: 'endecasílabos',
-    resumenGeneral: 'Resumen del análisis...',
-    interpretacion: 'Interpretación detallada...'
+  analysis: {
+    themes: ['amor', 'muerte', 'naturaleza'],
+    tone: 'melancólico',
+    meter: 'endecasílabos',
+    rhymeScheme: 'ABBA ABBA CDC DCD',
+    generalSummary: 'Resumen del poema...',
+    interpretation: 'Interpretación literaria profunda...'
   },
   
-  figurasRetoricas: [
+  rhetoricalFigures: [
     {
-      id: 'fig-1',
-      tipo: 'metafora',
-      nombre: 'Nombre de la figura',
-      descripcion: 'Descripción y contexto...'
+      id: 'metafora',
+      contextualDescription: 'La noche representa la muerte inminente',
+      verseIds: ['1-v1', '1-v3']  // Formato: estrofa-verso
+    },
+    {
+      id: 'personificacion',
+      contextualDescription: 'El viento adquiere características humanas',
+      verseIds: ['2-v2']
     }
   ],
   
   estrofas: [
     {
-      id: 'estrofa-1',
-      numero: 1,
-      tipo: 'cuarteto',
-      versos: [
+      id: '1',
+      number: 1,
+      type: 'cuarteto',
+      verses: [
         {
-          id: 'v1',
-          numero: 1,
-          texto: 'Primer verso del poema',
-          figuras: ['fig-1'], // Referencias a IDs de figuras
-          anotacion: 'Explicación opcional del verso',
-          silabas: 11,
-          rima: 'A'
-        }
+          id: '1-v1',
+          number: 1,
+          text: 'Primer verso del poema aquí',
+          syllables: 11,
+          rhyme: 'A',
+          annotation: 'Explicación contextual del verso'
+        },
+        {
+          id: '1-v2',
+          number: 2,
+          text: 'Segundo verso continúa',
+          syllables: 11,
+          rhyme: 'B'
+        },
+        // ... más versos
       ]
-    }
-  ]
+    },
+    // ... más estrofas
+  ],
+  
+  shortDescription: 'Descripción breve para el grid de poemas',
+  imageUrl: '/images/mi-poema.jpg',  // Opcional
+  createdAt: new Date('2024-01-01'),
+  updatedAt: new Date('2024-01-01')
+};
+```
+
+#### 2. Registrar en `src/data/poems.data.ts`
+
+```typescript
+import { miPoema } from "./poems/mi-poema";
+
+export const poemasData: Poem[] = [
+  // ... poemas existentes
+  miPoema,
+];
+```
+
+#### 3. Listo! El poema aparecerá automáticamente
+
+No necesitas reiniciar el servidor en desarrollo. Los cambios se reflejan instantáneamente.
+
+### IDs de Figuras Retóricas Soportadas
+
+```typescript
+"metafora" | "simil" | "personificacion" | "hiperbole" | 
+"anafora" | "paradoja" | "apostrofe" | "sinestesia" | 
+"metonimia" | "sinecdoque" | "oximoron" | "hiperbaton" | 
+"aliteracion" | "asindeton" | "polisindeton" | "elipsis" | 
+"reticencia" | "epanadiplosis" | "concatenacion" | 
+"paralelismo" | "antitesis" | "quiasmo" | "simbolo" | 
+"alegoria" | "ironia" | "sarcasmo" | "prosopopeya" | 
+"encabalgamiento"
+```
+
+### Atajos de Teclado
+
+| Tecla | Acción |
+|-------|--------|
+| `?` | Mostrar ayuda de atajos |
+| `N` | Siguiente poema |
+| `P` | Poema anterior |
+| `R` | Modo lectura |
+| `L` | Toggle favorito |
+| `/` | Buscar |
+| `Esc` | Cerrar modales |
+
+---
+
+## Personalización
+
+### Temas y Colores
+
+El proyecto usa Tailwind CSS 4 con la paleta `neutral`:
+
+```css
+/* src/styles.css */
+@theme {
+  --color-background: neutral-50;
+  --color-foreground: neutral-900;
+  --color-card: white;
+  --color-muted: neutral-100;
+  --color-accent: amber-400;  /* Resaltado de versos */
 }
 ```
 
-### 2. Los cambios se reflejarán automáticamente
+### Componentes UI (shadcn)
 
-La base de datos en memoria se inicializa automáticamente al cargar la app.
+Agregar nuevos componentes del design system:
 
-## Personalización de Estilos
+```bash
+npx shadcn@latest add [component-name]
+```
 
-El proyecto usa Tailwind CSS 4 con la paleta `neutral` para un look minimalista.
+Disponibles: `button`, `accordion`, `drawer`, `dialog`, `tooltip`, etc.
 
-### Colores principales
-
-- **Fondo**: `neutral-50` (light) / `neutral-950` (dark)
-- **Cards**: `white` / `neutral-900`
-- **Bordes**: `neutral-200` / `neutral-800`
-- **Texto**: `neutral-900` / `neutral-50`
-- **Acentos**: `amber-400` (highlighting)
-
-## 🔍 Funcionalidades de UX
-
-### Home (/)
-- Grid responsive de tarjetas de poemas
-- Búsqueda en tiempo real por título, autor o temática
-- Preview de información: título, autor, descripción, tags
-
-### Detalle (/poemas/:slug)
-
-**Layout de 3 columnas**:
-
-1. **Izquierda - Navegación**:
-   - Info básica del poema
-   - Navegación por estrofas con scroll spy
-   
-2. **Centro - Poema**:
-   - Texto del poema formateado
-   - Hover en versos muestra anotaciones
-   - Click en figuras retóricas resalta versos relacionados
-   - Indicadores visuales de contenido adicional
-   
-3. **Derecha - Análisis**:
-   - Catálogo de figuras retóricas (clickeables)
-   - Temáticas
-   - Análisis literario
-   - Contexto histórico
-
-### Interacciones
-
-- **Hover sobre versos**: Tooltip con anotación (si existe)
-- **Click en figura retórica**: Resalta todos los versos que la contienen
-- **Indicadores**:
-  - ✨ Icono: El verso contiene figuras retóricas
-  - 🔵 Punto: El verso tiene anotación
+---
 
 ## Testing
 
 ```bash
-# Ejecutar tests
+# Tests unitarios
 pnpm test
+
+# Tests con coverage
+pnpm test --coverage
+
+# Tests en modo watch
+pnpm test --watch
 
 # Linting
 pnpm lint
 
-# Formateo
+# Format code
 pnpm format
+
+# Lint + Format
+pnpm check
 ```
 
-## Deploy
+---
 
-El proyecto puede desplegarse en cualquier plataforma que soporte Node.js:
+## Deployment
 
-- Vercel
-- Netlify
-- Cloudflare Pages
-- Railway
-- Render
+### Build de Producción
 
 ```bash
 pnpm build
-# Los archivos estarán en ./dist
 ```
 
-## Próximas Mejoras
+Los archivos optimizados estarán en `./dist`.
 
-- [ ] Sistema de favoritos (localStorage)
+### Plataformas Soportadas
+
+- **Vercel** (recomendado para TanStack Start)
+- **Netlify**
+- **Cloudflare Pages**
+- **Railway**
+- **Render**
+- Cualquier hosting con soporte Node.js 18+
+
+### Variables de Entorno
+
+No requiere variables de entorno (datos estáticos).
+
+---
+
+## Roadmap
+
+### ✅ Completado
+- [x] Análisis de figuras retóricas
+- [x] Modo lectura
+- [x] Sistema de favoritos
+- [x] Compartir poemas
+- [x] Búsqueda y filtros
+- [x] Atajos de teclado
+- [x] Responsive design
+- [x] SSR con TanStack Start
+
+### 🚧 En Progreso
+- [ ] Más poemas (objetivo: 50+)
+- [ ] Tests E2E con Playwright
+
+### 📋 Próximas Features
 - [ ] Comparación de poemas lado a lado
 - [ ] Filtros avanzados (época, movimiento, métrica)
-- [ ] Modo de lectura (solo poema, sin análisis)
-- [ ] Compartir versos específicos
 - [ ] Export a PDF del análisis
-- [ ] API backend para poemas dinámicos
-- [ ] Sistema de usuarios y anotaciones personales
-- [ ] Audio de recitación
 - [ ] Timeline histórico de autores/movimientos
+- [ ] Sistema de anotaciones personales
+- [ ] Audio de recitación
+- [ ] Dark mode mejorado
 
-## 📚 Recursos
+---
 
-- [TanStack Start Docs](https://tanstack.com/start)
-- [TanStack Router Docs](https://tanstack.com/router)
-- [TanStack Query Docs](https://tanstack.com/query)
-- [Tailwind CSS Docs](https://tailwindcss.com)
+## Recursos
 
-## 📄 Licencia
+### Documentación
+- [TanStack Start](https://tanstack.com/start) - Framework SSR
+- [TanStack Router](https://tanstack.com/router) - Routing type-safe
+- [TanStack Query](https://tanstack.com/query) - Data fetching
+- [Tailwind CSS](https://tailwindcss.com) - Styling
+- [Radix UI](https://radix-ui.com) - UI primitivos
+- [shadcn/ui](https://ui.shadcn.com) - Design system
+- [Biome](https://biomejs.dev) - Toolchain
 
-MIT
+### Inspiración
+- [Genius](https://genius.com) - Anotaciones interactivas
+- [Poetry Foundation](https://www.poetryfoundation.org) - Análisis literario
+
+---
+
+## Contribuir
+
+Las contribuciones son bienvenidas! 
+
+### Cómo Contribuir
+
+1. Fork el proyecto
+2. Crea tu rama de feature (`git checkout -b feature/nueva-feature`)
+3. Commit tus cambios (`git commit -m 'Add: nueva feature'`)
+4. Push a la rama (`git push origin feature/nueva-feature`)
+5. Abre un Pull Request
+
+### Áreas de Contribución
+
+- 📖 Agregar nuevos poemas
+- 🐛 Reportar o arreglar bugs
+- ✨ Proponer nuevas features
+- 📝 Mejorar documentación
+- 🎨 Mejorar diseño UI/UX
+- ♿ Mejoras de accesibilidad
+
+---
+
+## Autor
+
+**Pol Gubau Amores**
+
+- GitHub: [@PolGubau](https://github.com/PolGubau)
+- Portfolio: [polgubau.com](https://polgubau.com)
+
+---
+
+## Licencia
+
+Este proyecto está bajo la licencia MIT. Ver el archivo [LICENSE](LICENSE) para más detalles.
+
+---
+
+<div align="center">
+  <p>Hecho con ❤️ y ☕ para amantes de la poesía</p>
+  <p>⭐ Dale una estrella si te gustó el proyecto</p>
+</div>
 
 
 
