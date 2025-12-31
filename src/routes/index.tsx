@@ -10,6 +10,7 @@ const homeSearchSchema = z.object({
 	movement: z.string().optional(),
 	era: z.string().optional(),
 	themes: z.array(z.string()).optional(),
+	sort: z.enum(["title", "author", "date", "favorites"]).optional(),
 });
 
 export const Route = createFileRoute("/")({

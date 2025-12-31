@@ -12,31 +12,31 @@ const poemsBySlug = new Map(poems.map((p) => [p.slug, p]));
 export const poemsQueryOptions = {
 	all: () => ({
 		queryKey: ["poems", "all"],
-		queryFn: async () => poems,
+		queryFn: () => poems,
 		staleTime: Number.POSITIVE_INFINITY, // Los datos son estáticos, nunca expiran
 	}),
 
 	byId: (id: string) => ({
 		queryKey: ["poems", "byId", id],
-		queryFn: async () => poemsById.get(id),
+		queryFn: () => poemsById.get(id),
 		staleTime: Number.POSITIVE_INFINITY,
 	}),
 
 	bySlug: (slug: string) => ({
 		queryKey: ["poems", "bySlug", slug],
-		queryFn: async () => poemsBySlug.get(slug),
+		queryFn: () => poemsBySlug.get(slug),
 		staleTime: Number.POSITIVE_INFINITY,
 	}),
 
 	byAutor: (autor: string) => ({
 		queryKey: ["poems", "byAutor", autor],
-		queryFn: async () => poems.filter((p) => p.author === autor),
+		queryFn: () => poems.filter((p) => p.author === autor),
 		staleTime: Number.POSITIVE_INFINITY,
 	}),
 
 	search: (query: string) => ({
 		queryKey: ["poems", "search", query],
-		queryFn: async () => {
+		queryFn: () => {
 			const lowerQuery = query.toLowerCase();
 			return poems.filter(
 				(poem) =>

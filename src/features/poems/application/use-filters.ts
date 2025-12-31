@@ -1,12 +1,12 @@
 import { useNavigate, useSearch } from "@tanstack/react-router";
 import { useCallback, useMemo } from "react";
 import { useDebounce } from "~/shared/hooks/useDebounce";
-import type { PoemsFilters } from "./use-poems";
+import type { PoemsFilters, SortBy } from "./use-poems";
 
 /**
  * Hook centralizado para manejar todos los filtros de poemas
  * Usa search params de TanStack Router para mantener estado en la URL
- * Maneja búsqueda, autor, movimiento, era y temáticas
+ * Maneja búsqueda, autor, movimiento, era, temáticas y ordenamiento
  */
 export function useFilters(debounceMs = 200) {
 	const navigate = useNavigate();
@@ -18,6 +18,7 @@ export function useFilters(debounceMs = 200) {
 	const selectedMovement = (searchParams.movement as string) ?? null;
 	const selectedEra = (searchParams.era as string) ?? null;
 	const selectedThemes = (searchParams.themes as string[]) ?? [];
+	const sortBy = ((searchParams.sort as SortBy) ?? "title") as SortBy;
 
 	const debouncedSearch = useDebounce(searchQuery, debounceMs);
 
@@ -60,10 +61,16 @@ export function useFilters(debounceMs = 200) {
 		},
 		[updateSearchParams],
 	);
-
 	const setSelectedThemes = useCallback(
 		(themes: string[]) => {
 			updateSearchParams({ themes: themes.length > 0 ? themes : undefined });
+		},
+		[updateSearchParams],
+	);
+
+	const setSortBy = useCallback(
+		(sort: SortBy) => {
+			updateSearchParams({ sort: sort === "title" ? undefined : sort });
 		},
 		[updateSearchParams],
 	);
@@ -116,6 +123,7 @@ export function useFilters(debounceMs = 200) {
 		selectedMovement,
 		selectedEra,
 		selectedThemes,
+		sortBy,
 		hasActiveFilters,
 
 		// Setters (actualizan URL)
@@ -124,6 +132,7 @@ export function useFilters(debounceMs = 200) {
 		setSelectedMovement,
 		setSelectedEra,
 		setSelectedThemes,
+		setSortBy,
 
 		// Utilidades
 		clearFilters,

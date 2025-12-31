@@ -8,14 +8,14 @@ export const elGrito: Poem = {
 	authorSlug: "federico-garcia-lorca",
 	shortDescription:
 		"Poema visual y sonoro del Poema del cante jondo donde el grito flamenco traza una trayectoria cósmica, transformándose en imagen acústica y cromática del dolor.",
-	createdAt: new Date("1921-01-01"),
-	updatedAt: new Date("2025-01-01"),
+	createdAt: new Date("2025-12-31"),
+	updatedAt: new Date("2025-12-31"),
 
 	context: {
 		era: "Siglo XX",
 		movement: "Generación del 27",
 		originCountry: "España",
-		publicationYear: 1931,
+		publicationDate: new Date("1931-01-01"),
 		socialContext:
 			"Forma parte del 'Poema del cante jondo', proyecto de Lorca para dignificar y preservar el cante primitivo andaluz. El grito (ay) es el núcleo expresivo del flamenco, manifestación pura del duende.",
 		influences: [

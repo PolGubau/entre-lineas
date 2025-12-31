@@ -8,14 +8,14 @@ export const elPasoDeLaSiguiriya: Poem = {
 	authorSlug: "federico-garcia-lorca",
 	shortDescription:
 		"Poema interrogativo del Poema del cante jondo donde la siguiriya, personificada como muchacha morena encadenada a un ritmo imposible, camina hacia un destino trágico entre mariposas negras y serpientes de niebla.",
-	createdAt: new Date("1921-01-01"),
-	updatedAt: new Date("2025-01-01"),
+	createdAt: new Date("2025-12-31"),
+	updatedAt: new Date("2025-12-31"),
 
 	context: {
 		era: "Siglo XX",
 		movement: "Generación del 27",
 		originCountry: "España",
-		publicationYear: 1931,
+		publicationDate: new Date("1931-01-01"),
 		socialContext:
 			"Forma parte del 'Poema de la siguiriya gitana', primera sección del 'Poema del cante jondo'. La siguiriya es el palo flamenco más antiguo y trágico, de compás irregular y sincopado, considerado el cante matriz del flamenco. Su ritmo es 'sin cabeza', asimétrico, con acentos impredecibles que expresan el desgarramiento del duende. Lorca escribe este poema tras escuchar siguiriyas primitivas que Manuel de Falla le mostró, quedando impactado por su carácter arrítmico y desesperado.",
 		influences: [

@@ -8,14 +8,14 @@ export const siguiriyaGitana: Poem = {
 	authorSlug: "federico-garcia-lorca",
 	shortDescription:
 		"Poema del Poema del cante jondo donde el paisaje andaluz nocturno e invernal se convierte en expresión sonora del dolor, el encierro y la queja colectiva.",
-	createdAt: new Date("1921-01-01"),
-	updatedAt: new Date("2025-01-01"),
+	createdAt: new Date("2025-12-31"),
+	updatedAt: new Date("2025-12-31"),
 
 	context: {
 		era: "Siglo XX",
 		movement: "Generación del 27",
 		originCountry: "España",
-		publicationYear: 1931,
+		publicationDate: new Date("1931-01-01"),
 		socialContext:
 			"Escrito en el marco del proyecto lorquiano de dignificación del cante jondo. La siguiriya, uno de los palos más trágicos del flamenco, sirve como matriz rítmica y simbólica del poema.",
 		influences: [

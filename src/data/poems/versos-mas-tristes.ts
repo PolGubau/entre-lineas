@@ -8,14 +8,14 @@ export const versosMasTristes: Poem = {
 	authorSlug: "pablo-neruda",
 	shortDescription:
 		'Poema XX de "Veinte poemas de amor y una canción desesperada". Una elegía sobre el amor perdido y la melancolía.',
-	createdAt: new Date("2025-01-01"),
-	updatedAt: new Date("2025-01-01"),
+	createdAt: new Date("2025-12-31"),
+	updatedAt: new Date("2025-12-31"),
 
 	context: {
 		era: "Siglo XX",
 		movement: "Modernismo / Vanguardismo",
 		originCountry: "Chile",
-		publicationYear: 1924,
+		publicationDate: new Date("1924-01-01"),
 		socialContext:
 			"Publicado cuando Neruda tenía 19 años, este libro consolidó su fama internacional.",
 		influences: ["Rubén Darío", "Walt Whitman", "Romanticismo"],

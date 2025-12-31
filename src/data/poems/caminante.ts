@@ -8,14 +8,14 @@ export const caminante: Poem = {
 	authorSlug: "antonio-machado",
 	shortDescription:
 		'Poema filosófico sobre la construcción del propio destino. Parte de "Proverbios y cantares".',
-	createdAt: new Date("2025-01-01"),
-	updatedAt: new Date("2025-01-01"),
+	createdAt: new Date("2025-12-31"),
+	updatedAt: new Date("2025-12-31"),
 
 	context: {
 		era: "Siglo XX",
 		movement: "Generación del 98",
 		originCountry: "España",
-		publicationYear: 1912,
+		publicationDate: new Date("1912-01-01"),
 		socialContext:
 			"Escrito en un período de crisis existencial en España tras la pérdida de las últimas colonias.",
 		influences: [

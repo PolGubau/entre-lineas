@@ -8,14 +8,14 @@ export const laGuitarra: Poem = {
 	authorSlug: "federico-garcia-lorca",
 	shortDescription:
 		"Poema del Poema del cante jondo donde la guitarra se convierte en símbolo del llanto eterno, del amor herido y del drama colectivo andaluz.",
-	createdAt: new Date("1921-01-01"),
-	updatedAt: new Date("2025-01-01"),
+	createdAt: new Date("2025-12-31"),
+	updatedAt: new Date("2025-12-31"),
 
 	context: {
 		era: "Siglo XX",
 		movement: "Generación del 27",
 		originCountry: "España",
-		publicationYear: 1931,
+		publicationDate: new Date("1931-01-01"),
 		socialContext:
 			"Escrito dentro del proyecto de recuperación del cante jondo. La guitarra aparece como instrumento fundador del lamento andaluz y vehículo del drama histórico, amoroso y trágico.",
 		influences: [

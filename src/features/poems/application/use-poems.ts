@@ -10,30 +10,63 @@ export interface PoemsFilters {
 	themes?: string[];
 }
 
+export type SortBy = "title" | "author" | "date" | "favorites";
+
+/**
+ * Ordena los poemas según el criterio especificado
+ * Los favoritos siempre tienen prioridad si se proporciona la lista
+ */
+function sortPoems(
+	poems: Poem[],
+	sortBy: SortBy = "title",
+	favoriteIds?: string[],
+): Poem[] {
+	const sorted = [...poems].sort((a, b) => {
+		// Primero: favoritos siempre arriba
+		if (favoriteIds && favoriteIds.length > 0) {
+			const aIsFavorite = favoriteIds.includes(a.id);
+			const bIsFavorite = favoriteIds.includes(b.id);
+			if (aIsFavorite && !bIsFavorite) return -1;
+			if (!aIsFavorite && bIsFavorite) return 1;
+		}
+
+		// Segundo: ordenación secundaria por el criterio seleccionado
+		switch (sortBy) {
+			case "title":
+				return a.title.localeCompare(b.title, "es");
+			case "author":
+				return a.author.localeCompare(b.author, "es");
+			case "date": {
+				const dateA = a.context.publicationDate;
+				const dateB = b.context.publicationDate;
+				return dateB.getTime() - dateA.getTime();
+			}
+			case "favorites":
+				return 0; // Ya ordenado por favoritos arriba
+			default:
+				return 0;
+		}
+	});
+
+	return sorted;
+}
+
 /**
  * Hook para obtener todos los poemas con filtros opcionales
  * La lógica de filtrado está encapsulada aquí, no en la UI
  * Usa useQuery para evitar suspensión en cada cambio de filtro
  */
-export function usePoems(filters?: PoemsFilters, favoriteIds?: string[]) {
+export function usePoems(
+	filters?: PoemsFilters,
+	favoriteIds?: string[],
+	sortBy: SortBy = "title",
+) {
 	return useQuery<Poem[]>({
-		...poemsQueryOptions.all(),
-		queryKey: ["poems", "filtered", filters, favoriteIds],
-		queryFn: async () => {
-			let poems = await poemsQueryOptions.all().queryFn();
+		queryKey: ["poems", "filtered", filters, favoriteIds, sortBy],
+		queryFn: () => {
+			const poems = poemsQueryOptions.all().queryFn();
 
-			// Ordenar favoritos primero si hay favoritos
-			if (favoriteIds && favoriteIds.length > 0) {
-				poems = [...poems].sort((a, b) => {
-					const aIsFavorite = favoriteIds.includes(a.id);
-					const bIsFavorite = favoriteIds.includes(b.id);
-					if (aIsFavorite && !bIsFavorite) return -1;
-					if (!aIsFavorite && bIsFavorite) return 1;
-					return 0;
-				});
-			}
-
-			if (!filters) return poems;
+			if (!filters) return sortPoems(poems, sortBy, favoriteIds);
 
 			const searchLower = filters.search?.toLowerCase();
 
@@ -79,10 +112,15 @@ export function usePoems(filters?: PoemsFilters, favoriteIds?: string[]) {
 				return true;
 			});
 		},
+		initialData: () => {
+			// Proveer datos inmediatamente en el primer render
+			const poems = poemsQueryOptions.all().queryFn();
+			return sortPoems(poems, sortBy, favoriteIds);
+		},
+		staleTime: Number.POSITIVE_INFINITY, // Datos estáticos
+		gcTime: Number.POSITIVE_INFINITY, // No borrar nunca del cache
 	});
-}
-
-/**
+} /**
  * Hook para obtener un poema por su slug
  */
 export function usePoemBySlug(slug: string) {
@@ -95,8 +133,8 @@ export function usePoemBySlug(slug: string) {
 export function useAuthors() {
 	return useSuspenseQuery<string[]>({
 		queryKey: ["poems", "authors"],
-		queryFn: async () => {
-			const poems = await poemsQueryOptions.all().queryFn();
+		queryFn: () => {
+			const poems = poemsQueryOptions.all().queryFn();
 			const authors = new Set(poems.map((p: Poem) => p.author));
 			return Array.from(authors).sort();
 		},
@@ -109,8 +147,8 @@ export function useAuthors() {
 export function useMovements() {
 	return useSuspenseQuery<string[]>({
 		queryKey: ["poems", "movements"],
-		queryFn: async () => {
-			const poems = await poemsQueryOptions.all().queryFn();
+		queryFn: () => {
+			const poems = poemsQueryOptions.all().queryFn();
 			const movements = new Set(
 				poems
 					.map((p: Poem) => p.context.movement)
@@ -127,8 +165,8 @@ export function useMovements() {
 export function useTematicas() {
 	return useSuspenseQuery<string[]>({
 		queryKey: ["poems", "tematicas"],
-		queryFn: async () => {
-			const poems = await poemsQueryOptions.all().queryFn();
+		queryFn: () => {
+			const poems = poemsQueryOptions.all().queryFn();
 			const tematicas = new Set<string>();
 			poems.forEach((p: Poem) => {
 				p.analysis.themes.forEach((t: string) => {

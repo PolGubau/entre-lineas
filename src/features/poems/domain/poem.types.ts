@@ -94,7 +94,7 @@ export const ContextoHistoricoSchema = z.object({
 	era: z.string(), // "Siglo XX", "Renacimiento", etc.
 	movement: z.string().optional(), // "Modernismo", "Generación del 27", etc.
 	originCountry: z.string(),
-	publicationYear: z.number().optional(),
+	publicationDate: z.date(),
 	socialContext: z.string().optional(),
 	influences: z.array(z.string()).default([]),
 });

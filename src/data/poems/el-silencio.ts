@@ -8,14 +8,14 @@ export const elSilencio: Poem = {
 	authorSlug: "federico-garcia-lorca",
 	shortDescription:
 		"Poema meditativo del Poema del cante jondo donde el silencio se transforma en entidad física y sensorial, un paisaje ondulante que inclina las frentes hacia la tierra en reverencia primitiva.",
-	createdAt: new Date("1921-01-01"),
-	updatedAt: new Date("2025-01-01"),
+	createdAt: new Date("2025-12-31"),
+	updatedAt: new Date("2025-12-31"),
 
 	context: {
 		era: "Siglo XX",
 		movement: "Generación del 27",
 		originCountry: "España",
-		publicationYear: 1931,
+		publicationDate: new Date("1931-01-01"),
 		socialContext:
 			"Parte del 'Poema del cante jondo', escrito en 1921 durante la preparación del Concurso de Cante Jondo de Granada. El silencio en el flamenco es tan expresivo como el sonido: las pausas, los silencios entre quejíos, la tensión contenida antes del grito. Lorca captura la dimensión mística y ancestral del silencio andaluz.",
 		influences: [

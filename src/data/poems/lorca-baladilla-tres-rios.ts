@@ -8,14 +8,14 @@ export const baladillaTresRios: Poem = {
 	authorSlug: "federico-garcia-lorca",
 	shortDescription:
 		"Baladilla del Poema del cante jondo donde la geografía andaluza se convierte en alegoría de amor, muerte y destino.",
-	createdAt: new Date("1924-01-01"),
-	updatedAt: new Date("2025-01-01"),
+	createdAt: new Date("2025-12-31"),
+	updatedAt: new Date("2025-12-31"),
 
 	context: {
 		era: "Siglo XX",
 		movement: "Generación del 27",
 		originCountry: "España",
-		publicationYear: 1931,
+		publicationDate: new Date("1931-01-01"),
 		socialContext:
 			"Escrito entre 1921 y 1924 y publicado en Poema del cante jondo. Surge en paralelo a la reivindicación lorquiana del cante jondo junto a Manuel de Falla.",
 		influences: [

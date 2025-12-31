@@ -3,13 +3,14 @@ import {
 	useMovements,
 	useTematicas,
 } from "../../../../application/use-poems";
+import { SortSelector } from "../sort-selector";
 import { AdvancedFilters, type FiltersProps } from "./advanced-filters";
 import { FiltersAccordion } from "./filters-accordion";
 import { SearchInput } from "./search-input";
 
 /**
  * Componente de filtros completo para desktop
- * Incluye búsqueda y filtros avanzados
+ * Incluye búsqueda, ordenamiento y filtros avanzados
  * Pre-carga los datos para evitar suspense cuando se abre el collapsible
  */
 export function WideFilters({ searchInputRef }: FiltersProps) {
@@ -21,6 +22,7 @@ export function WideFilters({ searchInputRef }: FiltersProps) {
 	return (
 		<section className="space-y-3">
 			<SearchInput searchInputRef={searchInputRef} />
+			<SortSelector showLabel={true} variant="outline" />
 			<FiltersAccordion>
 				<AdvancedFilters />
 			</FiltersAccordion>

@@ -6,7 +6,6 @@ import { EmptyPoems } from "~/features/poems/ui/empty-poems";
 import { useKeyboardShortcuts } from "~/shared/hooks/use-keyboard-shortcuts";
 import { HomeHero } from "../components/home-hero";
 import { KeyboardShortcutsDialog } from "../components/keyboard-shortcuts-dialog";
-import { LoadingState } from "../components/loading-state";
 import { PoemGrid } from "../components/poem-grid";
 
 /**
@@ -16,10 +15,10 @@ import { PoemGrid } from "../components/poem-grid";
  */
 export function HomePage() {
 	const searchInputRef = useRef<HTMLInputElement>(null);
-	const { clearFilters, filters, hasActiveFilters } = useFilters();
+	const { clearFilters, filters, hasActiveFilters, sortBy } = useFilters();
 
 	const { favorites, isFavorite } = useFavorites();
-	const { data: filteredPoems, isLoading } = usePoems(filters, favorites);
+	const { data: filteredPoems } = usePoems(filters, favorites, sortBy);
 
 	// Keyboard shortcuts
 	useKeyboardShortcuts({
@@ -45,9 +44,7 @@ export function HomePage() {
 			<HomeHero searchInputRef={searchInputRef} />
 
 			<section className="h-full pb-16 overflow-y-auto">
-				{isLoading ? (
-					<LoadingState />
-				) : filteredPoems && filteredPoems.length > 0 ? (
+				{filteredPoems && filteredPoems.length > 0 ? (
 					<PoemGrid poems={filteredPoems} isFavorite={isFavorite} />
 				) : (
 					<div className="grid items-center justify-center h-full">
