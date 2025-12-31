@@ -142,7 +142,7 @@ export function PoemDetailPage({ poemId }: PoemDetailPageProps) {
 
 	if (isLoading) {
 		return (
-			<main className="h-screen pt-10 pb-20 px-4 sm:px-6 lg:px-8">
+			<section className="h-screen pt-10 pb-20 px-4 sm:px-6 lg:px-8">
 				<div className="grid md:grid-cols-[1fr_2fr] lg:grid-cols-3 gap-4 md:gap-6 xl:gap-20 h-full">
 					<aside className="hidden md:block" aria-label="Navegación">
 						<div className="space-y-2">
@@ -159,7 +159,7 @@ export function PoemDetailPage({ poemId }: PoemDetailPageProps) {
 						<span className="sr-only">Cargando poema...</span>
 					</div>
 				</div>
-			</main>
+			</section>
 		);
 	}
 

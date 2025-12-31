@@ -13,7 +13,9 @@ export function PoemGrid({ poems, isFavorite }: PoemGridProps) {
 		gap-3"
 		>
 			{poems.map((poem) => (
-				<PoemCard key={poem.id} poem={poem} isFavorite={isFavorite(poem.id)} />
+				<li key={poem.id}>
+					<PoemCard poem={poem} isFavorite={isFavorite(poem.id)} />
+				</li>
 			))}
 		</ul>
 	);

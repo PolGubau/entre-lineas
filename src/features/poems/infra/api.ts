@@ -18,13 +18,13 @@ export const poemsQueryOptions = {
 
 	byId: (id: string) => ({
 		queryKey: ["poems", "byId", id],
-		queryFn: async () => poemsById.get(id) ?? null,
+		queryFn: async () => poemsById.get(id),
 		staleTime: Number.POSITIVE_INFINITY,
 	}),
 
 	bySlug: (slug: string) => ({
 		queryKey: ["poems", "bySlug", slug],
-		queryFn: async () => poemsBySlug.get(slug) ?? null,
+		queryFn: async () => poemsBySlug.get(slug),
 		staleTime: Number.POSITIVE_INFINITY,
 	}),
 
