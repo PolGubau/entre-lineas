@@ -4,9 +4,11 @@ import { useFilters } from "~/features/poems/application/use-filters";
 import { usePoems } from "~/features/poems/application/use-poems";
 import { EmptyPoems } from "~/features/poems/ui/empty-poems";
 import { useKeyboardShortcuts } from "~/shared/hooks/use-keyboard-shortcuts";
+import type { Poem } from "../../domain/poem.types";
+import { PoemGrid } from "../components/grid/poem-grid";
+import { PoemGridLoader } from "../components/grid/poem-grid-skeleton";
 import { HomeHero } from "../components/home-hero";
 import { KeyboardShortcutsDialog } from "../components/keyboard-shortcuts-dialog";
-import { PoemGrid } from "../components/poem-grid";
 
 /**
  * Página principal de la aplicación
@@ -18,7 +20,11 @@ export function HomePage() {
 	const { clearFilters, filters, hasActiveFilters, sortBy } = useFilters();
 
 	const { favorites, isFavorite } = useFavorites();
-	const { data: filteredPoems } = usePoems(filters, favorites, sortBy);
+	const { data: filteredPoems, isLoading } = usePoems(
+		filters,
+		favorites,
+		sortBy,
+	);
 
 	// Keyboard shortcuts
 	useKeyboardShortcuts({
@@ -39,18 +45,21 @@ export function HomePage() {
 		},
 	});
 
+	function conditionalContent(isLoading: boolean, poems: Poem[]) {
+		if (isLoading) {
+			return <PoemGridLoader />;
+		} else if (poems.length > 0) {
+			return <PoemGrid poems={poems} isFavorite={isFavorite} />;
+		} else {
+			return <EmptyPoems />;
+		}
+	}
 	return (
 		<section className="relative grid grid-rows-[auto_1fr] md:grid-cols-[2fr_3fr] xl:grid-cols-[1fr_3fr] gap-2 md:gap-6 px-3 sm:px-6 lg:px-8 pt-6 md:pt-10 h-screen">
 			<HomeHero searchInputRef={searchInputRef} />
 
 			<section className="h-full pb-16 overflow-y-auto">
-				{filteredPoems && filteredPoems.length > 0 ? (
-					<PoemGrid poems={filteredPoems} isFavorite={isFavorite} />
-				) : (
-					<div className="grid items-center justify-center h-full">
-						<EmptyPoems />
-					</div>
-				)}
+				{conditionalContent(isLoading, filteredPoems || [])}
 			</section>
 			<KeyboardShortcutsDialog />
 		</section>

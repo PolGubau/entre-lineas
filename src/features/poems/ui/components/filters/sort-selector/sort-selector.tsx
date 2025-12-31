@@ -72,7 +72,7 @@ export const SortSelector = memo(
 
 				<DropdownMenuContent
 					align="end"
-					className="w-64 animate-in fade-in slide-in-from-top-2 duration-200"
+					className="w-64 mx-4 animate-in fade-in slide-in-from-top-2 duration-200"
 				>
 					<DropdownMenuLabel className="flex items-center gap-2 text-xs font-normal text-muted-foreground">
 						<ArrowUpDown className="size-3.5" />
@@ -88,7 +88,7 @@ export const SortSelector = memo(
 							<DropdownMenuItem
 								key={option.value}
 								onClick={() => handleSortChange(option.value)}
-								className="gap-3 cursor-pointer transition-all duration-200 hover:scale-[1.02] animate-in fade-in slide-in-from-left-1 fill-mode-both"
+								className="gap-3 cursor-pointer transition-all duration-200 hover:scale-[0.98] animate-in fade-in slide-in-from-left-1 fill-mode-both"
 								style={{ animationDelay: `${index * 30}ms` }}
 							>
 								<div
@@ -103,7 +103,7 @@ export const SortSelector = memo(
 
 								<div className="flex-1">
 									<p
-										className={`font-medium transition-colors duration-200 ${
+										className={`transition-colors duration-200 ${
 											isActive ? "text-primary" : ""
 										}`}
 									>

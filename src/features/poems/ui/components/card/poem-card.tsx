@@ -19,8 +19,7 @@ export function PoemCard({ poem, isFavorite }: PoemCardProps) {
 		<Link
 			to="/poem/$poemId"
 			params={{ poemId: poem.id }}
-			key={poem.id}
-			className="group animate-in fade-in slide-in-from-bottom-4 duration-500"
+ 			className="group animate-in fade-in slide-in-from-bottom-4 duration-500"
 		>
 			<Card className="h-full hover:shadow-xl hover:scale-[0.99] transition-all duration-300 relative overflow-hidden border-2 hover:border-primary/20">
 				{/* Gradient background sutil */}

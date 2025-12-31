@@ -174,4 +174,8 @@ code {
   html, body, #root {
     height: 100%;
   }
+
+  .skeleton {
+    @apply animate-pulse w-fit rounded-md blur;
+  }
 }

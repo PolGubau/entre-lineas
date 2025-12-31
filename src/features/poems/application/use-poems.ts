@@ -70,7 +70,7 @@ export function usePoems(
 
 			const searchLower = filters.search?.toLowerCase();
 
-			return poems.filter((poem: Poem) => {
+			const filteredPoems = poems.filter((poem: Poem) => {
 				// Filtro de búsqueda general
 				if (searchLower) {
 					const matchesTitle = poem.title.toLowerCase().includes(searchLower);
@@ -111,11 +111,8 @@ export function usePoems(
 
 				return true;
 			});
-		},
-		initialData: () => {
-			// Proveer datos inmediatamente en el primer render
-			const poems = poemsQueryOptions.all().queryFn();
-			return sortPoems(poems, sortBy, favoriteIds);
+
+			return sortPoems(filteredPoems, sortBy, favoriteIds);
 		},
 		staleTime: Number.POSITIVE_INFINITY, // Datos estáticos
 		gcTime: Number.POSITIVE_INFINITY, // No borrar nunca del cache
