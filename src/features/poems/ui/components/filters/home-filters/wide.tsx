@@ -22,8 +22,9 @@ export function WideFilters({ searchInputRef }: FiltersProps) {
 	return (
 		<section className="space-y-3">
 			<SearchInput searchInputRef={searchInputRef} />
-			<SortSelector showLabel={true} variant="outline" />
-			<FiltersAccordion>
+			<FiltersAccordion
+				leftContent={<SortSelector showLabel={true} variant="outline" />}
+			>
 				<AdvancedFilters />
 			</FiltersAccordion>
 		</section>
