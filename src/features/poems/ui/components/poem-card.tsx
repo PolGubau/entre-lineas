@@ -39,7 +39,9 @@ export function PoemCard({ poem, isFavorite }: PoemCardProps) {
 					<CardDescription className="flex items-center gap-2">
 						<span className="font-medium">{poem.author}</span>
 						<span className="text-xs opacity-60">•</span>
-						<span className="text-xs">{poem.context.publicationYear}</span>
+						<span className="text-xs">
+							{poem.context.publicationDate.getFullYear()}
+						</span>
 					</CardDescription>
 				</CardHeader>
 

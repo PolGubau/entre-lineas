@@ -100,7 +100,7 @@ export function generatePoemSEO(poem: Poem): SEOConfig {
 	const keywords = [
 		poem.title,
 		poem.author,
-		poem.context.movement??'',
+		poem.context.movement ?? "",
 		...poem.analysis.themes,
 		"poesía",
 		"análisis literario",
@@ -113,7 +113,7 @@ export function generatePoemSEO(poem: Poem): SEOConfig {
 		keywords,
 		type: "article",
 		author: poem.author,
-		publishedTime: poem.context.publicationYear?.toString(),
+		publishedTime: poem.createdAt.toISOString(),
 		image: "/ICO.png",
 	};
 }
@@ -132,7 +132,7 @@ export function generateHomeSEO(): SEOConfig {
 			"Antonio Machado",
 			"Pablo Neruda",
 			"poesía interactiva",
-    ],
+		],
 		type: "website",
 		image: "/ICO.png",
 	};

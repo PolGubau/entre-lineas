@@ -10,7 +10,7 @@ export const PoemContextTable = ({ context, author }: Props) => {
 	return (
 		<article className="grid md:grid-cols-[1fr_3fr] gap-3 [&_span]:text-foreground/80 [&_strong]:font-normal">
 			<strong>Año de Publicación:</strong>
-			<span>{context.publicationYear}</span>
+			<span>{context.publicationDate.getFullYear()}</span>
 
 			<strong>Autor:</strong>
 			<span>{author}</span>
