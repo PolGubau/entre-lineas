@@ -17,8 +17,10 @@ import { Drawer } from "~/shared/ui/drawer";
 import { ErrorBoundary } from "~/shared/ui/error-boundary";
 import { FloatingActionBar } from "../components/floating-action-bar";
 import { KeyboardShortcutsDialog } from "../components/keyboard-shortcuts-dialog";
+import { NavigationAsideSkeleton } from "../components/navigation-aside-skeleton";
 import { PoemNotFound } from "../components/poem-not-found";
 import { PoemSkeleton } from "../components/poem-skeleton";
+import { SummaryAsideSkeleton } from "../components/summary-aside-skeleton";
 
 interface PoemDetailPageProps {
 	poemId: string;
@@ -143,24 +145,25 @@ export function PoemDetailPage({ poemId }: PoemDetailPageProps) {
 
 	if (isLoading) {
 		return (
-			<section className="h-screen pt-10 pb-20 px-4 sm:px-6 lg:px-8">
-				<div className="grid md:grid-cols-[1fr_2fr] lg:grid-cols-3 gap-4 md:gap-6 xl:gap-20 h-full">
-					<aside className="hidden md:block" aria-label="Navegación">
-						<div className="space-y-2">
-							{Array.from({ length: 6 }).map((_, i) => (
-								<div
-									key={`nav-skeleton-${i}`}
-									className="h-16 bg-muted/50 rounded-lg animate-pulse"
-								/>
-							))}
-						</div>
-					</aside>
-					<div aria-live="polite" aria-busy="true">
-						<PoemSkeleton />
-						<span className="sr-only">Cargando poema...</span>
-					</div>
+			<main className="grid grid-rows-[auto_1fr] md:grid-cols-[1fr_2fr] lg:grid-cols-3 gap-4 md:gap-6 xl:gap-20 h-screen pt-10 pb-20 px-4 sm:px-6 lg:px-8">
+				{/* Navigation Sidebar Skeleton */}
+				<div className="hidden md:block">
+					<NavigationAsideSkeleton />
 				</div>
-			</section>
+
+				{/* Main Content Skeleton */}
+				<section
+					aria-live="polite"
+					aria-busy="true"
+					className="h-full overflow-y-auto"
+				>
+					<PoemSkeleton />
+					<span className="sr-only">Cargando poema...</span>
+				</section>
+
+				{/* Summary Sidebar Skeleton */}
+				<SummaryAsideSkeleton />
+			</main>
 		);
 	}
 
@@ -177,11 +180,11 @@ export function PoemDetailPage({ poemId }: PoemDetailPageProps) {
 			<main
 				aria-live="polite"
 				className={cn(
-					"h-screen pt-10 pb-20 px-4 sm:px-6 lg:px-8 relative transition-all duration-300 animate-in fade-in",
+					"grid h-screen pt-10 pb-20 px-4 sm:px-6 lg:px-8 relative transition-all duration-300",
 					{
-						"grid place-items-center bg-linear-to-b from-background to-muted-foreground/20":
+						"place-items-center bg-linear-to-b from-background to-muted-foreground/20":
 							isReadingMode,
-						"grid grid-rows-[auto_1fr] md:grid-cols-[1fr_2fr] lg:grid-cols-3 gap-4 md:gap-6 xl:gap-20":
+						"grid-rows-[auto_1fr] md:grid-cols-[1fr_2fr] lg:grid-cols-3 gap-4 md:gap-6 xl:gap-20":
 							!isReadingMode,
 					},
 				)}
@@ -199,7 +202,7 @@ export function PoemDetailPage({ poemId }: PoemDetailPageProps) {
 						onVerseAnnotationClick={openVerseAnnotation}
 						isReadingMode={isReadingMode}
 					/>
-				</section>{" "}
+				</section>
 				{/* Desktop: sidebar */}
 				{!isReadingMode && (
 					<aside className="hidden lg:block overflow-y-auto h-full animate-in slide-in-from-right-4">
