@@ -1,7 +1,9 @@
 "use client";
 
+import { Heart } from "lucide-react";
 import { motion } from "motion/react";
 import { useRef, useState } from "react";
+import { cn } from "../lib/utils";
 import { Button } from "./button";
 import { Kbd } from "./kbd";
 import { Tooltip } from "./tooltip";
@@ -177,6 +179,8 @@ export const LikeButton = ({
 		}
 	};
 
+	const MotionHeart = motion(Heart);
+
 	return (
 		<Tooltip
 			label={
@@ -200,7 +204,7 @@ export const LikeButton = ({
 					{isAnimating && <CircleAnimation />}
 					{isAnimating && <BurstAnimation />}
 					{isAnimating ? (
-						<motion.svg
+						<MotionHeart
 							key="animating-heart"
 							initial={{ scale: 0 }}
 							animate={{ scale: 1 }}
@@ -212,27 +216,19 @@ export const LikeButton = ({
 							}}
 							onAnimationComplete={() => setIsAnimating(false)}
 							className="text-red-500"
-							width="16"
-							height="16"
+							width="15"
+							height="15"
 							viewBox="0 0 24 24"
 							stroke="currentColor"
 							fill="currentColor"
-						>
-							<title>Liked Heart</title>
-							<path d="m18.199 2.04c-2.606-.284-4.262.961-6.199 3.008-2.045-2.047-3.593-3.292-6.199-3.008-3.544.388-6.321 4.43-5.718 7.96.966 5.659 5.944 9 11.917 12 5.973-3 10.951-6.341 11.917-12 .603-3.53-2.174-7.572-5.718-7.96z" />
-						</motion.svg>
+						/>
 					) : (
-						<svg
-							className={`${externalIsLiked ? "text-red-500" : "text-inherit"}`}
-							width="16"
-							height="16"
-							viewBox="0 0 24 24"
-							stroke="currentColor"
-							fill="currentColor"
-						>
-							<title>{externalIsLiked ? "Liked Heart" : "Unliked Heart"}</title>
-							<path d="m18.199 2.04c-2.606-.284-4.262.961-6.199 3.008-2.045-2.047-3.593-3.292-6.199-3.008-3.544.388-6.321 4.43-5.718 7.96.966 5.659 5.944 9 11.917 12 5.973-3 10.951-6.341 11.917-12 .603-3.53-2.174-7.572-5.718-7.96z" />
-						</svg>
+						<Heart
+							className={cn("transition-colors", {
+								"text-red-500 fill-red-500": externalIsLiked,
+								"text-foreground": !externalIsLiked,
+							})}
+						/>
 					)}
 				</div>
 			</Button>
