@@ -1,19 +1,24 @@
 import { Link } from "@tanstack/react-router";
 import { useMemo, useState } from "react";
+import { poemasData } from "~/data/poems.data";
 import { cn } from "~/shared/lib/utils";
 import { Input } from "~/shared/ui/input";
-import { usePoems } from "../application/use-poems";
-
 
 export const NavigationAside = () => {
 	const [searchQuery, setSearchQuery] = useState("");
 
-	const filters = useMemo(
-		() => (searchQuery ? { search: searchQuery } : undefined),
-		[searchQuery],
-	);
+	// Filtrar poemas manteniendo el orden de poemasData
+	const filteredPoems = useMemo(() => {
+		if (!searchQuery) return poemasData;
 
-	const { data: filteredPoems } = usePoems(filters);
+		const query = searchQuery.toLowerCase();
+		return poemasData.filter(
+			(poem) =>
+				poem.title.toLowerCase().includes(query) ||
+				poem.author.toLowerCase().includes(query),
+		);
+	}, [searchQuery]);
+
 	return (
 		<aside className="overflow-y-auto h-full">
 			<Link to="/" className="text-sm text-primary hover:underline">

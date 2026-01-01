@@ -78,21 +78,22 @@ export function PoemDetailPage({ poemId }: PoemDetailPageProps) {
 
 	function goNext() {
 		const currentIndex = poemasData.findIndex((p) => p.id === poemId);
-		if (currentIndex < poemasData.length - 1) {
-			navigate({
-				to: "/poem/$poemId",
-				params: { poemId: poemasData[currentIndex + 1].id },
-			});
-		}
+		// Loop: si está en el último, volver al primero
+		const nextIndex = (currentIndex + 1) % poemasData.length;
+		navigate({
+			to: "/poem/$poemId",
+			params: { poemId: poemasData[nextIndex].id },
+		});
 	}
 	function goPrevious() {
 		const currentIndex = poemasData.findIndex((p) => p.id === poemId);
-		if (currentIndex > 0) {
-			navigate({
-				to: "/poem/$poemId",
-				params: { poemId: poemasData[currentIndex - 1].id },
-			});
-		}
+		// Loop: si está en el primero, ir al último
+		const prevIndex =
+			currentIndex === 0 ? poemasData.length - 1 : currentIndex - 1;
+		navigate({
+			to: "/poem/$poemId",
+			params: { poemId: poemasData[prevIndex].id },
+		});
 	}
 
 	// Keyboard shortcuts
