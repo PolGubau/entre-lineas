@@ -1,7 +1,11 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { PoemDetailPage } from "~/features/poems/ui/pages/poem-detail-page";
 import { poemasData } from "~/data/poems.data";
-import { generatePoemSEO, generateSEOTags } from "~/shared/lib/seo";
+import { PoemDetailPage } from "~/features/poems/ui/pages/poem-detail-page";
+import {
+	generatePoemSEO,
+	generatePoemStructuredData,
+	generateSEOTags,
+} from "~/shared/lib/seo";
 
 export const Route = createFileRoute("/poem/$poemId")({
 	loader: ({ params }) => {
@@ -16,7 +20,20 @@ export const Route = createFileRoute("/poem/$poemId")({
 		}
 		const seoConfig = generatePoemSEO(loaderData.poem);
 		const { meta, links } = generateSEOTags(seoConfig);
-		return { meta, links };
+
+		// Add structured data (JSON-LD) for better SEO
+		const structuredData = generatePoemStructuredData(loaderData.poem);
+
+		return {
+			meta,
+			links,
+			scripts: [
+				{
+					type: "application/ld+json",
+					children: JSON.stringify(structuredData),
+				},
+			],
+		};
 	},
 	component: PostComponent,
 });

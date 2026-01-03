@@ -1,6 +1,11 @@
 export function NavigationAsideSkeleton() {
 	return (
-		<aside className="overflow-y-auto h-full animate-in fade-in duration-300">
+		<aside
+			className="overflow-y-auto h-full animate-in fade-in duration-300"
+			aria-live="polite"
+			aria-busy="true"
+			aria-label="Cargando navegación"
+		>
 			{/* Botón volver */}
 			<div className="h-5 w-32 bg-muted/50 rounded animate-pulse mb-4" />
 

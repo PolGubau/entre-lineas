@@ -1,6 +1,11 @@
 export function SummaryAsideSkeleton() {
 	return (
-		<aside className="hidden lg:block overflow-y-auto h-full space-y-6 animate-in slide-in-from-right-4 fade-in duration-300">
+		<aside
+			className="hidden lg:block overflow-y-auto h-full space-y-6 animate-in slide-in-from-right-4 fade-in duration-300"
+			aria-live="polite"
+			aria-busy="true"
+			aria-label="Cargando análisis"
+		>
 			{/* Sección de contexto */}
 			<section className="space-y-3">
 				<div className="h-5 w-24 bg-muted/60 rounded animate-pulse" />

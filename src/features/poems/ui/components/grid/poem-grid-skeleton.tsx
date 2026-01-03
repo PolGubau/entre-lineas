@@ -7,7 +7,12 @@ export function PoemGridLoader() {
 		// 		<PoemCardSkeleton key={id} />
 		// 	))}
 		// </ul>
-		<section className="flex flex-col gap-2 justify-center items-center mt-[20vh]">
+		<section
+			className="flex flex-col gap-2 justify-center items-center mt-[20vh]"
+			aria-live="polite"
+			aria-busy="true"
+			aria-label="Cargando poemas"
+		>
 			<LoaderCircle className="size-6 text-foreground/70 animate-spin" />
 			<span className="text-sm text-muted-foreground">Loading poems...</span>
 		</section>

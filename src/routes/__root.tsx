@@ -7,7 +7,11 @@ import {
 	Scripts,
 } from "@tanstack/react-router";
 import { TanStackRouterDevtoolsPanel } from "@tanstack/react-router-devtools";
-import { generateHomeSEO, generateSEOTags } from "~/shared/lib/seo";
+import {
+	generateHomeSEO,
+	generateSEOTags,
+	generateWebsiteStructuredData,
+} from "~/shared/lib/seo";
 import { ErrorBoundary } from "~/shared/ui/error-boundary";
 import { Toaster } from "~/shared/ui/sonner";
 import appCss from "../app/styles.css?url";
@@ -21,6 +25,8 @@ export const Route = createRootRouteWithContext<MyRouterContext>()({
 	head: () => {
 		const seoConfig = generateHomeSEO();
 		const { meta, links } = generateSEOTags(seoConfig);
+		const structuredData = generateWebsiteStructuredData();
+
 		return {
 			meta,
 			links: [
@@ -28,6 +34,12 @@ export const Route = createRootRouteWithContext<MyRouterContext>()({
 				{
 					rel: "stylesheet",
 					href: appCss,
+				},
+			],
+			scripts: [
+				{
+					type: "application/ld+json",
+					children: JSON.stringify(structuredData),
 				},
 			],
 		};

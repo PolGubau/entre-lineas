@@ -91,6 +91,46 @@ export function generateSEOTags(config: SEOConfig) {
 	return { meta, links };
 }
 
+/**
+ * Genera datos estructurados JSON-LD para un poema
+ * Mejora el SEO y permite rich snippets en resultados de búsqueda
+ */
+export function generatePoemStructuredData(poem: Poem) {
+	return {
+		"@context": "https://schema.org",
+		"@type": "CreativeWork",
+		name: poem.title,
+		author: {
+			"@type": "Person",
+			name: poem.author,
+		},
+		datePublished: poem.context.publicationDate.toISOString(),
+		description: poem.shortDescription,
+		keywords: poem.analysis.themes.join(", "),
+		genre: poem.context.movement || "Poesía",
+		inLanguage: "es",
+		copyrightYear: poem.context.publicationDate.getFullYear(),
+	};
+}
+
+/**
+ * Genera datos estructurados JSON-LD para el sitio web
+ */
+export function generateWebsiteStructuredData() {
+	return {
+		"@context": "https://schema.org",
+		"@type": "WebSite",
+		name: "Entre Líneas",
+		description: "Análisis interactivo de poesía española e hispanoamericana",
+		url: "https://entre-lineas.vercel.app",
+		potentialAction: {
+			"@type": "SearchAction",
+			target: "https://entre-lineas.vercel.app/?q={search_term_string}",
+			"query-input": "required name=search_term_string",
+		},
+	};
+}
+
 export function generatePoemSEO(poem: Poem): SEOConfig {
 	const title = `${poem.title} - ${poem.author} | Entre Líneas`;
 	const description =
