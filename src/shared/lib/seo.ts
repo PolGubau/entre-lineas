@@ -31,7 +31,7 @@ export function generateSEOTags(config: SEOConfig) {
 		title,
 		description,
 		keywords = [],
-		image = "/ICO.png",
+		image = "https://entrelineas.polgubau.com/ICO.png",
 		type = "website",
 		author,
 		publishedTime,
@@ -55,6 +55,9 @@ export function generateSEOTags(config: SEOConfig) {
 		{ property: "og:title", content: title },
 		{ property: "og:description", content: description },
 		{ property: "og:image", content: image },
+		{ property: "og:image:alt", content: title },
+		{ property: "og:image:width", content: "1200" },
+		{ property: "og:image:height", content: "630" },
 		{ property: "og:type", content: type },
 		{
 			property: "og:url",
@@ -158,7 +161,7 @@ export function generatePoemSEO(poem: Poem): SEOConfig {
 		type: "article",
 		author: poem.author,
 		publishedTime: poem.createdAt.toISOString(),
-		image: "/ICO.png",
+		image: `https://entrelineas.polgubau.com/api/og/${poem.id}`,
 		canonical: `https://entrelineas.polgubau.com/poem/${poem.id}`,
 	};
 }
@@ -179,7 +182,7 @@ export function generateHomeSEO(): SEOConfig {
 			"poesía interactiva",
 		],
 		type: "website",
-		image: "/ICO.png",
+		image: "https://entrelineas.polgubau.com/api/og/home",
 		canonical: "https://entrelineas.polgubau.com",
 	};
 }

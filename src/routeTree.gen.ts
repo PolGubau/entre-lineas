@@ -11,6 +11,8 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as PoemPoemIdRouteImport } from './routes/poem/$poemId'
+import { Route as ApiOgHomeRouteImport } from './routes/api/og/home'
+import { Route as ApiOgPoemIdRouteImport } from './routes/api/og/$poemId'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -22,31 +24,49 @@ const PoemPoemIdRoute = PoemPoemIdRouteImport.update({
   path: '/poem/$poemId',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ApiOgHomeRoute = ApiOgHomeRouteImport.update({
+  id: '/api/og/home',
+  path: '/api/og/home',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ApiOgPoemIdRoute = ApiOgPoemIdRouteImport.update({
+  id: '/api/og/$poemId',
+  path: '/api/og/$poemId',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/poem/$poemId': typeof PoemPoemIdRoute
+  '/api/og/$poemId': typeof ApiOgPoemIdRoute
+  '/api/og/home': typeof ApiOgHomeRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/poem/$poemId': typeof PoemPoemIdRoute
+  '/api/og/$poemId': typeof ApiOgPoemIdRoute
+  '/api/og/home': typeof ApiOgHomeRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/poem/$poemId': typeof PoemPoemIdRoute
+  '/api/og/$poemId': typeof ApiOgPoemIdRoute
+  '/api/og/home': typeof ApiOgHomeRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/poem/$poemId'
+  fullPaths: '/' | '/poem/$poemId' | '/api/og/$poemId' | '/api/og/home'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/poem/$poemId'
-  id: '__root__' | '/' | '/poem/$poemId'
+  to: '/' | '/poem/$poemId' | '/api/og/$poemId' | '/api/og/home'
+  id: '__root__' | '/' | '/poem/$poemId' | '/api/og/$poemId' | '/api/og/home'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   PoemPoemIdRoute: typeof PoemPoemIdRoute
+  ApiOgPoemIdRoute: typeof ApiOgPoemIdRoute
+  ApiOgHomeRoute: typeof ApiOgHomeRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -65,12 +85,28 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof PoemPoemIdRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/api/og/home': {
+      id: '/api/og/home'
+      path: '/api/og/home'
+      fullPath: '/api/og/home'
+      preLoaderRoute: typeof ApiOgHomeRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/og/$poemId': {
+      id: '/api/og/$poemId'
+      path: '/api/og/$poemId'
+      fullPath: '/api/og/$poemId'
+      preLoaderRoute: typeof ApiOgPoemIdRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   PoemPoemIdRoute: PoemPoemIdRoute,
+  ApiOgPoemIdRoute: ApiOgPoemIdRoute,
+  ApiOgHomeRoute: ApiOgHomeRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
