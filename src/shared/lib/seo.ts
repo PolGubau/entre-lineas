@@ -182,7 +182,7 @@ export function generateHomeSEO(): SEOConfig {
 			"poesía interactiva",
 		],
 		type: "website",
-		image: "https://entrelineas.polgubau.com/api/og/home",
+		image: "https://entrelineas.polgubau.com/ICO.png",
 		canonical: "https://entrelineas.polgubau.com",
 	};
 }
