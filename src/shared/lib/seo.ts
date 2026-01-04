@@ -56,11 +56,11 @@ export function generateSEOTags(config: SEOConfig) {
 		{ property: "og:description", content: description },
 		{ property: "og:image", content: image },
 		{ property: "og:type", content: type },
+		{
+			property: "og:url",
+			content: canonical || "https://entrelineas.polgubau.com",
+		},
 	);
-
-	if (canonical) {
-		meta.push({ property: "og:url", content: canonical });
-	}
 
 	// Twitter Card
 	meta.push(
@@ -68,6 +68,10 @@ export function generateSEOTags(config: SEOConfig) {
 		{ name: "twitter:title", content: title },
 		{ name: "twitter:description", content: description },
 		{ name: "twitter:image", content: image },
+		{
+			name: "twitter:url",
+			content: canonical || "https://entrelineas.polgubau.com",
+		},
 	);
 
 	// Article metadata
@@ -122,10 +126,10 @@ export function generateWebsiteStructuredData() {
 		"@type": "WebSite",
 		name: "Entre Líneas",
 		description: "Análisis interactivo de poesía española e hispanoamericana",
-		url: "https://entre-lineas.vercel.app",
+		url: "https://entrelineas.polgubau.com",
 		potentialAction: {
 			"@type": "SearchAction",
-			target: "https://entre-lineas.vercel.app/?q={search_term_string}",
+			target: "https://entrelineas.polgubau.com/?q={search_term_string}",
 			"query-input": "required name=search_term_string",
 		},
 	};
@@ -155,6 +159,7 @@ export function generatePoemSEO(poem: Poem): SEOConfig {
 		author: poem.author,
 		publishedTime: poem.createdAt.toISOString(),
 		image: "/ICO.png",
+		canonical: `https://entrelineas.polgubau.com/poem/${poem.id}`,
 	};
 }
 
@@ -175,5 +180,6 @@ export function generateHomeSEO(): SEOConfig {
 		],
 		type: "website",
 		image: "/ICO.png",
+		canonical: "https://entrelineas.polgubau.com",
 	};
 }
