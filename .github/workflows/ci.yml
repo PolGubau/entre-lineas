@@ -72,14 +72,6 @@ jobs:
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
       
-      # Uncomment when tests are ready
-      # - name: Run unit tests
-      #   run: pnpm test
-      
-      # - name: Upload coverage
-      #   uses: codecov/codecov-action@v4
-      #   with:
-      #     files: ./coverage/coverage-final.json
   
   # ============================================
   # Build
