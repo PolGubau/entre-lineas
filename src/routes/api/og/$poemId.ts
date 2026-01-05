@@ -18,17 +18,6 @@ export const Route = createFileRoute("/api/og/$poemId")({
 						? `${firstVerse.substring(0, 80)}...`
 						: firstVerse;
 
-				// Gradiente basado en el movimiento literario
-				const gradients: Record<string, { start: string; end: string }> = {
-					Modernismo: { start: "#667eea", end: "#764ba2" },
-					"Generación del 27": { start: "#f093fb", end: "#f5576c" },
-					"Generación del 98": { start: "#4facfe", end: "#00f2fe" },
-					default: { start: "#667eea", end: "#764ba2" },
-				};
-
-				const gradient =
-					gradients[poem.context.movement || ""] || gradients.default;
-
 				const svg = `
 <svg width="1200" height="630" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" preserveAspectRatio="xMidYMid slice">
   <defs>
