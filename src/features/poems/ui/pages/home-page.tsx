@@ -2,6 +2,7 @@ import { useRef } from "react";
 import { useFavorites } from "~/features/poems/application/use-favorites";
 import { useFilters } from "~/features/poems/application/use-filters";
 import { usePoems } from "~/features/poems/application/use-poems";
+import { useSearch } from "~/features/poems/application/use-search";
 import { EmptyPoems } from "~/features/poems/ui/empty-poems";
 import { useKeyboardShortcuts } from "~/shared/hooks/use-keyboard-shortcuts";
 import type { Poem } from "../../domain/poem.types";
@@ -26,6 +27,20 @@ export function HomePage() {
 		sortBy,
 	);
 
+	// Search with highlighting
+	const {
+		searchQuery,
+		setSearchQuery,
+		searchResults,
+		hasActiveSearch,
+		highlightText,
+	} = useSearch(filteredPoems || [], 300);
+
+	// Usar resultados de búsqueda si hay búsqueda activa, sino usar poemas filtrados
+	const displayPoems = hasActiveSearch
+		? searchResults.map((result) => result.item)
+		: filteredPoems || [];
+
 	// Keyboard shortcuts
 	useKeyboardShortcuts({
 		slash: {
@@ -35,12 +50,13 @@ export function HomePage() {
 		},
 		escape: {
 			handler: () => {
-				if (hasActiveFilters) {
+				if (hasActiveFilters || hasActiveSearch) {
 					clearFilters();
+					setSearchQuery("");
 				}
 				searchInputRef.current?.blur();
 			},
-			description: "Limpiar filtros",
+			description: "Limpiar filtros y búsqueda",
 			shortcut: { key: "Escape" },
 		},
 	});
@@ -49,17 +65,29 @@ export function HomePage() {
 		if (isLoading) {
 			return <PoemGridLoader />;
 		} else if (poems.length > 0) {
-			return <PoemGrid poems={poems} isFavorite={isFavorite} />;
+			return (
+				<PoemGrid
+					poems={poems}
+					isFavorite={isFavorite}
+					searchQuery={searchQuery}
+					highlightText={highlightText}
+				/>
+			);
 		} else {
 			return <EmptyPoems />;
 		}
 	}
+
 	return (
 		<section className="relative grid grid-rows-[auto_1fr] md:grid-cols-[2fr_3fr] xl:grid-cols-[1fr_3fr] gap-2 md:gap-6 px-3 sm:px-6 lg:px-8 pt-6 md:pt-10 h-screen">
-			<HomeHero searchInputRef={searchInputRef} />
+			<HomeHero
+				searchInputRef={searchInputRef}
+				searchQuery={searchQuery}
+				setSearchQuery={setSearchQuery}
+			/>
 
 			<section className="h-full pb-16 overflow-y-auto">
-				{conditionalContent(isLoading, filteredPoems || [])}
+				{conditionalContent(isLoading, displayPoems)}
 			</section>
 			<KeyboardShortcutsDialog />
 		</section>

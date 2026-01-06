@@ -4,9 +4,16 @@ import { PoemCard } from "../card/poem-card";
 interface PoemGridProps {
 	poems: Poem[];
 	isFavorite: (poemId: string) => boolean;
+	searchQuery?: string;
+	highlightText?: (text: string) => string;
 }
 
-export function PoemGrid({ poems, isFavorite }: PoemGridProps) {
+export function PoemGrid({
+	poems,
+	isFavorite,
+	searchQuery,
+	highlightText,
+}: PoemGridProps) {
 	return (
 		<ul
 			className={poemGridClasses.list}
@@ -18,7 +25,12 @@ export function PoemGrid({ poems, isFavorite }: PoemGridProps) {
 					className={poemGridClasses.item}
 					style={{ animationDelay: `${index * 50}ms` }}
 				>
-					<PoemCard poem={poem} isFavorite={isFavorite(poem.id)} />
+					<PoemCard
+						poem={poem}
+						isFavorite={isFavorite(poem.id)}
+						searchQuery={searchQuery}
+						highlightText={highlightText}
+					/>
 				</li>
 			))}
 		</ul>

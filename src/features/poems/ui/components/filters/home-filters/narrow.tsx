@@ -8,7 +8,16 @@ import { SortSelector } from "../sort-selector";
 import { AdvancedFilters, type FiltersProps } from "./advanced-filters";
 import { SearchInput } from "./search-input";
 
-export const NarrowFilters = ({ searchInputRef }: FiltersProps) => {
+interface NarrowFiltersProps extends FiltersProps {
+	searchQuery: string;
+	setSearchQuery: (query: string) => void;
+}
+
+export const NarrowFilters = ({
+	searchInputRef,
+	searchQuery,
+	setSearchQuery,
+}: NarrowFiltersProps) => {
 	const [isDrawerOpen, setIsDrawerOpen] = useState(false);
 	const { hasActiveFilters, selectedAuthor, selectedMovement, selectedThemes } =
 		useFilters();
@@ -21,7 +30,11 @@ export const NarrowFilters = ({ searchInputRef }: FiltersProps) => {
 
 	return (
 		<section className="space-y-3">
-			<SearchInput searchInputRef={searchInputRef} />
+			<SearchInput
+				searchInputRef={searchInputRef}
+				searchQuery={searchQuery}
+				setSearchQuery={setSearchQuery}
+			/>
 
 			{/* Fila con ordenamiento y filtros */}
 			<div className="flex gap-2">

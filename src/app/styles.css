@@ -1,5 +1,6 @@
 @import 'tailwindcss';
 /* @import 'tw-animate-css' layer(utilities); */
+@import './search-highlight.css';
 
 @custom-variant dark (&:is(.dark *));
 

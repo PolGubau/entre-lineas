@@ -1,24 +1,25 @@
 import { Search } from "lucide-react";
 import type { RefObject } from "react";
-import { useCallback, useState } from "react";
-import { useFilters } from "~/features/poems/application/use-filters";
+import { useCallback } from "react";
 import { Input } from "~/shared/ui/input";
 
 interface SearchInputProps {
 	searchInputRef?: RefObject<HTMLInputElement | null>;
+	searchQuery: string;
+	setSearchQuery: (query: string) => void;
 }
 
 /**
- * Input de búsqueda siempre visible
+ * Input de búsqueda siempre visible con highlighting
  */
-export function SearchInput({ searchInputRef }: SearchInputProps) {
-	const { searchQuery, setSearchQuery } = useFilters();
-	const [localValue, setLocalValue] = useState(searchQuery);
-
+export function SearchInput({
+	searchInputRef,
+	searchQuery,
+	setSearchQuery,
+}: SearchInputProps) {
 	const handleChange = useCallback(
 		(e: React.ChangeEvent<HTMLInputElement>) => {
 			const value = e.target.value;
-			setLocalValue(value);
 			setSearchQuery(value);
 		},
 		[setSearchQuery],
@@ -33,7 +34,7 @@ export function SearchInput({ searchInputRef }: SearchInputProps) {
 					<Search className="size-5 text-muted-foreground transition-colors duration-200 group-focus-within:text-primary" />
 				}
 				placeholder="Buscar por título, autor o tema..."
-				value={localValue}
+				value={searchQuery}
 				onChange={handleChange}
 				className="transition-all duration-200 hover:shadow-md focus:shadow-lg"
 			/>

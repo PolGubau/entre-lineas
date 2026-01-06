@@ -13,9 +13,18 @@ import { Ripple } from "~/shared/ui/ripple/ripple";
 interface PoemCardProps {
 	poem: Poem;
 	isFavorite: boolean;
+	searchQuery?: string;
+	highlightText?: (text: string) => string;
 }
 
-export function PoemCard({ poem, isFavorite }: PoemCardProps) {
+export function PoemCard({
+	poem,
+	isFavorite,
+	searchQuery,
+	highlightText,
+}: PoemCardProps) {
+	const hasSearch = searchQuery && searchQuery.trim().length > 0;
+
 	return (
 		<Link
 			to="/poem/$poemId"
@@ -36,10 +45,26 @@ export function PoemCard({ poem, isFavorite }: PoemCardProps) {
 
 				<CardHeader className="relative">
 					<CardTitle className="group-hover:text-primary transition-colors line-clamp-2">
-						{poem.title}
+						{hasSearch && highlightText ? (
+							<span
+								dangerouslySetInnerHTML={{ __html: highlightText(poem.title) }}
+							/>
+						) : (
+							poem.title
+						)}
 					</CardTitle>
 					<CardDescription className="flex items-center gap-2">
-						<span className="font-medium">{poem.author}</span>
+						<span className="font-medium">
+							{hasSearch && highlightText ? (
+								<span
+									dangerouslySetInnerHTML={{
+										__html: highlightText(poem.author),
+									}}
+								/>
+							) : (
+								poem.author
+							)}
+						</span>
 						<span className="text-xs opacity-60">•</span>
 						<span className="text-xs">
 							{poem.context.publicationDate.getFullYear()}
@@ -49,12 +74,28 @@ export function PoemCard({ poem, isFavorite }: PoemCardProps) {
 
 				<CardContent className="space-y-3 text-sm text-muted-foreground relative">
 					<p className="line-clamp-3 leading-relaxed">
-						{poem.shortDescription}
+						{hasSearch && highlightText ? (
+							<span
+								dangerouslySetInnerHTML={{
+									__html: highlightText(poem.shortDescription),
+								}}
+							/>
+						) : (
+							poem.shortDescription
+						)}
 					</p>
 
 					<div className="pt-2 flex items-center gap-2">
 						<span className="text-xs px-2 py-1 rounded-md bg-secondary/50 font-medium">
-							{poem.context.movement}
+							{hasSearch && highlightText ? (
+								<span
+									dangerouslySetInnerHTML={{
+										__html: highlightText(poem.context.movement || ""),
+									}}
+								/>
+							) : (
+								poem.context.movement
+							)}
 						</span>
 					</div>
 
@@ -64,7 +105,13 @@ export function PoemCard({ poem, isFavorite }: PoemCardProps) {
 								key={tema}
 								className="px-2.5 py-1 text-xs rounded-full bg-linear-to-r from-primary/10 to-primary/5 text-foreground/80 border border-primary/10"
 							>
-								{tema}
+								{hasSearch && highlightText ? (
+									<span
+										dangerouslySetInnerHTML={{ __html: highlightText(tema) }}
+									/>
+								) : (
+									tema
+								)}
 							</li>
 						))}
 					</ul>
