@@ -2,13 +2,16 @@ import { useMemo, useState } from "react";
 import { useDebounce } from "~/shared/hooks/useDebounce";
 import type { Poem } from "../domain/poem.types";
 import type { SearchQuery } from "../domain/search.types";
-import { SearchRepositoryImpl } from "../infra/search.repository.impl";
-import { SearchPoemsUseCase } from "./use-cases/search-poems.use-case";
+import { usePoemsDependencies } from "../infra/dependencies.provider";
 
-const searchRepository = new SearchRepositoryImpl();
-const searchUseCase = new SearchPoemsUseCase(searchRepository);
-
+/**
+ * Hook para búsqueda de poemas
+ * Ahora usa Dependency Injection para obtener el use case
+ */
 export function useSearch(poems: Poem[], debounceMs = 300) {
+	// ✅ DI: Obtenemos las dependencias del contexto
+	const { searchPoemsUseCase, searchRepository } = usePoemsDependencies();
+
 	const [searchQuery, setSearchQuery] = useState("");
 	const debouncedSearch = useDebounce(searchQuery, debounceMs);
 
@@ -17,8 +20,9 @@ export function useSearch(poems: Poem[], debounceMs = 300) {
 			text: debouncedSearch || undefined,
 		};
 
-		return searchUseCase.execute(poems, query);
-	}, [poems, debouncedSearch]);
+		// ✅ Uso del use case inyectado
+		return searchPoemsUseCase.execute(poems, query);
+	}, [poems, debouncedSearch, searchPoemsUseCase]);
 
 	return {
 		searchQuery,

@@ -3,8 +3,8 @@
  * Concrete implementation of search functionality
  */
 
+import type { SearchRepository } from "../domain";
 import type { Poem } from "../domain/poem.types";
-import type { SearchRepository } from "../domain/search.repository";
 import type { SearchQuery, SearchResult } from "../domain/search.types";
 
 export class SearchRepositoryImpl implements SearchRepository {

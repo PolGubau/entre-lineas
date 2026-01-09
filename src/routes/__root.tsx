@@ -7,6 +7,7 @@ import {
 	Scripts,
 } from "@tanstack/react-router";
 import { TanStackRouterDevtoolsPanel } from "@tanstack/react-router-devtools";
+import { PoemsDependenciesProvider } from "~/features/poems/infra/dependencies.provider";
 import {
 	generateHomeSEO,
 	generateSEOTags,
@@ -51,9 +52,12 @@ export const Route = createRootRouteWithContext<MyRouterContext>()({
 function RootComponent() {
 	return (
 		<ErrorBoundary>
-			<RootDocument>
-				<Outlet />
-			</RootDocument>
+			{/* ✅ DI Provider envuelve toda la app */}
+			<PoemsDependenciesProvider>
+				<RootDocument>
+					<Outlet />
+				</RootDocument>
+			</PoemsDependenciesProvider>
 		</ErrorBoundary>
 	);
 }

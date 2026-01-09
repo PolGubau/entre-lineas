@@ -4,11 +4,11 @@
  */
 
 import type { Poem } from "../../domain/poem.types";
-import type { SearchRepository } from "../../domain/search.repository";
+import type { SearchRepository } from "../../domain/repositories/search.repository";
 import type { SearchQuery, SearchResult } from "../../domain/search.types";
 
 export class SearchPoemsUseCase {
-	constructor(private searchRepository: SearchRepository) {}
+	constructor(private readonly searchRepository: SearchRepository) {}
 
 	execute(poems: Poem[], query: SearchQuery): SearchResult<Poem>[] {
 		// Si no hay query, retornar todos los poemas sin highlighting
