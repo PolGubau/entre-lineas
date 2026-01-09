@@ -28,16 +28,7 @@ export const sorpresa: Poem = {
 	},
 
 	analysis: {
-		themes: [
-			"muerte anónima",
-			"violencia urbana",
-			"soledad",
-			"indiferencia social",
-			"puñal",
-			"madrugada",
-			"anonimato",
-			"testigo mudo (farol)",
-		],
+		themes: ["muerte", "violencia", "soledad"],
 		tone: "narrativo, sobrio, dramático y patético",
 		meter:
 			"versos de arte menor (hexasílabos y octosílabos) con ritmo de romance, tradicional en la poesía narrativa española",

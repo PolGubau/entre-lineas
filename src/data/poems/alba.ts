@@ -28,16 +28,7 @@ export const alba: Poem = {
 	},
 
 	analysis: {
-		themes: [
-			"alba como momento liminal",
-			"campanas de Córdoba y Granada",
-			"muchachas andaluzas que lloran",
-			"soleá enlutada",
-			"Andalucía alta y baja",
-			"niñas de España",
-			"luces en las encrucijadas",
-			"comunidad femenina del dolor",
-		],
+		themes: ["dolor", "muerte", "Andalucía"],
 		tone: "celebratorio, elegíaco, coral y luminoso-melancólico",
 		meter:
 			"versos de arte menor con métrica irregular (heptasílabos y octosílabos mayormente), ritmo de toque de campanas",

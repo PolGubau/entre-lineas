@@ -28,16 +28,7 @@ export const ay: Poem = {
 	},
 
 	analysis: {
-		themes: [
-			"dolor absoluto",
-			"grito primordial",
-			"ruptura del mundo",
-			"silencio después del grito",
-			"soledad",
-			"súplica de aislamiento",
-			"llanto",
-			"muerte (ciprés)",
-		],
+		themes: ["dolor", "soledad", "muerte"],
 		tone: "desgarrado, elegíaco, suplicante y desesperado",
 		meter:
 			"versos de arte mayor y menor mezclados (endecasílabos, octosílabos, tetrasílabos) con ritmo que alterna entre la descripción y la súplica",

@@ -28,16 +28,7 @@ export const cueva: Poem = {
 	},
 
 	analysis: {
-		themes: [
-			"cante jondo",
-			"evocación de lo lejano",
-			"nostalgia gitana",
-			"cueva como espacio sagrado del cante",
-			"sinestesia de colores y sonidos",
-			"misterio",
-			"vibraciones del cante",
-			"contraste cromático",
-		],
+		themes: ["música", "nostalgia"],
 		tone: "evocador, misterioso, sinestésico y pictórico",
 		meter:
 			"versos de arte menor con métrica irregular (pentasílabos y hexasílabos mayormente), ritmo entrecortado que refleja la voz quebrada del cantaor",

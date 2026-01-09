@@ -28,16 +28,7 @@ export const tierraSeca: Poem = {
 	},
 
 	analysis: {
-		themes: [
-			"Andalucía",
-			"sequedad",
-			"antigüedad",
-			"pena",
-			"muerte",
-			"pobreza rural",
-			"contraste quietud-movimiento",
-			"destino trágico",
-		],
+		themes: ["Andalucía", "muerte", "naturaleza"],
 		tone: "sobrio, elegíaco, descriptivo y simbólico",
 		meter:
 			"versos de arte menor (bisílabos, trisílabos, tetrasílabos y hexasílabos) con ritmo entrecortado que imita la aridez del paisaje",

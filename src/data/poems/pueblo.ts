@@ -28,16 +28,7 @@ export const pueblo: Poem = {
 	},
 
 	analysis: {
-		themes: [
-			"pueblo andaluz",
-			"religiosidad popular",
-			"estatismo",
-			"repetición eterna",
-			"llanto colectivo",
-			"aislamiento",
-			"tradición",
-			"destino trágico",
-		],
+		themes: ["Andalucía", "dolor", "religión"],
 		tone: "descriptivo, melancólico y elegíaco",
 		meter:
 			"versos de arte menor (pentasílabos y hexasílabos) con ritmo pausado que evoca la quietud del pueblo",

@@ -28,15 +28,7 @@ export const arqueros: Poem = {
 	},
 
 	analysis: {
-		themes: [
-			"arqueros místicos (saeteros)",
-			"Sevilla como destino sagrado",
-			"Guadalquivir como testigo",
-			"países remotos de la pena",
-			"laberinto de amor, cristal y piedra",
-			"procesión como viaje místico",
-			"oscuridad de los peregrinos",
-		],
+		themes: ["religión", "dolor", "Andalucía"],
 		tone: "misterioso, solemne, procesional y elegíaco",
 		meter:
 			"versos de arte menor con métrica irregular (pentasílabos, hexasílabos, octosílabos), ritmo de marcha lenta",

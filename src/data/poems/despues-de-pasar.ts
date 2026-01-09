@@ -28,16 +28,7 @@ export const despuesdePasar: Poem = {
 	},
 
 	analysis: {
-		themes: [
-			"destino",
-			"infancia",
-			"ceguera",
-			"llanto",
-			"imposibilidad",
-			"lejanía",
-			"dolor cósmico",
-			"naturaleza",
-		],
+		themes: ["dolor", "tiempo", "soledad"],
 		tone: "enigmático, solemne y trágico",
 		meter:
 			"versos de arte menor (hexasílabos y heptasílabos) con ritmo pausado que evoca contemplación",

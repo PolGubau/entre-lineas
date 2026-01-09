@@ -28,16 +28,7 @@ export const paso: Poem = {
 	},
 
 	analysis: {
-		themes: [
-			"Virgen de la Soledad",
-			"paso como barco de luces",
-			"tulipán como forma de la Virgen",
-			"río de la calle, alta marea de la ciudad",
-			"saetas turbias",
-			"estrellas de cristal",
-			"viaje al mar",
-			"soledad navegante",
-		],
+		themes: ["religión", "soledad"],
 		tone: "reverente, tierno, navegante y místico",
 		meter:
 			"versos de arte menor con métrica irregular (bisílabos, pentasílabos, hexasílabos, octosílabos), ritmo oscilante como mecerse de barco",

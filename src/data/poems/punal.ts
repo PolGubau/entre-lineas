@@ -28,16 +28,7 @@ export const punal: Poem = {
 	},
 
 	analysis: {
-		themes: [
-			"violencia",
-			"dolor",
-			"penetración",
-			"súplica",
-			"muerte",
-			"traición",
-			"fuego interior",
-			"destino trágico",
-		],
+		themes: ["violencia", "dolor", "muerte"],
 		tone: "dramático, suplicante y angustioso",
 		meter:
 			"versos de arte menor (bisílabos, tetrasílabos, hexasílabos y octosílabos) con ritmo entrecortado que imita la ansiedad y el dolor",

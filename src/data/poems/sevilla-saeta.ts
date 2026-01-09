@@ -28,16 +28,7 @@ export const sevillaSaeta: Poem = {
 	},
 
 	analysis: {
-		themes: [
-			"Sevilla como ciudad que hiere",
-			"Córdoba como ciudad de la muerte",
-			"arqueros y saetas",
-			"ritmos y laberintos",
-			"río como saeta constante",
-			"mezcla de Don Juan y Dionisio",
-			"horizonte y vino",
-			"pasión activa versus muerte",
-		],
+		themes: ["Andalucía", "religión", "muerte"],
 		tone: "épico, celebratorio, contrastante y ebrio",
 		meter:
 			"versos de arte menor con métrica irregular (pentasílabos, hexasílabos, octosílabos, endecasílabos), ritmo ascendente y exclamativo",

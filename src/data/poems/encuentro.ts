@@ -28,16 +28,7 @@ export const encuentro: Poem = {
 	},
 
 	analysis: {
-		themes: [
-			"imposibilidad del encuentro",
-			"dolor compartido pero incomunicable",
-			"heridas de Cristo (estigmas)",
-			"amor imposible",
-			"separación inevitable",
-			"desangrado físico y emocional",
-			"resignación dolorosa",
-			"destino trágico",
-		],
+		themes: ["amor", "dolor", "religión"],
 		tone: "dramático, doloroso, resignado y compasivo",
 		meter:
 			"versos de arte menor con métrica irregular (pentasílabos, hexasílabos, octosílabos), ritmo entrecortado que refleja el diálogo interrumpido por el dolor",

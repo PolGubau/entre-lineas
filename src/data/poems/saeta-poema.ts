@@ -28,17 +28,7 @@ export const saetaPoema: Poem = {
 	},
 
 	analysis: {
-		themes: [
-			"Cristo moreno, andaluzado",
-			"transformación de lirio a clavel",
-			"de Judea a España",
-			"rasgos gitanos de Cristo",
-			"tierra tostada, cielo oscuro",
-			"agua lenta",
-			"guedejas quemadas",
-			"pupilas blancas",
-			"Cristo del pueblo",
-		],
+		themes: ["religión", "Andalucía"],
 		tone: "reverente, descriptivo, admirado y procesional",
 		meter:
 			"versos de arte menor con métrica irregular (pentasílabos, hexasílabos, octosílabos), ritmo pausado de contemplación",

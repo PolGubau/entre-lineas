@@ -30,17 +30,7 @@ export const elPasoDeLaSiguiriya: Poem = {
 	},
 
 	analysis: {
-		themes: [
-			"siguiriya",
-			"ritmo imposible",
-			"destino trágico",
-			"búsqueda sin respuesta",
-			"dolor andaluz",
-			"mujer gitana",
-			"muerte anunciada",
-			"compás flamenco",
-			"paradoja existencial",
-		],
+		themes: ["música", "dolor", "muerte", "Andalucía"],
 		tone: "interrogativo, angustioso y misterioso",
 		meter:
 			"predominio de octosílabos con versos breves intercalados (pentasílabos), imitando el compás sincopado e irregular de la siguiriya flamenca",

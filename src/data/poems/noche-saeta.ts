@@ -27,15 +27,7 @@ export const nocheSaeta: Poem = {
 	},
 
 	analysis: {
-		themes: [
-			"noche de la saeta",
-			"constelación de luces",
-			"luminarias procesionales",
-			"ventanas iluminadas",
-			"cruces en movimiento",
-			"aurora como límite",
-			"luz en la oscuridad",
-		],
+		themes: ["religión", "noche"],
 		tone: "luminoso, místico, delicado y etéreo",
 		meter:
 			"versos de arte menor con métrica muy irregular (trisílabos, pentasílabos, hexasílabos, octosílabos), ritmo oscilante como luz de velas",

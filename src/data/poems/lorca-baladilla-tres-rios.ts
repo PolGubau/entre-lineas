@@ -28,14 +28,7 @@ export const baladillaTresRios: Poem = {
 	},
 
 	analysis: {
-		themes: [
-			"amor",
-			"muerte",
-			"destino",
-			"Andalucía",
-			"agua como vida",
-			"oposición Sevilla–Granada",
-		],
+		themes: ["amor", "muerte", "Andalucía"],
 		tone: "lírico, popular y elegíaco",
 		meter:
 			"octosílabo predominante con heptasílabos puntuales y estribillo lírico",

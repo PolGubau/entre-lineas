@@ -29,17 +29,7 @@ export const elGrito: Poem = {
 	},
 
 	analysis: {
-		themes: [
-			"grito",
-			"dolor",
-			"paisaje sonoro",
-			"noche",
-			"muerte",
-			"Andalucía",
-			"música primitiva",
-			"sinestesia",
-			"soledad",
-		],
+		themes: ["dolor", "muerte", "Andalucía", "soledad"],
 		tone: "místico, dramático y visual",
 		meter:
 			"verso libre con predominio de hexasílabos y heptasílabos, imitando la cadencia irregular del cante jondo",

@@ -28,16 +28,7 @@ export const balconSaeta: Poem = {
 	},
 
 	analysis: {
-		themes: [
-			"la Lola cantaora",
-			"saeta desde el balcón",
-			"admiración masculina (toreritos, barberillo)",
-			"albahaca y hierbabuena (aroma)",
-			"narcisismo de la Lola",
-			"alberca como espejo",
-			"cante y belleza",
-			"escena costumbrista",
-		],
+		themes: ["religión", "música"],
 		tone: "costumbrista, admirativo, tierno y aromático",
 		meter:
 			"versos de arte menor muy cortos (tetrasílabos mayormente), ritmo rápido, alegre, casi de copla popular",

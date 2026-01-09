@@ -28,15 +28,7 @@ export const siguiriyaGitana: Poem = {
 	},
 
 	analysis: {
-		themes: [
-			"dolor",
-			"naturaleza hostil",
-			"noche",
-			"invierno",
-			"opresión",
-			"queja colectiva",
-			"paisaje sonoro",
-		],
+		themes: ["dolor", "naturaleza", "noche", "música"],
 		tone: "oscuro, trágico y elegíaco",
 		meter:
 			"versos de arte menor, ritmo libre con fuerte cadencia musical inspirada en la siguiriya",

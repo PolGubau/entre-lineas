@@ -28,16 +28,7 @@ export const laSolea: Poem = {
 	},
 
 	analysis: {
-		themes: [
-			"soledad",
-			"luto",
-			"dolor",
-			"inmensidad interior",
-			"fugacidad del dolor expresado",
-			"invasión de lo trascendente",
-			"contraste micro-macro",
-			"apertura al infinito",
-		],
+		themes: ["soledad", "dolor", "muerte"],
 		tone: "solemne, meditativo, elegíaco y trascendente",
 		meter:
 			"versos de arte menor (octosílabos) típicos de la copla flamenca, con ritmo pausado y solemne",

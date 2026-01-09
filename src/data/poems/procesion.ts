@@ -28,15 +28,7 @@ export const procesion: Poem = {
 	},
 
 	analysis: {
-		themes: [
-			"procesión transformada en mito",
-			"nazarenos como seres fantásticos",
-			"mezcla de lo cristiano y lo pagano",
-			"figuras legendarias",
-			"encantamiento y locura",
-			"lejanía y cercanía",
-			"metamorfosis de la mirada",
-		],
+		themes: ["religión"],
 		tone: "fantástico, interrogativo, maravillado y onírico",
 		meter:
 			"versos de arte menor con métrica irregular (pentasílabos, octosílabos, endecasílabos), ritmo procesional",

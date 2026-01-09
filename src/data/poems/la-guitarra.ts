@@ -28,15 +28,7 @@ export const laGuitarra: Poem = {
 	},
 
 	analysis: {
-		themes: [
-			"llanto",
-			"dolor",
-			"amor herido",
-			"muerte",
-			"nostalgia",
-			"Andalucía",
-			"música como lamento",
-		],
+		themes: ["dolor", "amor", "muerte", "música"],
 		tone: "trágico, elegíaco y obsesivo",
 		meter:
 			"versos de arte menor, ritmo reiterativo y martilleante que imita el toque monótono de la guitarra",

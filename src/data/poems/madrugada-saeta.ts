@@ -28,16 +28,7 @@ export const madrugadaSaeta: Poem = {
 	},
 
 	analysis: {
-		themes: [
-			"saeteros ciegos de amor",
-			"ceguera del amor y el cante",
-			"noche verde",
-			"rastros de lirio caliente",
-			"luna como quilla navegante",
-			"nubes moradas",
-			"aljabas llenas de rocío",
-			"madrugada mística",
-		],
+		themes: ["religión", "amor", "noche"],
 		tone: "místico, ciego, navegante y húmedo",
 		meter:
 			"versos de arte menor con métrica irregular (pentasílabos, hexasílabos, heptasílabos, octosílabos), ritmo ondulante como navegación lunar",

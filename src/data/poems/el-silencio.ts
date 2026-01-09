@@ -30,17 +30,7 @@ export const elSilencio: Poem = {
 	},
 
 	analysis: {
-		themes: [
-			"silencio",
-			"introspección",
-			"contemplación",
-			"paisaje interior",
-			"reverencia",
-			"naturaleza",
-			"tiempo detenido",
-			"profundidad emocional",
-			"misterio",
-		],
+		themes: ["soledad", "naturaleza", "tiempo"],
 		tone: "contemplativo, místico y reverente",
 		meter:
 			"verso libre con predominio de heptasílabos y pentasílabos, creando un ritmo ondulante que mimetiza el silencio descrito",

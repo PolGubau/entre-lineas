@@ -28,16 +28,7 @@ export const yDespues: Poem = {
 	},
 
 	analysis: {
-		themes: [
-			"vacío existencial",
-			"desaparición",
-			"tiempo",
-			"deseo",
-			"ilusión",
-			"muerte",
-			"soledad",
-			"eternidad del vacío",
-		],
+		themes: ["muerte", "soledad", "tiempo"],
 		tone: "meditativo, elegíaco y desolador",
 		meter:
 			"versos de arte menor (pentasílabos y hexasílabos) con ritmo breve que acelera la sensación de desvanecimiento",

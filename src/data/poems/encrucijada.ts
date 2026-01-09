@@ -28,16 +28,7 @@ export const encrucijada: Poem = {
 	},
 
 	analysis: {
-		themes: [
-			"violencia",
-			"amenaza",
-			"tensión",
-			"muerte inminente",
-			"paranoia",
-			"encrucijada como destino",
-			"noche peligrosa",
-			"omnipresencia del puñal",
-		],
+		themes: ["violencia", "muerte", "noche"],
 		tone: "angustioso, paranoico, tenso y premonitor",
 		meter:
 			"versos de arte menor (bisílabos, tetrasílabos y pentasílabos) con ritmo entrecortado que imita la respiración agitada del miedo",
