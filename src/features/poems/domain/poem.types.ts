@@ -24,6 +24,7 @@ export const FiguraRetoricaTipoSchema = z.enum([
 	"alegoria",
 	"epifora",
 	"paralelismo",
+	"epiteto",
 ]);
 
 export type FiguraRetoricaTipo = z.infer<typeof FiguraRetoricaTipoSchema>;

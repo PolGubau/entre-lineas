@@ -14,6 +14,14 @@ export const FIGURAS_RETORICAS_CATALOGO: FiguraRetoricaDefinicion[] = [
 			'"Sus labios son pétalos" (los labios se identifican con pétalos por su suavidad)',
 	},
 	{
+		id: "epiteto",
+		name: "Epíteto",
+		generalDefinition:
+			"Adjetivo que expresa una cualidad inherente o esencial del sustantivo al que acompaña.",
+		example:
+			'"La blanca nieve" (la nieve es blanca por naturaleza) - "El oscuro abismo" (el abismo es oscuro por definición)',
+	},
+	{
 		id: "simbolo",
 		name: "Símbolo",
 		generalDefinition:
